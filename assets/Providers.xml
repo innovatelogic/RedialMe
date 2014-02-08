@@ -1,13 +1,16 @@
 <Providers>
-    <Territory Name="UA" Code="380">
+    <Territories>
+    	<Territory Name="UA" Code="380">
         	<Provider Name="life:)" Codes="93;63">
-        	    <Entry CallMeSMSRule="3 %TERR%PRV%NUM" CallMePhoneRule="*124*3*%TERR%PRV%NUM#"/>
+        	    <Entry Operation="CallMe" Type="SMS" Mask="3 %TERR%PRV%NUM"/>
+        	    <Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%PRV%NUM#"/>
         	</Provider>
         	
         	<Provider Name="MTS" Codes="50">
         	</Provider>
         	
-        	<Provider Name="kyevstar" Codes="67">
+        	<Provider Name="kievstar" Codes="67">
         	</Provider>
-    </Territory>
+    	</Territory>
+    </Territories>
 </Providers> 
