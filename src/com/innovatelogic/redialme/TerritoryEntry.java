@@ -2,6 +2,7 @@ package com.innovatelogic.redialme;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -14,39 +15,56 @@ public class TerritoryEntry
 	
 	private String Name;
 	
-	private Map<String, ProviderEntry> MapProviders; 
+	private Map<String, ProviderEntry> MapProviders;
 		
 	public TerritoryEntry(String name)
 	{
 		Name = name;
+		
+		 MapProviders = new HashMap<String, ProviderEntry>();
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	public void Deserialize(XmlPullParser parser) throws XmlPullParserException, IOException
 	{
-		while (parser.next() != XmlPullParser.END_TAG)
+		parser.require(XmlPullParser.START_TAG, ProviderStore.ns, ProviderStore.TERRITORY_TAG);
+		
+		parser.nextTag(); // go to next tag
+		
+		int event = parser.getEventType();
+		int depth = 1;
+		boolean readProvider = false;
+		
+		while (event != XmlPullParser.END_DOCUMENT && depth != 0)
 		{
-			if (parser.getEventType() != XmlPullParser.START_TAG){
-				continue;
-			}
-			
 			String name = parser.getName();
 			
-			if (name.equals(PROVIDER_TAG))
+			switch (event)
 			{
-				String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
-				String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
+			case XmlPullParser.START_TAG:
+				if (name.equals(PROVIDER_TAG) && !readProvider)
+				{
+					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
+					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
+					
+					ProviderEntry provider = new ProviderEntry(atrCodes);
+					provider.Deserialize(parser);
+					
+					MapProviders.put(atrName, provider);
+					
+					readProvider = false;
+				}
+				depth++;
+				break;
 				
-				ProviderEntry provider = new ProviderEntry(atrCodes);
-				
-				provider.Deserialize(parser);
-				
-				MapProviders.put(atrName, provider);
+			case XmlPullParser.END_TAG:
+				if (name.equals(PROVIDER_TAG) && readProvider)
+					readProvider = false;
+				depth--;
+				break;
 			}
-			else
-			{
-				ProviderStore.skip(parser);
-			}
+			
+			event = parser.next();
 		}
 	}
 }

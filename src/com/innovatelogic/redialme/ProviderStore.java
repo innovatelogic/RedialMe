@@ -41,22 +41,29 @@ public class ProviderStore
 		
 			parser.require(XmlPullParser.START_TAG, ns, PROVIDERS_TAG);
 			
-			while (parser.next() != XmlPullParser.END_TAG)
+			boolean readTerritories = false;
+			
+			int event = parser.getEventType();
+			while (event != XmlPullParser.END_DOCUMENT)
 			{
-				if (parser.getEventType() != XmlPullParser.START_TAG){
-					continue;
-				}
-				
 				String name = parser.getName();
 				
-				if (name.equals(TERRITORIES_TAG))
+				switch (event)
 				{
-					DeserializeTerritories(parser);
+				case XmlPullParser.START_TAG:
+					if (name.equals(TERRITORIES_TAG) && !readTerritories)
+					{
+						DeserializeTerritories(parser);
+						readTerritories = true;
+					}
+					break;
+				case XmlPullParser.END_TAG:
+					if (name.equals(TERRITORIES_TAG) && readTerritories)
+						readTerritories = false;
+					break;
 				}
-				else
-				{
-					skip(parser);
-				}
+				
+				event = parser.next();
 			}
 		}
 		finally
@@ -68,48 +75,44 @@ public class ProviderStore
 	//----------------------------------------------------------------------------------------------
 	private void DeserializeTerritories(XmlPullParser parser) throws XmlPullParserException, IOException
 	{
-		while (parser.next() != XmlPullParser.END_TAG)
+		parser.require(XmlPullParser.START_TAG, ns, TERRITORIES_TAG);
+		
+		parser.nextTag(); // go to next tag
+		
+		int event = parser.getEventType();
+		
+		boolean readTag = false;
+		int depth = 1;
+		
+		while (event != XmlPullParser.END_DOCUMENT && depth != 0)
 		{
-			if (parser.getEventType() != XmlPullParser.START_TAG){
-				continue;
-			}
-			
 			String name = parser.getName();
 			
-			if (name.equals(TERRITORY_TAG))
+			switch (event)
 			{
-				String atrName = parser.getAttributeValue(ns, "Name");
-				String atrCode = parser.getAttributeValue(ns, "Code");
+			case XmlPullParser.START_TAG:
+				if (name.equals(TERRITORY_TAG) && !readTag)
+				{
+					String atrName = parser.getAttributeValue(ns, "Name");
+					String atrCode = parser.getAttributeValue(ns, "Code");
+					
+					TerritoryEntry territory = new TerritoryEntry(atrName);
+					
+					territory.Deserialize(parser);
+					
+					MapTerritoryEntries.put(atrCode, territory);
+					readTag = true;
+				}
+				depth++;
+				break;
 				
-				TerritoryEntry territory = new TerritoryEntry(atrName);
-			
-				territory.Deserialize(parser);
-				
-				MapTerritoryEntries.put(atrCode, territory);
+			case XmlPullParser.END_TAG:
+				if (name.equals(TERRITORY_TAG) && readTag)
+					readTag = false;
+				depth--;	
+				break;
 			}
-			else
-			{
-				skip(parser);
-			}
+			event = parser.next();
 		}
 	}
-
-	//----------------------------------------------------------------------------------------------
-	public static void skip(XmlPullParser parser) throws XmlPullParserException, IOException 
-	{
-	    if (parser.getEventType() != XmlPullParser.START_TAG) {
-	        throw new IllegalStateException();
-	    }
-	    int depth = 1;
-	    while (depth != 0) {
-	        switch (parser.next()) {
-	        case XmlPullParser.END_TAG:
-	            depth--;
-	            break;
-	        case XmlPullParser.START_TAG:
-	            depth++;
-	            break;
-	        }
-    }
- }
 }
