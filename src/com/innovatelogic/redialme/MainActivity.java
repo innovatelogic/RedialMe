@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.content.res.AssetManager;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,13 +26,14 @@ import com.innovatelogic.redialme.ProviderStore;
 
 public class MainActivity extends Activity {
 
+	private TabHost			tabView;
 	private EditText 		callEditText;
 	private Button	 		callButton;
 	private ProviderStore 	providerStore;
 	
-	 private RadioButton lifeRadioButton;
-     private RadioButton mtsRadioButton;
-     private RadioButton kievstarRadioButton;
+	private RadioButton lifeRadioButton;
+    private RadioButton mtsRadioButton;
+    private RadioButton kievstarRadioButton;
 
 
     @Override
@@ -80,12 +83,32 @@ public class MainActivity extends Activity {
     
     private void findAllViewsById()
     {
+    	tabView = (TabHost) findViewById(android.R.id.tabhost);
     	callEditText = (EditText) findViewById(R.id.editText1);
     	callButton = (Button) findViewById(R.id.send_sms);
     	
     	lifeRadioButton = (RadioButton) findViewById(R.id.radio_life);
     	kievstarRadioButton = (RadioButton) findViewById(R.id.radio_kievstar);
     	mtsRadioButton = (RadioButton) findViewById(R.id.radio_mts);
+    	
+    	tabView.setup();
+    	
+    	TabSpec spec1 = tabView.newTabSpec("Recent..");
+    	spec1.setContent(R.id.tab1);
+    	spec1.setIndicator("TAB 1");
+
+    	TabSpec spec2 = tabView.newTabSpec("Contacts");
+    	spec2.setIndicator("TAB 2");
+    	spec2.setContent(R.id.tab2);
+       
+       
+    	TabSpec spec3 = tabView.newTabSpec("Digit");
+    	spec3.setContent(R.id.tab3);
+    	spec3.setIndicator("TAB 3");
+         
+    	tabView.addTab(spec1);
+    	tabView.addTab(spec2);
+    	tabView.addTab(spec3);
     }
     
     private void sendSMS(String number)
