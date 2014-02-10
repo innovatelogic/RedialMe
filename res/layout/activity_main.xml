@@ -21,5 +21,31 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="62dp"
         android:text="@string/send_sms" />
+    
+     <RadioGroup
+        android:id="@+id/providers_radio_group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <RadioButton
+         android:id="@+id/radio_life"
+         android:checked="true"
+		 android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+         android:text="@string/life" />
+      <RadioButton
+         android:id="@+id/radio_kievstar"
+         android:checked="false"
+		 android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/kievstar" />
+      <RadioButton
+         android:id="@+id/radio_mts"
+         android:checked="false"
+		 android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/mts" />
+      </RadioGroup>
+    
 
 </RelativeLayout>

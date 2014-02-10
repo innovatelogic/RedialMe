@@ -1,9 +1,12 @@
 package com.innovatelogic.redialme;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -13,16 +16,18 @@ public class TerritoryEntry
 {
 	public static final String PROVIDER_TAG = "Provider";
 	
-	private String Name;
+	private String Code;
 	
 	private Map<String, ProviderEntry> MapProviders;
 		
-	public TerritoryEntry(String name)
+	public TerritoryEntry(String code)
 	{
-		Name = name;
+		Code = code;
 		
-		 MapProviders = new HashMap<String, ProviderEntry>();
+		MapProviders = new HashMap<String, ProviderEntry>();
 	}
+	//----------------------------------------------------------------------------------------------
+	public String GetCode() { return Code; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void Deserialize(XmlPullParser parser) throws XmlPullParserException, IOException
@@ -47,7 +52,10 @@ public class TerritoryEntry
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
 					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
 					
-					ProviderEntry provider = new ProviderEntry(atrCodes);
+					String[] parts = atrCodes.split(";");
+					List<String> codes = Arrays.asList(parts);
+					
+					ProviderEntry provider = new ProviderEntry(codes);
 					provider.Deserialize(parser);
 					
 					MapProviders.put(atrName, provider);
@@ -66,5 +74,11 @@ public class TerritoryEntry
 			
 			event = parser.next();
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public ProviderEntry GetProvider(String name)
+	{
+		return MapProviders.get(name);
 	}
 }

@@ -1,7 +1,9 @@
 package com.innovatelogic.redialme;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -14,15 +16,20 @@ public class ProviderEntry
 	private static final String SMS_TYPE_TAG = "SMS";
 	private static final String CALL_TYPE_TAG = "Call";
 		
-	private String ProviderCode;
+	private List<String> Codes;
 	
 	private IUserOperation OpCallMeSMS = null;
 	private IUserOperation OpCallMeCall = null;
 	
+	IUserOperation GetOpCallMeSMS() { return OpCallMeSMS; }
+	IUserOperation GetOpCallMeCall() { return OpCallMeCall; }
+	
 	//----------------------------------------------------------------------------------------------
-	public ProviderEntry(String code)
+	public ProviderEntry(List<String> codes)
 	{
-		this.ProviderCode = code;
+		this.Codes = codes;
+		
+		Codes = new ArrayList<String>();
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -48,13 +55,14 @@ public class ProviderEntry
 					String atrOperation = parser.getAttributeValue(ProviderStore.ns, "Operation");
 					String atrType = parser.getAttributeValue(ProviderStore.ns, "Type");
 					String atrMask = parser.getAttributeValue(ProviderStore.ns, "Mask");
+					String atrNum = parser.getAttributeValue(ProviderStore.ns, "Num");
 					
 					// Object fabric
 					if (atrOperation.equals(CALLME_TAG))
 					{
 						if (atrType.equals(SMS_TYPE_TAG))
 						{
-							OpCallMeSMS = new UserOperationSMS(atrMask);
+							OpCallMeSMS = new UserOperationSMS(atrMask, atrNum);
 						}
 						else if (atrType.equals(CALL_TYPE_TAG))
 						{

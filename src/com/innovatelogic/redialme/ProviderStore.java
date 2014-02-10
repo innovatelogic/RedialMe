@@ -96,11 +96,11 @@ public class ProviderStore
 					String atrName = parser.getAttributeValue(ns, "Name");
 					String atrCode = parser.getAttributeValue(ns, "Code");
 					
-					TerritoryEntry territory = new TerritoryEntry(atrName);
+					TerritoryEntry territory = new TerritoryEntry(atrCode);
 					
 					territory.Deserialize(parser);
 					
-					MapTerritoryEntries.put(atrCode, territory);
+					MapTerritoryEntries.put(atrName, territory);
 					readTag = true;
 				}
 				depth++;
@@ -115,4 +115,27 @@ public class ProviderStore
 			event = parser.next();
 		}
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	public TerritoryEntry GetTerritory(String terrName)
+	{
+		return  MapTerritoryEntries.get(terrName);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public ProviderEntry GetProvider(String terrName, String name)
+	{
+		ProviderEntry outProvider = null;
+		
+		TerritoryEntry territory = GetTerritory(terrName);
+		
+		if (territory != null)
+		{
+			outProvider = territory.GetProvider(name);
+		}
+		
+		return outProvider;
+	}
+	
+	
 }
