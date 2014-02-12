@@ -56,11 +56,10 @@ public class ProviderStore
 						DeserializeTerritories(parser);
 						readTerritories = true;
 					}
-					break;
+
 				case XmlPullParser.END_TAG:
 					if (name.equals(TERRITORIES_TAG) && readTerritories)
 						readTerritories = false;
-					break;
 				}
 				
 				event = parser.next();
@@ -84,7 +83,7 @@ public class ProviderStore
 		boolean readTag = false;
 		int depth = 1;
 		
-		while (event != XmlPullParser.END_DOCUMENT && depth != 0)
+		while (event != XmlPullParser.END_DOCUMENT)
 		{
 			String name = parser.getName();
 			
@@ -104,14 +103,16 @@ public class ProviderStore
 					readTag = true;
 				}
 				depth++;
-				break;
 				
 			case XmlPullParser.END_TAG:
 				if (name.equals(TERRITORY_TAG) && readTag)
 					readTag = false;
-				depth--;	
-				break;
+				depth--;
 			}
+			
+			if (depth == 0)
+				break;
+			
 			event = parser.next();
 		}
 	}
@@ -133,9 +134,6 @@ public class ProviderStore
 		{
 			outProvider = territory.GetProvider(name);
 		}
-		
 		return outProvider;
 	}
-	
-	
 }

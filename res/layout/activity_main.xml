@@ -3,67 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/send_sms"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/send_sms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="62dp"
-        android:text="@string/send_sms" />
-
-    <RadioGroup
-        android:id="@+id/providers_radio_group"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-    </RadioGroup>
-
-    <RadioButton
-        android:id="@+id/radio_life"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/send_sms"
-        android:layout_marginRight="19dp"
-        android:layout_marginTop="26dp"
-        android:layout_toLeftOf="@+id/send_sms"
-        android:checked="true"
-        android:text="@string/life" />
-
-    <RadioButton
-        android:id="@+id/radio_kievstar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radio_life"
-        android:layout_marginRight="19dp"
-        android:layout_toLeftOf="@+id/send_sms"
-        android:checked="false"
-        android:text="@string/kievstar" />
-
-    <RadioButton
-        android:id="@+id/radio_mts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radio_kievstar"
-        android:layout_marginRight="19dp"
-        android:layout_toLeftOf="@+id/send_sms"
-        android:checked="false"
-        android:text="@string/mts" />
-
+   
     <TabHost
         android:id="@android:id/tabhost"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
 
@@ -74,7 +18,7 @@
 
             <TabWidget
                 android:id="@android:id/tabs"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
             </TabWidget>
 
@@ -85,8 +29,47 @@
 
                 <LinearLayout
                     android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center|left" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:orientation="vertical" >
+
+                        <EditText
+                            android:id="@+id/editNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:ems="10"
+                            android:inputType="phone" >
+
+                            <requestFocus />
+                        </EditText>
+
+                        <Button
+                            android:id="@+id/send_sms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/send_sms" />
+
+                        <Button
+                            android:id="@+id/button_call"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/service_call" />
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+                        
                 </LinearLayout>
                 
                 <LinearLayout

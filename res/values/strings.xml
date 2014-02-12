@@ -8,7 +8,8 @@
     <string name="Serarch"> Search</string>
     <string name="movies">Movies</string>
     <string name="people">People</string>
-    <string name="send_sms">Redial Me</string>
+    <string name="send_sms">SMS</string>
+    <string name="service_call">Call</string>
     
     <string name="life">life:)</string>
     <string name="mts">MTS</string>

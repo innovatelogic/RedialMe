@@ -75,11 +75,14 @@ public class ProviderEntry
 				break;
 				
 			case XmlPullParser.END_TAG:
-				if (name.equals(ENTRY_TAG))
+				if (name.equals(ENTRY_TAG) && readTag)
 					readTag = false;
 				depth--;
 				break;
 			}
+			
+			if (depth == 0)
+				break;
 			
 			event = parser.next();
 		}

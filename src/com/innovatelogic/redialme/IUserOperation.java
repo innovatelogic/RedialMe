@@ -1,12 +1,14 @@
 package com.innovatelogic.redialme;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.telephony.SmsManager;
+import android.content.ActivityNotFoundException;
 
 //----------------------------------------------------------------------------------------------
 public interface IUserOperation
 {
 	public String GetMask();
-	
 	public void Process(String Param);
 }
 
@@ -38,13 +40,22 @@ class UserOperationCall implements IUserOperation
 	
 	public String GetMask() { return Mask; }
 	
-	UserOperationCall(String mask)
-	{
+	UserOperationCall(String mask){
 		this.Mask = mask;	
 	}
 	
-	public void Process(String Param)
+	public void Process(String param)
 	{
-		
+		try
+		{
+			Intent callIntent = new Intent(Intent.ACTION_CALL);
+			callIntent.setData(Uri.parse("tel:" + param));
+			callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			MainActivity.getAppContext().startActivity(callIntent);
+		}
+		catch (ActivityNotFoundException ex)
+		{
+			
+		}
 	}
 }

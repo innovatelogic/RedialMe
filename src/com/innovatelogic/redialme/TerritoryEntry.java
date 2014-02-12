@@ -32,22 +32,23 @@ public class TerritoryEntry
 	//----------------------------------------------------------------------------------------------
 	public void Deserialize(XmlPullParser parser) throws XmlPullParserException, IOException
 	{
-		parser.require(XmlPullParser.START_TAG, ProviderStore.ns, ProviderStore.TERRITORY_TAG);
+		//parser.require(XmlPullParser.START_TAG, ProviderStore.ns, ProviderStore.TERRITORY_TAG);
 		
 		parser.nextTag(); // go to next tag
 		
 		int event = parser.getEventType();
 		int depth = 1;
-		boolean readProvider = false;
+		boolean readTag = false;
 		
-		while (event != XmlPullParser.END_DOCUMENT && depth != 0)
+		while (event != XmlPullParser.END_DOCUMENT)
 		{
 			String name = parser.getName();
 			
-			switch (event)
+			event = parser.getEventType();
+			
+			if (event == XmlPullParser.START_TAG)
 			{
-			case XmlPullParser.START_TAG:
-				if (name.equals(PROVIDER_TAG) && !readProvider)
+				if (name.equals(PROVIDER_TAG) && !readTag)
 				{
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
 					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
@@ -57,20 +58,23 @@ public class TerritoryEntry
 					
 					ProviderEntry provider = new ProviderEntry(codes);
 					provider.Deserialize(parser);
+					event = parser.getEventType();
 					
 					MapProviders.put(atrName, provider);
-					
-					readProvider = false;
+					readTag = true;
 				}
 				depth++;
-				break;
-				
-			case XmlPullParser.END_TAG:
-				if (name.equals(PROVIDER_TAG) && readProvider)
-					readProvider = false;
-				depth--;
-				break;
 			}
+							
+			if (event == XmlPullParser.END_TAG)
+			{
+				if (name.equals(PROVIDER_TAG) && readTag)
+					readTag = false;
+				depth--;
+			}
+			
+			if (depth == 0)
+				break;
 			
 			event = parser.next();
 		}

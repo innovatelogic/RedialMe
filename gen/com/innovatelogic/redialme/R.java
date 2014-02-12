@@ -14,16 +14,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int editText1=0x7f070000;
-        public static final int menu_settings=0x7f070009;
-        public static final int providers_radio_group=0x7f070002;
-        public static final int radio_kievstar=0x7f070004;
-        public static final int radio_life=0x7f070003;
-        public static final int radio_mts=0x7f070005;
-        public static final int send_sms=0x7f070001;
-        public static final int tab1=0x7f070006;
-        public static final int tab2=0x7f070007;
-        public static final int tab3=0x7f070008;
+        public static final int button_call=0x7f070003;
+        public static final int editNumber=0x7f070001;
+        public static final int menu_settings=0x7f070007;
+        public static final int send_sms=0x7f070002;
+        public static final int tab1=0x7f070000;
+        public static final int tab2=0x7f070005;
+        public static final int tab3=0x7f070006;
+        public static final int textView1=0x7f070004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -35,13 +33,14 @@ public final class R {
         public static final int Serarch=0x7f040003;
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
-        public static final int kievstar=0x7f040009;
-        public static final int life=0x7f040007;
+        public static final int kievstar=0x7f04000a;
+        public static final int life=0x7f040008;
         public static final int menu_settings=0x7f040002;
         public static final int movies=0x7f040004;
-        public static final int mts=0x7f040008;
+        public static final int mts=0x7f040009;
         public static final int people=0x7f040005;
         public static final int send_sms=0x7f040006;
+        public static final int service_call=0x7f040007;
     }
     public static final class style {
         /** 
