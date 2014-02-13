@@ -1,9 +1,9 @@
 package com.innovatelogic.redialme;
 
-
 import android.os.Bundle;
 import android.view.View;
 import android.app.Activity;
+import android.app.TabActivity;
 import android.view.Menu;
 import android.widget.EditText;
 import android.widget.Button;
@@ -17,19 +17,16 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.content.Context;
 import android.telephony.TelephonyManager;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.innovatelogic.redialme.ProviderStore;
 
 
-
-public class MainActivity extends Activity 
+public class MainActivity extends TabActivity 
 {
 	private static Context  mContext;
 	

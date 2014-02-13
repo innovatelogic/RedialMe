@@ -49,7 +49,7 @@ class UserOperationCall implements IUserOperation
 		try
 		{
 			Intent callIntent = new Intent(Intent.ACTION_CALL);
-			callIntent.setData(Uri.parse("tel:" + param));
+			callIntent.setData(Uri.parse("tel:" + Uri.encode(param)));
 			callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			MainActivity.getAppContext().startActivity(callIntent);
 		}
