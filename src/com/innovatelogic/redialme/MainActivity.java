@@ -1,12 +1,14 @@
 package com.innovatelogic.redialme;
 
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.view.View;
 import android.app.Activity;
-import android.app.TabActivity;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,17 +18,22 @@ import android.content.res.AssetManager;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.content.Context;
+import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.innovatelogic.redialme.ProviderStore;
 
 
-public class MainActivity extends TabActivity 
+public class MainActivity extends Activity 
 {
 	private static Context  mContext;
 	
@@ -36,12 +43,13 @@ public class MainActivity extends TabActivity
 	private Button			callButton;
 	private ProviderStore 	providerStore;
 	private TextView        mTextView;
+	private ListView		listRecentCalls;
 	
     private String mOperatorName = null;
     private String mDefaultTerritory = "UA";
     
     private TerritoryEntry mTerritory = null;
-    
+
     private class MaskParser
     {
     	public final String TERR;
@@ -95,7 +103,9 @@ public class MainActivity extends TabActivity
     	mTerritory = providerStore.GetTerritory(mDefaultTerritory);
     	
     	mTextView.setText(mOperatorName);
-    	    	
+    	
+    	FillRecentCalls();
+    	
     	smsButton.setOnClickListener(new OnClickListener() 
     	{
     		@Override
@@ -152,6 +162,8 @@ public class MainActivity extends TabActivity
     	smsButton = (Button) findViewById(R.id.send_sms);
     	callButton = (Button) findViewById(R.id.button_call);
     	mTextView = (TextView) findViewById(R.id.textView1);
+    	
+    	listRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
     }
     
 	//----------------------------------------------------------------------------------------------
@@ -237,5 +249,55 @@ public class MainActivity extends TabActivity
 			}
 		}
     	return new MaskParser(TERR, PROVIDER, ABONENT, bFound);
+    }
+    
+    //----------------------------------------------------------------------------------------------
+    private void FillRecentCalls()
+    {
+		List<String> RecentCalls = new ArrayList<String>();
+			
+		StringBuffer sb = new StringBuffer();
+		Cursor managedCursor = mContext.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " DESC");
+		   
+		int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
+		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
+		int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
+		int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
+		
+		sb.append("Call Details :");
+		while (managedCursor.moveToNext()) 
+		{
+			String phNumber = managedCursor.getString(number);
+			String callType = managedCursor.getString(type);
+			String callDate = managedCursor.getString(date);
+			Date callDayTime = new Date(Long.valueOf(callDate));
+			String callDuration = managedCursor.getString(duration);
+			String dir = null;
+			int dircode = Integer.parseInt(callType);
+			switch (dircode) {
+			case CallLog.Calls.OUTGOING_TYPE:
+				dir = "OUTGOING";
+			break;
+			
+			case CallLog.Calls.INCOMING_TYPE:
+				dir = "INCOMING";
+			break;
+			
+			case CallLog.Calls.MISSED_TYPE:
+				dir = "MISSED";
+			break;
+		}
+			
+		RecentCalls.add("\nPhone Number:--- " + phNumber + " \nCall Type:--- "
+					+ dir + " \nCall Date:--- " + callDayTime
+					+ " \nCall duration in sec :--- " + callDuration);
+		}
+		
+		managedCursor.close();
+	    	
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		            R.layout.recentcallsactivity, RecentCalls);
+		
+		listRecentCalls.setAdapter(adapter);
     }
 }
