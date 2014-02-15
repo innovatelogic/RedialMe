@@ -96,6 +96,13 @@
                     android:id="@+id/tab3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
+                    
+                    <ListView
+                            android:id="@+id/listContacts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </ListView>
+                        
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

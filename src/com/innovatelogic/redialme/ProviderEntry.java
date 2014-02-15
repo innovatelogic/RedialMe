@@ -1,8 +1,6 @@
 package com.innovatelogic.redialme;
 
 import java.util.List;
-import java.util.ArrayList;
-
 import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -16,8 +14,6 @@ public class ProviderEntry
 	private static final String SMS_TYPE_TAG = "SMS";
 	private static final String CALL_TYPE_TAG = "Call";
 		
-	private List<String> Codes;
-	
 	private IUserOperation OpCallMeSMS = null;
 	private IUserOperation OpCallMeCall = null;
 	
@@ -27,9 +23,6 @@ public class ProviderEntry
 	//----------------------------------------------------------------------------------------------
 	public ProviderEntry(List<String> codes)
 	{
-		this.Codes = codes;
-		
-		Codes = new ArrayList<String>();
 	}
 	
 	//----------------------------------------------------------------------------------------------

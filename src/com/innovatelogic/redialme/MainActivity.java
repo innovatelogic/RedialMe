@@ -9,11 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.content.res.AssetManager;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -22,12 +19,9 @@ import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.innovatelogic.redialme.ProviderStore;
@@ -41,12 +35,17 @@ public class MainActivity extends Activity
 	private EditText 		editNumber;
 	private Button	 		smsButton;
 	private Button			callButton;
-	private ProviderStore 	providerStore;
 	private TextView        mTextView;
 	private ListView		listRecentCalls;
+	private ListView		listContacts;
 	
+	// stores
+	private ProviderStore 	providerStore;
+	private ContactsStore	contactsStore;
+			
     private String mOperatorName = null;
     private String mDefaultTerritory = "UA";
+    private String mDataFilename = "Providers.xml";
     
     private TerritoryEntry mTerritory = null;
 
@@ -88,10 +87,20 @@ public class MainActivity extends Activity
     	try
     	{
     		AssetManager assetManager = getAssets();
-    		InputStream ism = assetManager.open("Providers.xml");
+    		InputStream ism = assetManager.open(mDataFilename);
     		
     		providerStore = new ProviderStore();
     		providerStore.Deserialize(ism);
+    		    		
+    		contactsStore = new ContactsStore();
+    		contactsStore.LoadContacts(getAppContext());
+    		contactsStore.FillListContacts(getAppContext(), listContacts);
+    		
+    		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
+        	
+        	mTextView.setText(mOperatorName);
+        	
+        	FillRecentCalls();
     	}
     	catch (IOException ex)
     	{
@@ -99,12 +108,6 @@ public class MainActivity extends Activity
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	mTerritory = providerStore.GetTerritory(mDefaultTerritory);
-    	
-    	mTextView.setText(mOperatorName);
-    	
-    	FillRecentCalls();
     	
     	smsButton.setOnClickListener(new OnClickListener() 
     	{
@@ -164,7 +167,8 @@ public class MainActivity extends Activity
     	mTextView = (TextView) findViewById(R.id.textView1);
     	
     	listRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
-    }
+    	listContacts = (ListView) findViewById(R.id.listContacts);
+     }
     
 	//----------------------------------------------------------------------------------------------
     private void sendSMS(String number)
