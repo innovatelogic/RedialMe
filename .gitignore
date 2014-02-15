@@ -1,0 +1,7 @@
+# ignore list
+*.class
+*.jar
+*.dex
+*.cache
+*.apk
+*.ap_
