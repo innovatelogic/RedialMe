@@ -1,4 +1,6 @@
 # ignore list
+bin/*.*
+gen/*.*
 *.class
 *.jar
 *.dex
