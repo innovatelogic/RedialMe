@@ -52,14 +52,18 @@ public class TerritoryEntry
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
 					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
 					
+					String[] NameAliases = atrName.split(";");
+										
 					String[] parts = atrCodes.split(";");
 					List<String> codes = Arrays.asList(parts);
 					
 					ProviderEntry provider = new ProviderEntry(codes);
 					provider.Deserialize(parser);
-					event = parser.getEventType();
 					
-					MapProviders.put(atrName, provider);
+					for(String s : NameAliases)
+						MapProviders.put(s, provider);
+					
+					event = parser.getEventType();
 					readTag = true;
 				}
 				depth++;
