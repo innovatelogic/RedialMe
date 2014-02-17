@@ -97,7 +97,6 @@ public class MainActivity extends Activity
     		contactsStore.FillListContacts(getAppContext(), listContacts);
     		
     		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
-        	
         	mTextView.setText(mOperatorName);
         	
         	FillRecentCalls();
@@ -261,12 +260,14 @@ public class MainActivity extends Activity
 		List<String> RecentCalls = new ArrayList<String>();
 			
 		StringBuffer sb = new StringBuffer();
-		Cursor managedCursor = mContext.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DATE + " DESC");
+		Cursor managedCursor = mContext.getContentResolver().query(CallLog.Calls.CONTENT_URI,
+								null, null, null, CallLog.Calls.DATE + " DESC");
 		   
 		int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
 		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
 		int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
 		int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
+		int id = managedCursor.getColumnIndex(CallLog.Calls._ID);
 		
 		sb.append("Call Details :");
 		while (managedCursor.moveToNext()) 
@@ -274,6 +275,7 @@ public class MainActivity extends Activity
 			String phNumber = managedCursor.getString(number);
 			String callType = managedCursor.getString(type);
 			String callDate = managedCursor.getString(date);
+			
 			Date callDayTime = new Date(Long.valueOf(callDate));
 			String callDuration = managedCursor.getString(duration);
 			String dir = null;
@@ -292,9 +294,18 @@ public class MainActivity extends Activity
 			break;
 		}
 			
-		RecentCalls.add("\nPhone Number:--- " + phNumber + " \nCall Type:--- "
+		String NormNumber = ContactsStore.NormalizeNumber(phNumber, "+380");
+			
+		UserContactInfo info = contactsStore.GetInfoByNum(NormNumber);
+		if (info != null)
+		{
+			NormNumber = info.GetName();
+		}
+			
+		RecentCalls.add("\nPhone Number:--- " + NormNumber + " \nCall Type:--- "
 					+ dir + " \nCall Date:--- " + callDayTime
-					+ " \nCall duration in sec :--- " + callDuration);
+					+ " \nCall duration in sec :--- " + callDuration +
+					"\nID" + id);
 		}
 		
 		managedCursor.close();

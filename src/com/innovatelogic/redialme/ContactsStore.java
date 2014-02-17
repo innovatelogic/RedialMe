@@ -18,7 +18,7 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
-		Contacts = new ArrayList<UserContactInfo>();	
+		Contacts = new ArrayList<UserContactInfo>();
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -37,14 +37,16 @@ public class ContactsStore
 		
 		cursor.moveToFirst();
 		
-		while (cursor.isAfterLast() == false)
+		while (!cursor.isAfterLast())
 		{
 			String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 			String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 			int phoneContactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
 			
+			String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, "+380");
+			
 			UserContactInfo userInfo = new UserContactInfo();
-			userInfo.ContactNumber = contactNumber;
+			userInfo.ContactNumber = NumberNorm;
 			userInfo.Name = contactName;
 			userInfo.Id = phoneContactID;
 			
@@ -65,5 +67,42 @@ public class ContactsStore
 		AdapterContacts adapter = new AdapterContacts(context, R.layout.activity_contacts, Contacts);
 	
 		list.setAdapter(adapter);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public UserContactInfo GetInfoByNum(String number)
+	{
+		for (UserContactInfo v : Contacts)
+		{
+			if (number.equals(v.GetNumber()))
+				return v;
+		}
+		return null;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public static String NormalizeNumber(String number, String terrCode)
+	{
+    	String PROVIDER = "";
+    	String ABONENT = "";
+    	
+    	number = number.replace(" ", "");
+    	number = number.replace("-", "");
+    	    	
+    	int length = number.length();
+		if (length >= 10 && length <= 13)
+		{
+			ABONENT = number.substring(length - 7);
+			
+			number = number.substring(0, number.length() - 7);
+			
+			if (number.length() >= 3 && number.length() <= 6)
+			{
+				PROVIDER = number.substring(number.length() - 2);
+				
+				return terrCode + PROVIDER + ABONENT;
+			}
+		}
+		return number;
 	}
 }

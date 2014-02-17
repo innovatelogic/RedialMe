@@ -6,7 +6,7 @@
 	        <Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
         	
-	    <Provider Name="MTS;MTS UKR" Codes="50">
+	    <Provider Name="MTS;MTS UKR" Codes="50;95">
 	        <Entry Operation="CallMe" Type="Call" Mask="*104*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
 	        	

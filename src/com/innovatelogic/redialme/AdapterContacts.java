@@ -50,7 +50,7 @@ public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 		
 		UserContactInfo info = data.get(position);
 		
-		holder.txtTitle.setText(info.Name);
+		holder.txtTitle.setText(info.Name + " " + info.Id);
 		
 		return row;
 	}
