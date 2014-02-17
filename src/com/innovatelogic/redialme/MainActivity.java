@@ -5,6 +5,7 @@ import android.provider.CallLog;
 import android.view.View;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.ProviderStore;
 
@@ -127,7 +129,25 @@ public class MainActivity extends Activity
     			makeCall(number);
     		}
     	});
-    }
+    	
+    	listRecentCalls.setOnItemClickListener(new OnItemClickListener() 
+    	{
+    		@Override
+    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+    		{ 
+    			  //TODO
+    		}
+    	});
+    	
+    	listContacts.setOnItemClickListener(new OnItemClickListener() 
+    	{
+    		@Override
+    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+    		{ 
+    			  //TODO
+    		}
+    	});
+     }
 
 	//----------------------------------------------------------------------------------------------
     @Override
