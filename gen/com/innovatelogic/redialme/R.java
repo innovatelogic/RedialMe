@@ -14,28 +14,32 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int Btn_EIGHT=0x7f07000e;
+        public static final int Btn_FIVE=0x7f07000b;
+        public static final int Btn_FORE=0x7f07000a;
+        public static final int Btn_GRID=0x7f070012;
+        public static final int Btn_NINE=0x7f07000f;
+        public static final int Btn_ONE=0x7f070007;
+        public static final int Btn_SEVEN=0x7f07000d;
+        public static final int Btn_SIX=0x7f07000c;
+        public static final int Btn_STAR=0x7f070010;
+        public static final int Btn_THREE=0x7f070009;
+        public static final int Btn_TWO=0x7f070008;
+        public static final int Btn_ZERO=0x7f070011;
         public static final int button_call=0x7f070004;
+        public static final int dialpad=0x7f070006;
         public static final int editNumber=0x7f070002;
-        public static final int imageButton1=0x7f070013;
-        public static final int imageButton10=0x7f07000e;
-        public static final int imageButton2=0x7f070007;
-        public static final int imageButton3=0x7f070006;
-        public static final int imageButton4=0x7f070008;
-        public static final int imageButton5=0x7f07000a;
-        public static final int imageButton6=0x7f070009;
-        public static final int imageButton7=0x7f07000b;
-        public static final int imageButton8=0x7f07000c;
-        public static final int imageButton9=0x7f07000d;
-        public static final int listContacts=0x7f070012;
-        public static final int listRecentCalls=0x7f070010;
-        public static final int menu_settings=0x7f070015;
+        public static final int imageButton1=0x7f070017;
+        public static final int listContacts=0x7f070016;
+        public static final int listRecentCalls=0x7f070014;
+        public static final int menu_settings=0x7f070019;
         public static final int send_sms=0x7f070003;
         public static final int tab1=0x7f070001;
-        public static final int tab2=0x7f07000f;
-        public static final int tab3=0x7f070011;
+        public static final int tab2=0x7f070013;
+        public static final int tab3=0x7f070015;
         public static final int textView1=0x7f070005;
         public static final int textViewContact=0x7f070000;
-        public static final int textViewRecentcalls=0x7f070014;
+        public static final int textViewRecentcalls=0x7f070018;
     }
     public static final class layout {
         public static final int activity_contacts=0x7f030000;
@@ -46,7 +50,19 @@ public final class R {
         public static final int activity_main=0x7f060000;
     }
     public static final class string {
+        public static final int Eight=0x7f040012;
+        public static final int Five=0x7f04000f;
+        public static final int Fore=0x7f04000e;
+        public static final int Grid=0x7f040016;
+        public static final int Nine=0x7f040013;
+        public static final int One=0x7f04000b;
         public static final int Serarch=0x7f040003;
+        public static final int Seven=0x7f040011;
+        public static final int Six=0x7f040010;
+        public static final int Star=0x7f040015;
+        public static final int Three=0x7f04000d;
+        public static final int Two=0x7f04000c;
+        public static final int Zero=0x7f040014;
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
         public static final int kievstar=0x7f04000a;

@@ -27,7 +27,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.ProviderStore;
-
+import com.innovatelogic.redialme.DialPad;
 
 public class MainActivity extends Activity 
 {
@@ -50,6 +50,7 @@ public class MainActivity extends Activity
     private String mDataFilename = "Providers.xml";
     
     private TerritoryEntry mTerritory = null;
+    private DialPad mDialPad = null;
 
     private class MaskParser
     {
@@ -102,10 +103,14 @@ public class MainActivity extends Activity
         	mTextView.setText(mOperatorName);
         	
         	FillRecentCalls();
+        	
+        	mDialPad = new DialPad();
+        	mDialPad.findAllViewsById(MainActivity.this);
     	}
     	catch (IOException ex)
     	{
-    	} catch (XmlPullParserException e) {
+    	}
+    	catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
