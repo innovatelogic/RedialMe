@@ -38,37 +38,55 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="top"
                         android:orientation="vertical" >
-
-                        <EditText
-                            android:id="@+id/editNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:ems="10"
-                            android:inputType="phone" >
-
-                            <requestFocus />
-                        </EditText>
-
-                        <Button
-                            android:id="@+id/send_sms"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/send_sms" />
-
-                        <Button
-                            android:id="@+id/button_call"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/service_call" />
-
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textSize="15sp" />
                         
                         <!-- Dialpad in the Phone app. -->
+
+                        <ListView
+                            android:id="@+id/listRecentCallsLite"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="160.32" >
+                        </ListView>
+                        
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialpad"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="0dp"
+    android:paddingBottom="0dp"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip" >
+                            
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="fill_horizontal" >
+        
+         <EditText
+             android:id="@+id/editNumber"
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:ems="10"
+             android:inputType="phone" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/BtnBackspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".10"
+            android:minWidth="54dip"
+            android:src="@android:drawable/btn_star"
+            android:text="@string/Backspace" />
+
+    </TableRow>
+</TableLayout>    
+
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialpad"
@@ -336,6 +354,25 @@
             android:layout_width="52dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_launcher" />
+
+        <Button
+            android:id="@+id/button_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_call" />
+
+        <Button
+            android:id="@+id/send_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_sms" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

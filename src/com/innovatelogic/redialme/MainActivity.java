@@ -43,7 +43,7 @@ public class MainActivity extends Activity
 	
 	// stores
 	private ProviderStore 	providerStore;
-	private ContactsStore	contactsStore;
+	private ContactsStore	mContactsStore;
 			
     private String mOperatorName = null;
     private String mDefaultTerritory = "UA";
@@ -70,6 +70,8 @@ public class MainActivity extends Activity
     
   //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
+    
+    public ContactsStore getContactsStore() { return mContactsStore; }
 
   //----------------------------------------------------------------------------------------------
     @Override
@@ -95,16 +97,16 @@ public class MainActivity extends Activity
     		providerStore = new ProviderStore();
     		providerStore.Deserialize(ism);
     		    		
-    		contactsStore = new ContactsStore();
-    		contactsStore.LoadContacts(getAppContext());
-    		contactsStore.FillListContacts(getAppContext(), listContacts);
+    		mContactsStore = new ContactsStore();
+    		mContactsStore.LoadContacts(getAppContext());
+    		mContactsStore.FillListContacts(getAppContext(), listContacts);
     		
     		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
         	mTextView.setText(mOperatorName);
         	
-        	FillRecentCalls();
+        	FillRecentCalls(listRecentCalls);
         	
-        	mDialPad = new DialPad();
+        	mDialPad = new DialPad(this);
         	mDialPad.findAllViewsById(MainActivity.this);
     	}
     	catch (IOException ex)
@@ -280,7 +282,7 @@ public class MainActivity extends Activity
     }
     
     //----------------------------------------------------------------------------------------------
-    private void FillRecentCalls()
+    private void FillRecentCalls(ListView view)
     {
 		List<String> RecentCalls = new ArrayList<String>();
 			
@@ -295,6 +297,7 @@ public class MainActivity extends Activity
 		int id = managedCursor.getColumnIndex(CallLog.Calls._ID);
 		
 		sb.append("Call Details :");
+		
 		while (managedCursor.moveToNext()) 
 		{
 			String phNumber = managedCursor.getString(number);
@@ -305,6 +308,7 @@ public class MainActivity extends Activity
 			String callDuration = managedCursor.getString(duration);
 			String dir = null;
 			int dircode = Integer.parseInt(callType);
+			
 			switch (dircode) {
 			case CallLog.Calls.OUTGOING_TYPE:
 				dir = "OUTGOING";
@@ -321,7 +325,8 @@ public class MainActivity extends Activity
 			
 		String NormNumber = ContactsStore.NormalizeNumber(phNumber, "+380");
 			
-		UserContactInfo info = contactsStore.GetInfoByNum(NormNumber);
+		UserContactInfo info = mContactsStore.GetInfoByNum(NormNumber);
+		
 		if (info != null)
 		{
 			NormNumber = info.GetName();
@@ -338,6 +343,6 @@ public class MainActivity extends Activity
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 		            R.layout.recentcallsactivity, RecentCalls);
 		
-		listRecentCalls.setAdapter(adapter);
+		view.setAdapter(adapter);
     }
 }

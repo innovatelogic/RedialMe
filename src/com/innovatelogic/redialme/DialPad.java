@@ -2,6 +2,7 @@ package com.innovatelogic.redialme;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.app.Activity;
 import android.view.View;
@@ -30,17 +31,24 @@ public class DialPad
 	
 	private Button[] 	mDialButtons = new Button[esize];
 	private EditText 	mEditNumber;
+	private ListView    mListRecentCallsLite;
+	private Button		mBtnBackspace;
+	private RecentCallsListPresenter mListPresenter;
 	
 	//----------------------------------------------------------------------------------------------
-	public DialPad()
+	public DialPad(MainActivity activity)
 	{
+		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
 		
+		mListPresenter.FillList();
 	}
 	
 	//----------------------------------------------------------------------------------------------
     public void findAllViewsById(Activity activity)
     {
+    	mListRecentCallsLite = (ListView) activity.findViewById(R.id.listRecentCallsLite);
     	mEditNumber = (EditText)activity.findViewById(R.id.editNumber);
+    	mBtnBackspace = (Button)activity.findViewById(R.id.BtnBackspace);
     	
     	mDialButtons[0] = (Button)activity.findViewById(R.id.Btn_ONE);
     	mDialButtons[1] = (Button)activity.findViewById(R.id.Btn_TWO);
@@ -57,6 +65,19 @@ public class DialPad
     	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_STAR);
     	mDialButtons[10] = (Button)activity.findViewById(R.id.Btn_ZERO);
     	mDialButtons[11] = (Button)activity.findViewById(R.id.Btn_GRID);
+    	    	
+    	mBtnBackspace.setOnClickListener(new OnClickListener()
+    	{
+    		@Override
+    		public void onClick(View v)
+    		{
+    			String str = mEditNumber.getText().toString();
+    			if (str.length() > 0)
+    			{
+    				mEditNumber.setText(str.substring(0, str.length() - 1));
+    			}
+    		}
+    	});
     	
     	for (int i = 0; i < esize; ++i)
 		{
