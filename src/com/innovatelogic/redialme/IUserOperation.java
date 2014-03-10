@@ -13,35 +13,39 @@ public interface IUserOperation
 }
 
 //----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 class UserOperationSMS implements IUserOperation
 {
-	private String Mask;
-	private String Num;
+	private String mMask;
+	private String mNum;
 	
-	public String GetMask() { return Mask; }
+	public String GetMask() { return mMask; }
 	
 	UserOperationSMS(String mask, String num)
 	{
-		this.Mask = mask;
-		this.Num = num;
+		this.mMask = mask;
+		this.mNum = num;
 	}
 	
 	public void Process(String param)
 	{
 		SmsManager smsManager = SmsManager.getDefault();
-		smsManager.sendTextMessage(Num, null, param, null, null);
+		smsManager.sendTextMessage(mNum, null, param, null, null);
 	}
 }
 
 //----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 class UserOperationCall implements IUserOperation
 {
-	private String Mask;
+	private String mMask;
 	
-	public String GetMask() { return Mask; }
+	public String GetMask() { return mMask; }
 	
 	UserOperationCall(String mask){
-		this.Mask = mask;	
+		this.mMask = mask;	
 	}
 	
 	public void Process(String param)

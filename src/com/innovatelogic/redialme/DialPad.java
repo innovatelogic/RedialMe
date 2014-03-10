@@ -25,6 +25,8 @@ enum EDialButtons
 }
 
 //----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class DialPad 
 {
 	private static final int esize = EDialButtons.values().length;
@@ -40,6 +42,12 @@ public class DialPad
 	{
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
 		mListPresenter.FillList();
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public String GetNumber()
+	{
+		return mEditNumber.getText().toString();
 	}
 	
 	//----------------------------------------------------------------------------------------------

@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.innovatelogic.redialme.UserContactInfo;
 
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 {
 	Context context;

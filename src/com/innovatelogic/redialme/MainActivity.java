@@ -35,9 +35,6 @@ public class MainActivity extends Activity
 	private static Context  mContext;
 	
 	private TabHost			tabView;
-	private EditText 		editNumber;
-	private Button	 		smsButton;
-	private Button			callButton;
 	private TextView        mTextView;
 	private ListView		listRecentCalls;
 	private ListView		listContacts;
@@ -74,9 +71,17 @@ public class MainActivity extends Activity
   //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
     
-    public ContactsStore getContactsStore() { return mContactsStore; }
-
   //----------------------------------------------------------------------------------------------
+    public ContactsStore getContactsStore() { return mContactsStore; }
+    public TerritoryEntry GetCurrentTerritory() { return mTerritory; }
+    
+  //----------------------------------------------------------------------------------------------
+    public String GetCurrentNumber()
+    {
+    	return mDialPad.GetNumber();
+    }
+
+    //----------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -127,13 +132,13 @@ public class MainActivity extends Activity
 			e.printStackTrace();
 		}
     	
-    	smsButton.setOnClickListener(new OnClickListener() 
+    	/*smsButton.setOnClickListener(new OnClickListener() 
     	{
     		@Override
     		public void onClick(View v) 
     		{
-    			String number = editNumber.getText().toString();
-    			sendSMS(number);
+    			//String number = editNumber.getText().toString();
+    			//sendSMS(number);
     		}
     	});
     	
@@ -142,10 +147,10 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v) 
     		{
-    			String number = editNumber.getText().toString();
-    			makeCall(number);
+    			//String number = editNumber.getText().toString();
+    			//makeCall(number);
     		}
-    	});
+    	});*/
     	
     	listRecentCalls.setOnItemClickListener(new OnItemClickListener() 
     	{
@@ -197,9 +202,6 @@ public class MainActivity extends Activity
     	tabView.addTab(spec2);
     	tabView.addTab(spec3);
     	
-    	editNumber = (EditText) findViewById(R.id.editNumber);
-    	smsButton = (Button) findViewById(R.id.send_sms);
-    	callButton = (Button) findViewById(R.id.button_call);
     	mTextView = (TextView) findViewById(R.id.textView1);
     	
     	listRecentCalls = (ListView) findViewById(R.id.listRecentCalls);

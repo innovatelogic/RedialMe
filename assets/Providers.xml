@@ -13,7 +13,6 @@
 	    <Provider Name="kievstar" Codes="67">
 	        <Entry Operation="CallMe" Type="Call" Mask="*130*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
-    
     </Territory>
 </Territories>
 </Providers> 

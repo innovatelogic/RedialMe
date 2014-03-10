@@ -12,6 +12,9 @@ import android.widget.ListView;
 import com.innovatelogic.redialme.UserContactInfo;
 import com.innovatelogic.redialme.AdapterContacts;
 
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class ContactsStore 
 {
 	private ArrayList<UserContactInfo> Contacts = null;
