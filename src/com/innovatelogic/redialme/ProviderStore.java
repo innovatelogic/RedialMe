@@ -22,6 +22,7 @@ public class ProviderStore
 	public static final String TERRITORIES_TAG = "Territories";
 	public static final String TERRITORY_TAG = "Territory";
 	
+	//----------------------------------------------------------------------------------------------
 	public ProviderStore()
 	{
 		MapTerritoryEntries = new HashMap<String, TerritoryEntry>();

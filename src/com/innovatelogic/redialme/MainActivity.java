@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.ProviderStore;
 import com.innovatelogic.redialme.DialPad;
+import com.innovatelogic.redialme.ActionBar;
 
 public class MainActivity extends Activity 
 {
@@ -40,7 +41,9 @@ public class MainActivity extends Activity
 	private TextView        mTextView;
 	private ListView		listRecentCalls;
 	private ListView		listContacts;
+	private RecentCallsListPresenter mListPresenter;
 	
+	private ActionBar		mActionBar;
 	// stores
 	private ProviderStore 	providerStore;
 	private ContactsStore	mContactsStore;
@@ -94,6 +97,8 @@ public class MainActivity extends Activity
     		AssetManager assetManager = getAssets();
     		InputStream ism = assetManager.open(mDataFilename);
     		
+    		mActionBar = new ActionBar(this, R.id.ActionLayout);
+    		
     		providerStore = new ProviderStore();
     		providerStore.Deserialize(ism);
     		    		
@@ -104,15 +109,20 @@ public class MainActivity extends Activity
     		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
         	mTextView.setText(mOperatorName);
         	
-        	FillRecentCalls(listRecentCalls);
+        	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
+        	mListPresenter.FillList();
         	
         	mDialPad = new DialPad(this);
         	mDialPad.findAllViewsById(MainActivity.this);
+        	
+        	ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
+        	mActionBar.ApplyActionBar(provider);
     	}
     	catch (IOException ex)
     	{
     	}
-    	catch (XmlPullParserException e) {
+    	catch (XmlPullParserException e) 
+    	{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -279,70 +289,5 @@ public class MainActivity extends Activity
 			}
 		}
     	return new MaskParser(TERR, PROVIDER, ABONENT, bFound);
-    }
-    
-    //----------------------------------------------------------------------------------------------
-    private void FillRecentCalls(ListView view)
-    {
-		List<String> RecentCalls = new ArrayList<String>();
-			
-		StringBuffer sb = new StringBuffer();
-		Cursor managedCursor = mContext.getContentResolver().query(CallLog.Calls.CONTENT_URI,
-								null, null, null, CallLog.Calls.DATE + " DESC");
-		   
-		int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
-		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
-		int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-		int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
-		int id = managedCursor.getColumnIndex(CallLog.Calls._ID);
-		
-		sb.append("Call Details :");
-		
-		while (managedCursor.moveToNext()) 
-		{
-			String phNumber = managedCursor.getString(number);
-			String callType = managedCursor.getString(type);
-			String callDate = managedCursor.getString(date);
-			
-			Date callDayTime = new Date(Long.valueOf(callDate));
-			String callDuration = managedCursor.getString(duration);
-			String dir = null;
-			int dircode = Integer.parseInt(callType);
-			
-			switch (dircode) {
-			case CallLog.Calls.OUTGOING_TYPE:
-				dir = "OUTGOING";
-			break;
-			
-			case CallLog.Calls.INCOMING_TYPE:
-				dir = "INCOMING";
-			break;
-			
-			case CallLog.Calls.MISSED_TYPE:
-				dir = "MISSED";
-			break;
-		}
-			
-		String NormNumber = ContactsStore.NormalizeNumber(phNumber, "+380");
-			
-		UserContactInfo info = mContactsStore.GetInfoByNum(NormNumber);
-		
-		if (info != null)
-		{
-			NormNumber = info.GetName();
-		}
-			
-		RecentCalls.add("\nPhone Number:--- " + NormNumber + " \nCall Type:--- "
-					+ dir + " \nCall Date:--- " + callDayTime
-					+ " \nCall duration in sec :--- " + callDuration +
-					"\nID" + id);
-		}
-		
-		managedCursor.close();
-	    	
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-		            R.layout.recentcallsactivity, RecentCalls);
-		
-		view.setAdapter(adapter);
     }
 }

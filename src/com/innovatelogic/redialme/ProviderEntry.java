@@ -1,5 +1,6 @@
 package com.innovatelogic.redialme;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
@@ -9,6 +10,8 @@ import com.innovatelogic.redialme.IUserOperation;
 
 public class ProviderEntry
 {
+	private List<IUserOperation> mOperationsList;
+	
 	private static final String ENTRY_TAG = "Entry";
 	private static final String CALLME_TAG = "CallMe";
 	private static final String SMS_TYPE_TAG = "SMS";
@@ -17,12 +20,15 @@ public class ProviderEntry
 	private IUserOperation OpCallMeSMS = null;
 	private IUserOperation OpCallMeCall = null;
 	
-	IUserOperation GetOpCallMeSMS() { return OpCallMeSMS; }
-	IUserOperation GetOpCallMeCall() { return OpCallMeCall; }
+	public IUserOperation GetOpCallMeSMS() { return OpCallMeSMS; }
+	public IUserOperation GetOpCallMeCall() { return OpCallMeCall; }
+	
+	public List<IUserOperation> GetOperationList() { return mOperationsList; }
 	
 	//----------------------------------------------------------------------------------------------
-	public ProviderEntry(List<String> codes)
+	public ProviderEntry()
 	{
+		mOperationsList = new ArrayList<IUserOperation>();
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -56,10 +62,12 @@ public class ProviderEntry
 						if (atrType.equals(SMS_TYPE_TAG))
 						{
 							OpCallMeSMS = new UserOperationSMS(atrMask, atrNum);
+							mOperationsList.add(OpCallMeSMS);
 						}
 						else if (atrType.equals(CALL_TYPE_TAG))
 						{
 							OpCallMeCall = new UserOperationCall(atrMask);
+							mOperationsList.add(OpCallMeCall);
 						}
 					}
 					readTag = true;

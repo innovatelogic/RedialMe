@@ -39,7 +39,6 @@ public class DialPad
 	public DialPad(MainActivity activity)
 	{
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
-		
 		mListPresenter.FillList();
 	}
 	

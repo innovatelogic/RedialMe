@@ -3,376 +3,295 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
-   
-    <TabHost
-        android:id="@android:id/tabhost"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="384dp"
-            android:orientation="vertical" >
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center|left" >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="top"
-                        android:orientation="vertical" >
-                        
-                        <!-- Dialpad in the Phone app. -->
-
-                        <ListView
-                            android:id="@+id/listRecentCallsLite"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="160.32" >
-                        </ListView>
-                        
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialpad"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="0dp"
-    android:paddingBottom="0dp"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip" >
-                            
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="fill_horizontal" >
-        
-         <EditText
-             android:id="@+id/editNumber"
-             android:layout_width="match_parent"
-             android:layout_height="50dp"
-             android:ems="10"
-             android:inputType="phone" >
-
-            <requestFocus />
-        </EditText>
-
-        <Button
-            android:id="@+id/BtnBackspace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".10"
-            android:minWidth="54dip"
-            android:src="@android:drawable/btn_star"
-            android:text="@string/Backspace" />
-
-    </TableRow>
-</TableLayout>    
-
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialpad"
-    android:layout_width="match_parent"
-    android:layout_height="0px"
-    android:layout_weight="200"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="5dip"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip"
-    android:paddingBottom="10dip">
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:gravity="fill_horizontal" >
-
-        <Button
-            android:id="@+id/Btn_ONE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/One"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_TWO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Two"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_THREE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Three"
-            android:src="@android:drawable/btn_star" />
-    </TableRow>
-    
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:gravity="fill_horizontal" >
-
-        <Button
-            android:id="@+id/Btn_FORE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Fore"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_FIVE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Five"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_SIX"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Six"
-            android:src="@android:drawable/btn_star" />
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:gravity="fill_horizontal" >
-
-        <Button
-            android:id="@+id/Btn_SEVEN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Seven"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_EIGHT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Eight"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_NINE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Nine"
-            android:src="@android:drawable/btn_star" />
-    </TableRow>
-        <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:gravity="fill_horizontal" >
-
-        <Button
-            android:id="@+id/Btn_STAR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Star"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_ZERO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Zero"
-            android:src="@android:drawable/btn_star" />
-
-        <Button
-            android:id="@+id/Btn_GRID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="@string/Grid"
-            android:src="@android:drawable/btn_star" />
-    </TableRow>
-</TableLayout>
-
-<!-- 
-                        <LinearLayout
-                            android:layout_width="270dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal" >
-
-                            <ImageButton
-                                android:id="@+id/imageButton3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="256dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal" >
-
-                            <ImageButton
-                                android:id="@+id/imageButton6"
-                                android:layout_width="56dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_launcher" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="260dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal" >
-
-                            <ImageButton
-                                android:id="@+id/imageButton8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton10"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/btn_star" />
-
-                        </LinearLayout>
--->
-                    </LinearLayout>
-                        
-                </LinearLayout>
-                
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" >
-
-                        <ListView
-                            android:id="@+id/listRecentCalls"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" >
-                        </ListView>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    
-                    <ListView
-                            android:id="@+id/listContacts"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" >
-                        </ListView>
-                        
-                </LinearLayout>
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </TabHost>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:orientation="horizontal" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="100" >
 
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="52dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher" />
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="15" >
 
-        <Button
-            android:id="@+id/button_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/service_call" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/send_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_sms" />
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+                </TabWidget>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="15sp" />
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/tab1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top"
+                            android:gravity="fill_vertical"
+                            android:orientation="vertical" >
+
+                            <ListView
+                                android:id="@+id/listRecentCallsLite"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="188.58" >
+                            </ListView>
+
+                            <TableLayout
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/numpad"
+                                android:layout_width="match_parent"
+                                android:layout_height="49dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="0dp"
+                                android:gravity="bottom"
+                                android:paddingBottom="0dp"
+                                android:paddingLeft="5dip"
+                                android:paddingRight="5dip" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0"
+                                    android:gravity="fill_horizontal" >
+
+                                    <EditText
+                                        android:id="@+id/editNumber"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:ems="10"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
+                                        android:inputType="none" />
+
+                                    <Button
+                                        android:id="@+id/BtnBackspace"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".10"
+                                        android:minWidth="54dip"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Backspace" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/dialpad"
+                                android:layout_width="match_parent"
+                                android:layout_height="0px"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="5dip"
+                                android:layout_weight="200"
+                                android:gravity="bottom"
+                                android:paddingBottom="0dp"
+                                android:paddingLeft="5dip"
+                                android:paddingRight="5dip" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0px"
+                                    android:layout_weight="1"
+                                    android:gravity="fill_horizontal" >
+
+                                    <Button
+                                        android:id="@+id/Btn_ONE"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/One" />
+
+                                    <Button
+                                        android:id="@+id/Btn_TWO"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Two" />
+
+                                    <Button
+                                        android:id="@+id/Btn_THREE"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Three" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0px"
+                                    android:layout_weight="1"
+                                    android:gravity="fill_horizontal" >
+
+                                    <Button
+                                        android:id="@+id/Btn_FORE"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Fore" />
+
+                                    <Button
+                                        android:id="@+id/Btn_FIVE"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Five" />
+
+                                    <Button
+                                        android:id="@+id/Btn_SIX"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Six" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0px"
+                                    android:layout_weight="1"
+                                    android:gravity="fill_horizontal" >
+
+                                    <Button
+                                        android:id="@+id/Btn_SEVEN"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Seven" />
+
+                                    <Button
+                                        android:id="@+id/Btn_EIGHT"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Eight" />
+
+                                    <Button
+                                        android:id="@+id/Btn_NINE"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Nine" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0px"
+                                    android:layout_weight="1"
+                                    android:gravity="fill_horizontal" >
+
+                                    <Button
+                                        android:id="@+id/Btn_STAR"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Star" />
+
+                                    <Button
+                                        android:id="@+id/Btn_ZERO"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Zero" />
+
+                                    <Button
+                                        android:id="@+id/Btn_GRID"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".33"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Grid" />
+                                </TableRow>
+                            </TableLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <ListView
+                                android:id="@+id/listRecentCalls"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+                            </ListView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <ListView
+                            android:id="@+id/listContacts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" >
+                        </ListView>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+        </TabHost>
+
+        <LinearLayout
+            android:id="@+id/ActionLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="85"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_call" />
+
+            <Button
+                android:id="@+id/send_sms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_sms" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="15sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
