@@ -76,8 +76,6 @@ public class ActionBar
 		{
 			Button btn = AddButton();
 			
-			btn.setText("Text")
-			
 			btn.setOnClickListener(new OnClickListener() 
 	    	{
 	    		@Override
@@ -99,7 +97,7 @@ public class ActionBar
 	    			}
 	    			else
 	    			{
-	    				// TODO: LOG Warning	
+	    				// TODO: LOG Warning
 	    			}
 	    		}
 	    	});

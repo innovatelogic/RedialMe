@@ -51,31 +51,18 @@ public class MainActivity extends Activity
     
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
+    private RecentCallsStore mRecentCallsStore = null;
 
-    private class MaskParser
-    {
-    	public final String TERR;
-    	public final String PROVIDER;
-    	public final String ABONENT;
-    	public final boolean isFound;
-    	
-    	public MaskParser(String terr, String provider, String abonent, boolean found)
-    	{
-    		TERR = terr;
-    		PROVIDER = provider;
-    		ABONENT = abonent;
-    		isFound = found;
-    	}
-    }
-    
-  //----------------------------------------------------------------------------------------------
+   //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
     
-  //----------------------------------------------------------------------------------------------
     public ContactsStore getContactsStore() { return mContactsStore; }
+    
     public TerritoryEntry GetCurrentTerritory() { return mTerritory; }
     
-  //----------------------------------------------------------------------------------------------
+    public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
+    
+    //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
     {
     	return mDialPad.GetNumber();
@@ -111,11 +98,14 @@ public class MainActivity extends Activity
     		mContactsStore.LoadContacts(getAppContext());
     		mContactsStore.FillListContacts(getAppContext(), listContacts);
     		
+    		mRecentCallsStore = new RecentCallsStore(this);
+    		mRecentCallsStore.Initialize();
+    		
     		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
         	mTextView.setText(mOperatorName);
         	
         	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
-        	mListPresenter.FillList();
+        	mListPresenter.FillList(GetRecentCallsStore());
         	
         	mDialPad = new DialPad(this);
         	mDialPad.findAllViewsById(MainActivity.this);
@@ -131,26 +121,6 @@ public class MainActivity extends Activity
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	/*smsButton.setOnClickListener(new OnClickListener() 
-    	{
-    		@Override
-    		public void onClick(View v) 
-    		{
-    			//String number = editNumber.getText().toString();
-    			//sendSMS(number);
-    		}
-    	});
-    	
-    	callButton.setOnClickListener(new OnClickListener()
-    	{
-    		@Override
-    		public void onClick(View v) 
-    		{
-    			//String number = editNumber.getText().toString();
-    			//makeCall(number);
-    		}
-    	});*/
     	
     	listRecentCalls.setOnItemClickListener(new OnItemClickListener() 
     	{
@@ -207,89 +177,4 @@ public class MainActivity extends Activity
     	listRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
     	listContacts = (ListView) findViewById(R.id.listContacts);
      }
-    
-	//----------------------------------------------------------------------------------------------
-    private void sendSMS(String number)
-    {
-    	if (mTerritory != null && mOperatorName != null)
-    	{
-    		ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
-	    	
-	    	if (provider != null)
-	    	{
-	    		MaskParser info = ParseNumber(number);
-	    		
-	    		if (info.isFound)
-	    		{
-	    			IUserOperation operation = provider.GetOpCallMeSMS();
-    				
-    				if (operation != null)
-    				{
-    					String mask = operation.GetMask();
-    					
-    					mask = mask.replace("%TERR%", info.TERR);
-						mask = mask.replace("%PRV%", info.PROVIDER);
-						mask = mask.replace("%NUM%", info.ABONENT);
-						
-						operation.Process(mask);
-    				}
-	    		}
-	    	}
-    	}
-    }
-    
-	//----------------------------------------------------------------------------------------------
-    private void makeCall(String number)
-    {
-    	if (mTerritory != null && mOperatorName != null)
-    	{
-    		ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
-	    	
-	    	if (provider != null)
-	    	{
-	    		MaskParser info = ParseNumber(number);
-	    		
-	    		if (info.isFound)
-	    		{
-	    			IUserOperation operation = provider.GetOpCallMeCall();
-    				
-    				if (operation != null)
-    				{
-    					String mask = operation.GetMask();
-    					
-    					mask = mask.replace("%TERR%", info.TERR);
-						mask = mask.replace("%PRV%", info.PROVIDER);
-						mask = mask.replace("%NUM%", info.ABONENT);
-						
-						operation.Process(mask);
-    				}
-	    		}
-	    	}
-    	}
-    }
-    
-    //----------------------------------------------------------------------------------------------
-    private MaskParser ParseNumber(String number)
-    {
-    	boolean bFound = false;
-    	
-    	String TERR = mTerritory.GetCode();
-    	String PROVIDER = "";
-    	String ABONENT = "";
-    	
-    	int length = number.length();
-		if (length >= 10 && length <= 13)
-		{
-			ABONENT = number.substring(length - 7);
-			
-			number = number.substring(0, number.length() - 7);
-			
-			if (number.length() >= 3 && number.length() <= 6)
-			{
-				PROVIDER = number.substring(number.length() - 2);
-				bFound = true;
-			}
-		}
-    	return new MaskParser(TERR, PROVIDER, ABONENT, bFound);
-    }
 }

@@ -20,8 +20,6 @@ enum EDialButtons
 	Btn_EIGHT,
 	Btn_NINE,
 	Btn_ZERO,
-	Btn_STAR,
-	Btn_GRID,
 }
 
 //----------------------------------------------------------------------------------------------
@@ -41,7 +39,7 @@ public class DialPad
 	public DialPad(MainActivity activity)
 	{
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
-		mListPresenter.FillList();
+		mListPresenter.FillList(activity.GetRecentCallsStore());
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -69,9 +67,7 @@ public class DialPad
     	mDialButtons[7] = (Button)activity.findViewById(R.id.Btn_EIGHT);
     	mDialButtons[8] = (Button)activity.findViewById(R.id.Btn_NINE);
     	
-    	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_STAR);
-    	mDialButtons[10] = (Button)activity.findViewById(R.id.Btn_ZERO);
-    	mDialButtons[11] = (Button)activity.findViewById(R.id.Btn_GRID);
+    	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_ZERO);
     	    	
     	mBtnBackspace.setOnClickListener(new OnClickListener()
     	{
@@ -131,15 +127,7 @@ public class DialPad
 	    			}
 	    			else if (v == mDialButtons[9])
 	    			{
-	    				mEditNumber.setText(mEditNumber.getText().toString() + '*');
-	    			}
-	    			else if (v == mDialButtons[10])
-	    			{
 	    				mEditNumber.setText(mEditNumber.getText().toString() + '0');
-	    			}
-	    			else if (v == mDialButtons[11])
-	    			{
-	    				mEditNumber.setText(mEditNumber.getText().toString() + '#');
 	    			}
 	    		}
 	    	});

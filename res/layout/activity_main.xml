@@ -49,31 +49,31 @@
                                 android:id="@+id/listRecentCallsLite"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="188.58" >
+                                android:layout_weight="150" >
                             </ListView>
 
                             <TableLayout
                                 xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:id="@+id/numpad"
-                                android:layout_width="match_parent"
+                                android:layout_width="fill_parent"
                                 android:layout_height="49dp"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="0dp"
                                 android:gravity="bottom"
-                                android:paddingBottom="0dp"
-                                android:paddingLeft="5dip"
-                                android:paddingRight="5dip" >
+                                android:paddingBottom="0dp" >
 
                                 <TableRow
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
                                     android:layout_weight="0"
                                     android:gravity="fill_horizontal" >
 
                                     <EditText
                                         android:id="@+id/editNumber"
                                         android:layout_width="match_parent"
-                                        android:layout_height="50dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="fill_vertical|fill_horizontal"
+                                        android:layout_weight=".7"
                                         android:ems="10"
                                         android:focusable="false"
                                         android:focusableInTouchMode="false"
@@ -81,9 +81,8 @@
 
                                     <Button
                                         android:id="@+id/BtnBackspace"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight=".10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
                                         android:minWidth="54dip"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Backspace" />
@@ -97,23 +96,22 @@
                                 android:layout_height="0px"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dip"
-                                android:layout_weight="200"
-                                android:gravity="bottom"
-                                android:paddingBottom="0dp"
-                                android:paddingLeft="5dip"
-                                android:paddingRight="5dip" >
+                                android:layout_weight="268.99"
+                                android:gravity="bottom" >
 
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="0px"
                                     android:layout_weight="1"
-                                    android:gravity="fill_horizontal" >
+                                    android:gravity="fill_horizontal"
+                                    android:orientation="horizontal" >
 
                                     <Button
                                         android:id="@+id/Btn_ONE"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight=".33"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:layout_gravity="fill_horizontal"
+                                        android:layout_weight="0.33"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/One" />
 
@@ -129,9 +127,11 @@
                                         android:id="@+id/Btn_THREE"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="fill_horizontal"
                                         android:layout_weight=".33"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Three" />
+
                                 </TableRow>
 
                                 <TableRow
@@ -173,7 +173,7 @@
 
                                     <Button
                                         android:id="@+id/Btn_SEVEN"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight=".33"
                                         android:src="@android:drawable/btn_star"
@@ -203,28 +203,12 @@
                                     android:gravity="fill_horizontal" >
 
                                     <Button
-                                        android:id="@+id/Btn_STAR"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight=".33"
-                                        android:src="@android:drawable/btn_star"
-                                        android:text="@string/Star" />
-
-                                    <Button
                                         android:id="@+id/Btn_ZERO"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
                                         android:layout_weight=".33"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Zero" />
 
-                                    <Button
-                                        android:id="@+id/Btn_GRID"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight=".33"
-                                        android:src="@android:drawable/btn_star"
-                                        android:text="@string/Grid" />
                                 </TableRow>
                             </TableLayout>
                         </LinearLayout>
