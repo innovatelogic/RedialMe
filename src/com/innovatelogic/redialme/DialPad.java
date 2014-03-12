@@ -1,9 +1,11 @@
 package com.innovatelogic.redialme;
 
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +31,7 @@ public class DialPad
 {
 	private static final int esize = EDialButtons.values().length;
 	
+	private MainActivity mActivity;
 	private Button[] 	mDialButtons = new Button[esize];
 	private EditText 	mEditNumber;
 	private ListView    mListRecentCallsLite;
@@ -38,6 +41,7 @@ public class DialPad
 	//----------------------------------------------------------------------------------------------
 	public DialPad(MainActivity activity)
 	{
+		mActivity = activity;
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
 		mListPresenter.FillList(activity.GetRecentCallsStore());
 	}
@@ -69,6 +73,15 @@ public class DialPad
     	
     	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_ZERO);
     	    	
+    	mListRecentCallsLite.setOnItemClickListener(new OnItemClickListener() 
+    	{
+    		@Override
+    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+    		{ 
+    			mActivity.GetTabView().setCurrentTab(1);
+    		}
+    	});
+    	
     	mBtnBackspace.setOnClickListener(new OnClickListener()
     	{
     		@Override

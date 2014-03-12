@@ -17,12 +17,6 @@ public class ProviderEntry
 	private static final String SMS_TYPE_TAG = "SMS";
 	private static final String CALL_TYPE_TAG = "Call";
 		
-	private IUserOperation OpCallMeSMS = null;
-	private IUserOperation OpCallMeCall = null;
-	
-	public IUserOperation GetOpCallMeSMS() { return OpCallMeSMS; }
-	public IUserOperation GetOpCallMeCall() { return OpCallMeCall; }
-	
 	public List<IUserOperation> GetOperationList() { return mOperationsList; }
 	
 	//----------------------------------------------------------------------------------------------
@@ -61,13 +55,11 @@ public class ProviderEntry
 					{
 						if (atrType.equals(SMS_TYPE_TAG))
 						{
-							OpCallMeSMS = new UserOperationSMS(atrMask, atrNum);
-							mOperationsList.add(OpCallMeSMS);
+							mOperationsList.add(new UserOperationSMS(atrMask, atrNum));
 						}
 						else if (atrType.equals(CALL_TYPE_TAG))
 						{
-							OpCallMeCall = new UserOperationCall(atrMask);
-							mOperationsList.add(OpCallMeCall);
+							mOperationsList.add(new UserOperationCall(atrMask));
 						}
 					}
 					readTag = true;

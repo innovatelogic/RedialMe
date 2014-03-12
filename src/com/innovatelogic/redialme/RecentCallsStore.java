@@ -9,20 +9,18 @@ import java.util.Map;
 import android.database.Cursor;
 import android.provider.CallLog;
 
-enum ECallType
-{
-	EOutgoing,
-	EIncoming,
-	EMissed,
-}
-
-
-
 //----------------------------------------------------------------------------------------------
 //
 //----------------------------------------------------------------------------------------------
 public class RecentCallsStore 
 {
+	enum ECallType
+	{
+		EOutgoing,
+		EIncoming,
+		EMissed,
+	}
+
 	public class CallInfo
 	{
 		String 		mNumber;

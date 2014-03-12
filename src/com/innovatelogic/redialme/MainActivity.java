@@ -62,6 +62,8 @@ public class MainActivity extends Activity
     
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
+    public TabHost GetTabView() { return tabView; }
+    
     //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
     {
