@@ -2,7 +2,10 @@ package com.innovatelogic.redialme;
 
 import android.os.Bundle;
 import android.provider.CallLog;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.app.Activity;
 import android.view.Menu;
 import android.widget.AdapterView;
@@ -10,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.content.res.AssetManager;
@@ -52,7 +56,7 @@ public class MainActivity extends Activity
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
 
-   //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
     
     public ContactsStore getContactsStore() { return mContactsStore; }
@@ -128,7 +132,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			//TODO
+    			OpenPopup();
     		}
     	});
     	
@@ -137,7 +141,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			//TODO
+    			OpenPopup();
     		}
     	});
      }
@@ -176,4 +180,27 @@ public class MainActivity extends Activity
     	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
     	mListContacts = (ListView) findViewById(R.id.listContacts);
      }
+    
+    //----------------------------------------------------------------------------------------------
+    public void OpenPopup()
+    {
+    	LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+    
+    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
+    	
+    	final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    	
+    	Button btnCancel = (Button)popupView.findViewById(R.id.cancel);
+    	
+    	btnCancel.setOnClickListener(new Button.OnClickListener()
+    	{
+    		@Override
+	    	public void onClick(View v)
+	    	{
+	    		popupWindow.dismiss();
+	    	}
+    	});
+    	
+    	popupWindow.showAtLocation(getWindow().getDecorView().findViewById(android.R.id.content), Gravity.LEFT | Gravity.TOP, 0, 0);
+    }
 }
