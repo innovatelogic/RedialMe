@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.innovatelogic.redialme.UserContactInfo;
@@ -42,7 +43,8 @@ public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 			row = inflater.inflate(layoutResourceId, parent, false);
 			
 			holder = new TextHolder();
-			holder.txtTitle = (TextView)row.findViewById(R.id.textViewContact);
+			holder.mImg = (ImageView) row.findViewById(R.id.imguser);
+			holder.txtTitle = (TextView)row.findViewById(R.id.username);
 			
 			row.setTag(holder);
 		}
@@ -53,7 +55,8 @@ public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 		
 		UserContactInfo info = data.get(position);
 		
-		holder.txtTitle.setText(info.Name + " " + info.Id);
+		holder.txtTitle.setText(info.Name);
+		holder.mImg.setImageResource(R.drawable.ic_launcher);
 		
 		return row;
 	}
@@ -61,6 +64,7 @@ public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 	//----------------------------------------------------------------------------------------------
 	static class TextHolder
 	{
-		TextView txtTitle;
+		ImageView mImg;
+		TextView  txtTitle;
 	}
 }

@@ -25,7 +25,8 @@
     <string name="Eight">8</string>
     <string name="Nine">9</string>
     <string name="Zero">0</string>
-    <string name="Star">*</string>
-    <string name="Grid">#</string>
     <string name="Backspace">Del</string>
+    
+    <string name="Recent">Recent</string>
+    <string name="Contacts">Contacts</string>  
 </resources>

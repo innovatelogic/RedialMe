@@ -34,15 +34,14 @@ public class MainActivity extends Activity
 {
 	private static Context  mContext;
 	
-	private TabHost			tabView;
-	private TextView        mTextView;
-	private ListView		listRecentCalls;
-	private ListView		listContacts;
+	private TabHost			mTabView;
+	private ListView		mListRecentCalls;
+	private ListView		mListContacts;
 	private RecentCallsListPresenter mListPresenter;
 	
 	private ActionBar		mActionBar;
 	// stores
-	private ProviderStore 	providerStore;
+	private ProviderStore 	mProviderStore;
 	private ContactsStore	mContactsStore;
 			
     private String mOperatorName = null;
@@ -62,7 +61,7 @@ public class MainActivity extends Activity
     
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
-    public TabHost GetTabView() { return tabView; }
+    public TabHost GetTabView() { return mTabView; }
     
     //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
@@ -93,18 +92,18 @@ public class MainActivity extends Activity
     		
     		mActionBar = new ActionBar(this, R.id.ActionLayout);
     		
-    		providerStore = new ProviderStore();
-    		providerStore.Deserialize(ism);
+    		mProviderStore = new ProviderStore();
+    		mProviderStore.Deserialize(ism);
     		    		
     		mContactsStore = new ContactsStore();
     		mContactsStore.LoadContacts(getAppContext());
-    		mContactsStore.FillListContacts(getAppContext(), listContacts);
+    		mContactsStore.FillListContacts(getAppContext(), mListContacts);
     		
     		mRecentCallsStore = new RecentCallsStore(this);
     		mRecentCallsStore.Initialize();
     		
-    		mTerritory = providerStore.GetTerritory(mDefaultTerritory);
-        	mTextView.setText(mOperatorName);
+    		mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
+        	//mTextView.setText(mOperatorName);
         	
         	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
         	mListPresenter.FillList(GetRecentCallsStore());
@@ -124,21 +123,21 @@ public class MainActivity extends Activity
 			e.printStackTrace();
 		}
     	
-    	listRecentCalls.setOnItemClickListener(new OnItemClickListener() 
+    	mListRecentCalls.setOnItemClickListener(new OnItemClickListener() 
     	{
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			  //TODO
+    			//TODO
     		}
     	});
     	
-    	listContacts.setOnItemClickListener(new OnItemClickListener() 
+    	mListContacts.setOnItemClickListener(new OnItemClickListener() 
     	{
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			  //TODO
+    			//TODO
     		}
     	});
      }
@@ -155,28 +154,26 @@ public class MainActivity extends Activity
 	//----------------------------------------------------------------------------------------------
     private void findAllViewsById()
     {
-    	tabView = (TabHost) findViewById(android.R.id.tabhost);
-    	tabView.setup();
+    	mTabView = (TabHost) findViewById(android.R.id.tabhost);
+    	mTabView.setup();
     	
-    	TabSpec spec1 = tabView.newTabSpec("Number");
+    	TabSpec spec1 = mTabView.newTabSpec("DialPad");
     	spec1.setIndicator("Number");
     	spec1.setContent(R.id.tab1);
 
-    	TabSpec spec2 = tabView.newTabSpec("Contacts");
-    	spec2.setIndicator("Contacts");
+    	TabSpec spec2 = mTabView.newTabSpec("Recent");
+    	spec2.setIndicator(getString(R.string.Recent));
     	spec2.setContent(R.id.tab2);
               
-    	TabSpec spec3 = tabView.newTabSpec("Digit");
-    	spec3.setIndicator("Digit");
+    	TabSpec spec3 = mTabView.newTabSpec("Contacts");
+    	spec3.setIndicator(getString(R.string.Contacts));
     	spec3.setContent(R.id.tab3);
          
-    	tabView.addTab(spec1);
-    	tabView.addTab(spec2);
-    	tabView.addTab(spec3);
+    	mTabView.addTab(spec1);
+    	mTabView.addTab(spec2);
+    	mTabView.addTab(spec3);
     	
-    	mTextView = (TextView) findViewById(R.id.textView1);
-    	
-    	listRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
-    	listContacts = (ListView) findViewById(R.id.listContacts);
+    	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
+    	mListContacts = (ListView) findViewById(R.id.listContacts);
      }
 }

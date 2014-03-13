@@ -17,12 +17,12 @@ import com.innovatelogic.redialme.AdapterContacts;
 //----------------------------------------------------------------------------------------------
 public class ContactsStore 
 {
-	private ArrayList<UserContactInfo> Contacts = null;
+	private ArrayList<UserContactInfo> mContacts = null;
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
-		Contacts = new ArrayList<UserContactInfo>();
+		mContacts = new ArrayList<UserContactInfo>();
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ public class ContactsStore
 			userInfo.Name = contactName;
 			userInfo.Id = phoneContactID;
 			
-			Contacts.add(userInfo);
+			mContacts.add(userInfo);
 			
 			cursor.moveToNext();
 		}
@@ -68,7 +68,7 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public void FillListContacts(Context context, ListView list)
 	{
-		AdapterContacts adapter = new AdapterContacts(context, R.layout.activity_contacts, Contacts);
+		AdapterContacts adapter = new AdapterContacts(context, R.layout.activity_contacts, mContacts);
 	
 		list.setAdapter(adapter);
 	}
@@ -76,7 +76,7 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public UserContactInfo GetInfoByNum(String number)
 	{
-		for (UserContactInfo v : Contacts)
+		for (UserContactInfo v : mContacts)
 		{
 			if (number.equals(v.GetNumber()))
 				return v;
