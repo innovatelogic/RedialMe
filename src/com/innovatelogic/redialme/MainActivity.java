@@ -126,7 +126,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			OpenPopup();
+    			mActionPopupWindow.Toggle(true);
     		}
     	});
     	
@@ -135,7 +135,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			OpenPopup();
+    			mActionPopupWindow.Toggle(true);
     		}
     	});
      }
@@ -179,35 +179,5 @@ public class MainActivity extends Activity
     public void OpenPopup()
     {
     	mActionPopupWindow.Toggle(true);
-    	
-    	/*LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-    
-    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
-    	
-    	final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-    	
-    	Button btnCancel = (Button)popupView.findViewById(R.id.cancel);
-    	
-    	btnCancel.setOnClickListener(new Button.OnClickListener()
-    	{
-    		@Override
-	    	public void onClick(View v)
-	    	{
-	    		popupWindow.dismiss();
-	    	}
-    	});
-    	
-    	//View view = getCurrentFocus();
-    	
-    	//FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
-    	
-    	ViewGroup decor = (ViewGroup) this.getWindow().getDecorView().findViewById(android.R.id.content);
-    	View root = (ViewGroup) decor.getChildAt(0);
-    	
-    	//View root = getWindow().getDecorView().getRootView();
-    	
-    	//ViewGroup vgroup = (ViewGroup)root.getParent();
-    	    	
-    	popupWindow.showAsDropDown(root, 100, -600);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);*/
     }
 }

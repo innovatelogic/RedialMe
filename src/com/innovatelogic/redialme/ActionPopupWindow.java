@@ -1,6 +1,7 @@
 package com.innovatelogic.redialme;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -57,7 +58,8 @@ public class ActionPopupWindow
 	    	
 	    	//ViewGroup vgroup = (ViewGroup)root.getParent();
 	    	    	
-	    	mPopupWindow.showAsDropDown(root, 100, -600);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);
+	    	//mPopupWindow.showAsDropDown(root, 0, -800);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);
+	    	mPopupWindow.showAtLocation(root, Gravity.TOP | Gravity.RIGHT, 0, 0);
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{

@@ -2,42 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    
-     <LinearLayout
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_gravity="top"
-         android:layout_margin="1dp"
-         android:background="@android:color/darker_gray"
-         android:orientation="vertical" >
-				     
-     <LinearLayout
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_margin="20dp"
-         android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@android:color/darker_gray">
+    		     		  
+	 <TableLayout
+	     xmlns:android="http://schemas.android.com/apk/res/android"
+	     android:layout_width="fill_parent"
+	     android:layout_height="fill_parent"
+	     android:layout_margin="5dp"
+	     android:gravity="bottom"
+	     android:weightSum="1" >
 
-		      <TextView
-		          android:layout_width="wrap_content"
-		          android:layout_height="wrap_content"
-		          android:layout_gravity="center_horizontal"
-		          android:text="It&apos;s a PopupWindow" />
+          <TableRow
+              android:layout_width="fill_parent"
+              android:layout_height="0dp"
+              android:layout_gravity="top"
+              android:layout_weight="0.35"
+              android:gravity="fill_horizontal"
+              android:orientation="horizontal" >
 
-		      <ImageView
-		          android:layout_width="fill_parent"
-		          android:layout_height="wrap_content"
-		          android:layout_gravity="center_horizontal"
-		          android:src="@drawable/ic_launcher" />
+          </TableRow>
 
-		      <Button
-		          android:id="@+id/cancel"
-		          android:layout_width="fill_parent"
-		          android:layout_height="wrap_content"
-		          android:layout_gravity="bottom"
-		          android:text="Cancel" />
+          <TableRow
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight=".5"
+              android:gravity="fill_horizontal" >
 
-      </LinearLayout>
- </LinearLayout>
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_margin="5dp"
+                  android:layout_weight="1"
+                  android:orientation="vertical" >
 
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:text="Name" />
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:src="@drawable/ic_launcher" />
+              </LinearLayout>
+        
+          </TableRow>
+
+          <TableRow
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="0.15"
+              android:gravity="fill_horizontal"
+              android:orientation="horizontal"
+              android:weightSum="1" >
+
+              <Button
+                  android:id="@+id/cancel"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:text="Cancel" />
+
+          </TableRow>
+
+      </TableLayout>  
+     
 </LinearLayout>
