@@ -10,19 +10,18 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class MainActivity extends Activity 
 {
 	private static Context  mContext;
@@ -32,7 +31,7 @@ public class MainActivity extends Activity
 	private ListView		mListContacts;
 	private RecentCallsListPresenter mListPresenter;
 	
-	private ActionBar		mActionBar;
+
 	// stores
 	private ProviderStore 	mProviderStore;
 	private ContactsStore	mContactsStore;
@@ -41,6 +40,7 @@ public class MainActivity extends Activity
     private String mDefaultTerritory = "UA";
     private String mDataFilename = "Providers.xml";
     
+	private ActionBar mActionBar = null;
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
@@ -56,8 +56,6 @@ public class MainActivity extends Activity
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
     public TabHost GetTabView() { return mTabView; }
-    
-    public PopupWindow GetPopupWindow(View v, int w, int h) { return new PopupWindow(v, w, h); }
     
     //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
@@ -86,8 +84,6 @@ public class MainActivity extends Activity
     		AssetManager assetManager = getAssets();
     		InputStream ism = assetManager.open(mDataFilename);
     		
-    		mActionBar = new ActionBar(this, R.id.ActionLayout);
-    		
     		mProviderStore = new ProviderStore();
     		mProviderStore.Deserialize(ism);
     		    		
@@ -108,8 +104,10 @@ public class MainActivity extends Activity
         	mDialPad.findAllViewsById(MainActivity.this);
         	
         	ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
-        	mActionBar.ApplyActionBar(provider);
         	
+           	mActionBar = new ActionBar(this, R.id.ActionLayout);
+        	mActionBar.ApplyActionBar(provider);
+
         	mActionPopupWindow = new ActionPopupWindow(this);
     	}
     	catch (IOException ex)

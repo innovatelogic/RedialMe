@@ -48,18 +48,19 @@ public class ActionPopupWindow
 	    	});
 	    	
 	    	//View view = getCurrentFocus();
-	    	
 	    	//FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
 	    	
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
 	    	
 	    	//View root = getWindow().getDecorView().getRootView();
-	    	
 	    	//ViewGroup vgroup = (ViewGroup)root.getParent();
 	    	    	
 	    	//mPopupWindow.showAsDropDown(root, 0, -800);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);
 	    	mPopupWindow.showAtLocation(root, Gravity.TOP | Gravity.RIGHT, 0, 0);
+	    	
+	    	//mPopupWindow.showAtLocation(mActivity.findViewById(android.R.id.main), Gravity.CENTER, 0, 0); 
+	    	
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
