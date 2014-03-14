@@ -1,38 +1,27 @@
 package com.innovatelogic.redialme;
 
-import android.os.Bundle;
-import android.provider.CallLog;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.view.View.OnClickListener;
-import android.content.res.AssetManager;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.content.Context;
-import android.database.Cursor;
-import android.telephony.TelephonyManager;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import org.xmlpull.v1.XmlPullParserException;
-import android.widget.AdapterView.OnItemClickListener;
-
-import com.innovatelogic.redialme.ProviderStore;
-import com.innovatelogic.redialme.DialPad;
-import com.innovatelogic.redialme.ActionBar;
 
 public class MainActivity extends Activity 
 {
@@ -55,6 +44,7 @@ public class MainActivity extends Activity
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
+    private ActionPopupWindow mActionPopupWindow = null;
 
     //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
@@ -66,6 +56,8 @@ public class MainActivity extends Activity
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
     public TabHost GetTabView() { return mTabView; }
+    
+    public PopupWindow GetPopupWindow(View v, int w, int h) { return new PopupWindow(v, w, h); }
     
     //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
@@ -117,6 +109,8 @@ public class MainActivity extends Activity
         	
         	ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
         	mActionBar.ApplyActionBar(provider);
+        	
+        	mActionPopupWindow = new ActionPopupWindow(this);
     	}
     	catch (IOException ex)
     	{
@@ -184,7 +178,9 @@ public class MainActivity extends Activity
     //----------------------------------------------------------------------------------------------
     public void OpenPopup()
     {
-    	LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+    	mActionPopupWindow.Toggle(true);
+    	
+    	/*LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
     
     	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
     	
@@ -201,6 +197,17 @@ public class MainActivity extends Activity
 	    	}
     	});
     	
-    	popupWindow.showAtLocation(getWindow().getDecorView().findViewById(android.R.id.content), Gravity.LEFT | Gravity.TOP, 0, 0);
+    	//View view = getCurrentFocus();
+    	
+    	//FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
+    	
+    	ViewGroup decor = (ViewGroup) this.getWindow().getDecorView().findViewById(android.R.id.content);
+    	View root = (ViewGroup) decor.getChildAt(0);
+    	
+    	//View root = getWindow().getDecorView().getRootView();
+    	
+    	//ViewGroup vgroup = (ViewGroup)root.getParent();
+    	    	
+    	popupWindow.showAsDropDown(root, 100, -600);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);*/
     }
 }

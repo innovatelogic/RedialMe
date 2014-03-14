@@ -2,10 +2,7 @@ package com.innovatelogic.redialme;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import android.database.Cursor;
 import android.provider.CallLog;
 
@@ -59,8 +56,7 @@ public class RecentCallsStore
 		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
 		int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
 		int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
-		int id = managedCursor.getColumnIndex(CallLog.Calls._ID);
-		
+				
 		int counter = 0;
 		
 		while (managedCursor.moveToNext() && counter < MaxNumberCalls) 

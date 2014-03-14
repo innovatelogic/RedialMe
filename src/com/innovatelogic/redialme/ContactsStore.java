@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import com.innovatelogic.redialme.UserContactInfo;
