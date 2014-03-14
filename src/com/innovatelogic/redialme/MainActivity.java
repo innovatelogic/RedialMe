@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -95,7 +94,6 @@ public class MainActivity extends Activity
     		mRecentCallsStore.Initialize();
     		
     		mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
-        	//mTextView.setText(mOperatorName);
         	
         	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
         	mListPresenter.FillList(GetRecentCallsStore());
