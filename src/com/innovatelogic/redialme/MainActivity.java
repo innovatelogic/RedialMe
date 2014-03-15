@@ -2,8 +2,12 @@ package com.innovatelogic.redialme;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
+
+import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,7 +33,6 @@ public class MainActivity extends Activity
 	private ListView		mListRecentCalls;
 	private ListView		mListContacts;
 	private RecentCallsListPresenter mListPresenter;
-	
 
 	// stores
 	private ProviderStore 	mProviderStore;
@@ -121,7 +124,7 @@ public class MainActivity extends Activity
     	{
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-    		{ 
+    		{
     			mActionPopupWindow.Toggle(true);
     		}
     	});
@@ -131,7 +134,19 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-    			mActionPopupWindow.Toggle(true);
+
+    			ArrayList<UserContactInfo> contacts = mContactsStore.GetContactsStore();
+    			
+    			if (position >= 0 && position < contacts.size())
+    			{
+    				mActionPopupWindow.mName = contacts.get(position).Name;
+    				mActionPopupWindow.mNumber = contacts.get(position).ContactNumber;
+    				mActionPopupWindow.Toggle(true);
+    			}
+    			else
+    			{
+    				// log error
+    			}
     		}
     	});
      }
@@ -170,10 +185,4 @@ public class MainActivity extends Activity
     	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
     	mListContacts = (ListView) findViewById(R.id.listContacts);
      }
-    
-    //----------------------------------------------------------------------------------------------
-    public void OpenPopup()
-    {
-    	mActionPopupWindow.Toggle(true);
-    }
 }

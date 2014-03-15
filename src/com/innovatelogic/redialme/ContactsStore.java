@@ -24,6 +24,8 @@ public class ContactsStore
 		mContacts = new ArrayList<UserContactInfo>();
 	}
 	
+	public ArrayList<UserContactInfo> GetContactsStore() { return mContacts; }
+	
 	//----------------------------------------------------------------------------------------------
 	public void LoadContacts(Context context)
 	{

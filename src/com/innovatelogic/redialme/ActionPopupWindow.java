@@ -8,12 +8,16 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.innovatelogic.redialme.MainActivity;
 
 public class ActionPopupWindow 
 {
 	private MainActivity mActivity;
+	
+	public String mName;
+	public String mNumber;
 	
 	private PopupWindow mPopupWindow = null;
 	
@@ -33,10 +37,14 @@ public class ActionPopupWindow
 		    
 	    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
 	    	
-	    	//mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	    	mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	    
-	    	Button btnCancel = (Button)popupView.findViewById(R.id.cancel);
+	    	Button btnCancel = (Button)popupView.findViewById(R.id.process);
+	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
+	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
+	    	
+	    	txtName.setText(mName);
+	    	txtNumber.setText(mNumber);
 	    	
 	    	btnCancel.setOnClickListener(new Button.OnClickListener()
 	    	{
@@ -56,10 +64,9 @@ public class ActionPopupWindow
 	    	//View root = getWindow().getDecorView().getRootView();
 	    	//ViewGroup vgroup = (ViewGroup)root.getParent();
 	    	    	
-	    	//mPopupWindow.showAsDropDown(root, 0, -800);//(decor, Gravity.LEFT | Gravity.TOP, 0, 0);
-	    	mPopupWindow.showAtLocation(root, Gravity.TOP | Gravity.RIGHT, 0, 0);
+	    	//mPopupWindow.showAtLocation(root, Gravity.TOP | Gravity.RIGHT, 0, 0);
 	    	
-	    	//mPopupWindow.showAtLocation(mActivity.findViewById(android.R.id.main), Gravity.CENTER, 0, 0); 
+	    	mPopupWindow.showAtLocation(root/*mActivity.findViewById(android.R.id.main)*/, Gravity.CENTER, 0, 0); 
 	    	
 		}
 		else if (!bFlag && mPopupWindow != null)
