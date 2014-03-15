@@ -70,26 +70,36 @@
                                     android:gravity="fill_horizontal"
                                     android:weightSum="1" >
 
-                                    <EditText
-                                        android:id="@+id/editNumber"
-                                        android:layout_width="match_parent"
+                                    <LinearLayout
+                                        android:layout_width="0dp"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".8"
-                                        android:ems="10"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:inputType="none" />
+                                        android:gravity="center" >
+
+                                        <TextView
+                                            android:id="@+id/editNumber"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:inputType="phone"
+                                            android:maxLength="13"
+                                            android:textAppearance="?android:attr/textAppearanceLarge"
+                                            android:textSize="24sp"
+                                            android:textStyle="bold" />
+
+                                    </LinearLayout>
 
                                     <Button
                                         android:id="@+id/BtnBackspace"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="fill_parent"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
                                         android:layout_weight="0.2"
                                         android:minWidth="54dip"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Backspace" />
 
                                 </TableRow>
+
                             </TableLayout>
 
                             <TableLayout
@@ -112,18 +122,21 @@
                                         android:id="@+id/Btn_ONE"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
-                                        android:layout_gravity="fill_horizontal"
                                         android:layout_weight="0.33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/One" />
+                                        android:text="@string/One"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_TWO"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Two" />
+                                        android:text="@string/Two"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_THREE"
@@ -131,8 +144,10 @@
                                         android:layout_height="fill_parent"
                                         android:layout_gravity="fill_horizontal"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Three" />
+                                        android:text="@string/Three"
+                                        android:textSize="26sp" />
 
                                 </TableRow>
 
@@ -147,24 +162,31 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Fore" />
+                                        android:text="@string/Fore"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_FIVE"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Five" />
+                                        android:text="@string/Five"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_SIX"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Six" />
+                                        android:text="@string/Six"
+                                        android:textSize="26sp" />
+
                                 </TableRow>
 
                                 <TableRow
@@ -178,24 +200,31 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Seven" />
+                                        android:text="@string/Seven"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_EIGHT"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Eight" />
+                                        android:text="@string/Eight"
+                                        android:textSize="26sp" />
 
                                     <Button
                                         android:id="@+id/Btn_NINE"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Nine" />
+                                        android:text="@string/Nine"
+                                        android:textSize="26sp" />
+
                                 </TableRow>
 
                                 <TableRow
@@ -220,8 +249,10 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
+                                        android:background="@drawable/btn_default_normal_lblue"
                                         android:src="@android:drawable/btn_star"
-                                        android:text="@string/Zero" />
+                                        android:text="@string/Zero"
+                                        android:textSize="26sp" />
                                     
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -243,6 +274,14 @@
                                 android:layout_weight=".15"
                                 android:gravity="bottom"
                                 android:orientation="horizontal" >
+
+                                <Button
+                                    android:id="@+id/buttonActionDialPad"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:background="@drawable/btn_default_normal_red"
+                                    android:text=">>>"
+                                    android:textSize="32sp" />
 
                             </LinearLayout>
 

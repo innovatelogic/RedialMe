@@ -18,6 +18,7 @@ public class ActionPopupWindow
 	
 	public String mName;
 	public String mNumber;
+	public Button mBtnAction;
 	
 	private PopupWindow mPopupWindow = null;
 	
@@ -39,7 +40,7 @@ public class ActionPopupWindow
 	    	
 	    	mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	    
-	    	Button btnCancel = (Button)popupView.findViewById(R.id.process);
+	    	Button btnCancel = (Button)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
 	    	
@@ -51,22 +52,14 @@ public class ActionPopupWindow
 	    		@Override
 		    	public void onClick(View v)
 		    	{
-		    		Toggle(false);
+	    			Process();
 		    	}
 	    	});
-	    	
-	    	//View view = getCurrentFocus();
-	    	//FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
-	    	
+	     	
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
-	    	
-	    	//View root = getWindow().getDecorView().getRootView();
-	    	//ViewGroup vgroup = (ViewGroup)root.getParent();
-	    	    	
-	    	//mPopupWindow.showAtLocation(root, Gravity.TOP | Gravity.RIGHT, 0, 0);
-	    	
-	    	mPopupWindow.showAtLocation(root/*mActivity.findViewById(android.R.id.main)*/, Gravity.CENTER, 0, 0); 
+	     	
+	    	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0); 
 	    	
 		}
 		else if (!bFlag && mPopupWindow != null)
@@ -74,5 +67,16 @@ public class ActionPopupWindow
 			mPopupWindow.dismiss();
 			mPopupWindow = null;
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void Process()
+	{
+		String operator = mActivity.GetCurrentOperator();
+		ProviderEntry provider = mActivity.GetCurrentTerritory().GetProvider(operator);
+		
+		mActivity.GetActionBar().ProcessAction(provider, mNumber);
+		
+		Toggle(false);
 	}
 }

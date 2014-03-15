@@ -2,9 +2,9 @@ package com.innovatelogic.redialme;
 
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +32,8 @@ public class DialPad
 	
 	private MainActivity mActivity;
 	private Button[] 	mDialButtons = new Button[esize];
-	private EditText 	mEditNumber;
+	private Button 		mBtnAction;
+	private TextView 	mEditNumber;
 	private ListView    mListRecentCallsLite;
 	private Button		mBtnBackspace;
 	private RecentCallsListPresenter mListPresenter;
@@ -55,8 +56,10 @@ public class DialPad
     public void findAllViewsById(Activity activity)
     {
     	mListRecentCallsLite = (ListView) activity.findViewById(R.id.listRecentCallsLite);
-    	mEditNumber = (EditText)activity.findViewById(R.id.editNumber);
+    	mEditNumber = (TextView)activity.findViewById(R.id.editNumber);
     	mBtnBackspace = (Button)activity.findViewById(R.id.BtnBackspace);
+    	
+    	mBtnAction = (Button)activity.findViewById(R.id.buttonActionDialPad);
     	
     	mDialButtons[0] = (Button)activity.findViewById(R.id.Btn_ONE);
     	mDialButtons[1] = (Button)activity.findViewById(R.id.Btn_TWO);
@@ -144,5 +147,24 @@ public class DialPad
 	    		}
 	    	});
 		}
+    	
+    	mBtnAction.setOnClickListener(new OnClickListener()
+    	{
+    		@Override
+    		public void onClick(View v)
+    		{
+    			String number = mEditNumber.getText().toString();
+    			
+    			if (number.length() > 0)
+    			{
+    				UserContactInfo info = mActivity.getContactsStore().GetInfoByNum(number);
+				
+    				mActivity.GetPopupWindow().mName = (info != null) ? info.Name : "Unknown number";
+    				mActivity.GetPopupWindow().mNumber = number;
+				
+    				mActivity.GetPopupWindow().Toggle(true);
+    			}
+    		}
+    	});
     }
 }

@@ -52,7 +52,7 @@ public class ActionBar
 		
 		mActivity = activity;
 		mLayout = (LinearLayout)activity.findViewById(layoutID);
-		mLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		//mLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -60,10 +60,7 @@ public class ActionBar
 	{
 		Button btn = new Button(mActivity);
 		
-		//btn.setHeight(5);
-        //btn.setWidth(5);
-        
-		mLayout.addView(btn, mLayoutParams);
+		//mLayout.addView(btn, mLayoutParams);
 		return btn;
 	}
 	
@@ -142,5 +139,28 @@ public class ActionBar
 			}
 		}
     	return new MaskParser(TERR, PROVIDER, ABONENT, bFound);
+    }
+    
+    //----------------------------------------------------------------------------------------------
+    public void ProcessAction(ProviderEntry provider, String number)
+    {
+    	List<IUserOperation> operations = provider.GetOperationList();
+		
+		for (IUserOperation op : operations)
+		{
+			if (op instanceof UserOperationSMS || op instanceof UserOperationCall)
+			{
+				MaskParser info = ParseNumber(number);
+				
+				String mask = op.GetMask();
+				
+				mask = mask.replace("%TERR%", info.mTERR);
+				mask = mask.replace("%PRV%", info.mPROVIDER);
+				mask = mask.replace("%NUM%", info.mABONENT);
+				
+				op.Process(mask);
+				break;
+			}
+		}
     }
 }

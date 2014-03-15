@@ -80,11 +80,12 @@
               android:weightSum="1" >
 
               <Button
-                  android:id="@+id/process"
+                  android:id="@+id/processActionPopUp"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:layout_weight="1"
-                  android:text="Cancel" />
+                  android:background="@drawable/btn_default_normal_red"
+                  android:text="Send" />
 
           </TableRow>
 

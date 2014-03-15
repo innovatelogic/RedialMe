@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -57,7 +58,13 @@ public class MainActivity extends Activity
     
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
+    public ActionPopupWindow GetPopupWindow() { return mActionPopupWindow; }
+    
     public TabHost GetTabView() { return mTabView; }
+    
+    public String GetCurrentOperator() { return mOperatorName; }
+    
+    public ActionBar GetActionBar() { return mActionBar; }
     
     //----------------------------------------------------------------------------------------------
     public String GetCurrentNumber()
@@ -125,7 +132,17 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{
-    			mActionPopupWindow.Toggle(true);
+    			List<CallInfo> store = mRecentCallsStore.GetRecentInfoList();
+    			
+    			if (position >= 0 && position < store.size())
+    			{
+    				UserContactInfo info = mContactsStore.GetInfoByNum(store.get(position).mNumber);
+    				
+    				mActionPopupWindow.mName = (info != null) ? info.Name : "Unknown number";
+    				mActionPopupWindow.mNumber = store.get(position).mNumber;
+    				
+    				mActionPopupWindow.Toggle(true);
+    			}
     		}
     	});
     	
@@ -134,7 +151,6 @@ public class MainActivity extends Activity
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{ 
-
     			ArrayList<UserContactInfo> contacts = mContactsStore.GetContactsStore();
     			
     			if (position >= 0 && position < contacts.size())
