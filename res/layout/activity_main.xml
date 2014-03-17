@@ -55,7 +55,6 @@
                             </ListView>
 
                             <TableLayout
-                                xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:id="@+id/numpad"
                                 android:layout_width="fill_parent"
                                 android:layout_height="0dp"
@@ -103,7 +102,6 @@
                             </TableLayout>
 
                             <TableLayout
-                                xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:id="@+id/dialpad"
                                 android:layout_width="match_parent"
                                 android:layout_height="0px"
@@ -123,7 +121,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight="0.33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/One"
                                         android:textSize="26sp" />
@@ -133,7 +131,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Two"
                                         android:textSize="26sp" />
@@ -144,7 +142,7 @@
                                         android:layout_height="fill_parent"
                                         android:layout_gravity="fill_horizontal"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Three"
                                         android:textSize="26sp" />
@@ -162,7 +160,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Fore"
                                         android:textSize="26sp" />
@@ -172,7 +170,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Five"
                                         android:textSize="26sp" />
@@ -182,7 +180,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Six"
                                         android:textSize="26sp" />
@@ -200,7 +198,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Seven"
                                         android:textSize="26sp" />
@@ -210,7 +208,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Eight"
                                         android:textSize="26sp" />
@@ -220,7 +218,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Nine"
                                         android:textSize="26sp" />
@@ -249,7 +247,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btn_default_normal_lblue"
+                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Zero"
                                         android:textSize="26sp" />
@@ -279,7 +277,7 @@
                                     android:id="@+id/buttonActionDialPad"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
-                                    android:background="@drawable/btn_default_normal_red"
+                                    android:background="@drawable/btndefaultnormalred"
                                     android:text=">>>"
                                     android:textSize="32sp" />
 

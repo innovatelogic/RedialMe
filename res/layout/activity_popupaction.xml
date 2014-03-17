@@ -6,7 +6,6 @@
     android:background="@android:color/darker_gray">
     		     		  
 	 <TableLayout
-	     xmlns:android="http://schemas.android.com/apk/res/android"
 	     android:layout_width="fill_parent"
 	     android:layout_height="fill_parent"
 	     android:layout_margin="5dp"
@@ -20,41 +19,48 @@
               android:layout_weight="0.35"
               android:gravity="fill_horizontal"
               android:orientation="horizontal" >
-
+<!--
+				<com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="111"
+                         ads:adSize="BANNER"
+                         ads:testDevices="222"
+                         ads:loadAdOnCreate="true"/>-->
           </TableRow>
 
           <TableRow
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:layout_weight=".5"
-              android:gravity="fill_horizontal" >
+              android:gravity="fill_horizontal"
+              android:weightSum="1" >
 
               <ImageView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:layout_gravity="left"
+                  android:layout_weight="0.1"
                   android:src="@drawable/ic_launcher" />
 
               <LinearLayout
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_margin="5dp"
-                  android:layout_weight="1"
+                  android:layout_weight=".5"
                   android:orientation="vertical" >
 
                   <TextView
                       android:id="@+id/popupname"
-                      android:layout_width="wrap_content"
+                      android:layout_width="163dp"
                       android:layout_height="wrap_content"
-                      android:layout_weight="1"
                       android:text="Name"
                       android:textSize="22sp" />
 
                   <LinearLayout
-                      xmlns:android="http://schemas.android.com/apk/res/android"
                       android:layout_width="fill_parent"
                       android:layout_height="match_parent"
                       android:layout_margin="10dp"
-                      android:layout_weight="1"
                       android:orientation="horizontal" >
 
                       <TextView
@@ -65,7 +71,6 @@
                           android:layout_weight="1"
                           android:text="duration"
                           android:textSize="20sp" />
-
                   </LinearLayout>
               </LinearLayout>
         
@@ -84,9 +89,8 @@
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:layout_weight="1"
-                  android:background="@drawable/btn_default_normal_red"
+                  android:background="@drawable/btndefaultnormalred"
                   android:text="Send" />
-
           </TableRow>
 
       </TableLayout>  

@@ -9,9 +9,31 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import com.innovatelogic.redialme.MainActivity;
 
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
+/*private class MyAdListener implements AdListener {
+
+    @Override
+    public void onFailedToReceiveAd(Ad ad, ErrorCode errorCode) {
+       // mAdStatus.setText(R.string.error_receive_ad);
+    }
+
+    @Override
+    public void onReceiveAd(Ad ad) {
+        //mAdStatus.setText("");
+    }
+}*/
+
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class ActionPopupWindow 
 {
 	private MainActivity mActivity;
@@ -39,11 +61,21 @@ public class ActionPopupWindow
 	    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
 	    	
 	    	mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	    
+	    	    	
 	    	Button btnCancel = (Button)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
+	    
+ 	 /*	   	
+	    	AdView mAdView = (AdView) popupView.findViewById(R.id.adView);
 	    	
+      		mAdView.setAdListener(new MyAdListener());
+
+       	 	AdRequest adRequest = new AdRequest();
+       	    adRequest.addKeyword("sporting goods");
+       	    mAdView.loadAd(adRequest);*/
+
+       	    
 	    	txtName.setText(mName);
 	    	txtNumber.setText(mNumber);
 	    	

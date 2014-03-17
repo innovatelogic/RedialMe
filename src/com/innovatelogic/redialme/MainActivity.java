@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -18,10 +16,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+
+import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -117,6 +116,7 @@ public class MainActivity extends Activity
         	mActionBar.ApplyActionBar(provider);
 
         	mActionPopupWindow = new ActionPopupWindow(this);
+        	
     	}
     	catch (IOException ex)
     	{
