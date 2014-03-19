@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -201,4 +202,16 @@ public class MainActivity extends Activity
     	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
     	mListContacts = (ListView) findViewById(R.id.listContacts);
      }
+    
+	//----------------------------------------------------------------------------------------------
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (mActionPopupWindow.IsVisible() && keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			mActionPopupWindow.Toggle(false);
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

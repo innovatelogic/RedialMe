@@ -2,6 +2,7 @@ package com.innovatelogic.redialme;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -49,6 +50,9 @@ public class ActionPopupWindow
 	{
 		mActivity = activity;
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	public boolean IsVisible() { return mPopupWindow != null; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void Toggle(boolean bFlag)
