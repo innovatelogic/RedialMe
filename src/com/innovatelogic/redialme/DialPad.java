@@ -1,5 +1,9 @@
 package com.innovatelogic.redialme;
 
+import java.util.List;
+
+import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
+
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -79,8 +83,27 @@ public class DialPad
     	{
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-    		{ 
-    			mActivity.GetTabView().setCurrentTab(1);
+    		{
+    			String str = parent.getItemAtPosition(position).toString();
+    			String idx = RecentCallsListPresenter.GetValueByKey(str, "idx");
+    			
+    			if (idx != null)
+    			{
+    				int index = Integer.parseInt(idx);
+    				List<CallInfo> calls = mActivity.GetRecentCallsStore().GetRecentInfoList();
+    				
+    				if (index >= 0 && index < calls.size())
+    				{
+    					CallInfo info = calls.get(index);
+    					
+    					UserContactInfo contactinfo = mActivity.getContactsStore().GetInfoByNum(info.mNumber);
+    					
+    					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.Name : "Unknown number";
+        				mActivity.GetPopupWindow().mNumber = info.mNumber;
+        				
+        				mActivity.GetPopupWindow().Toggle(true);
+    				}
+    			}
     		}
     	});
     	
@@ -93,6 +116,7 @@ public class DialPad
     			if (str.length() > 0)
     			{
     				mEditNumber.setText(str.substring(0, str.length() - 1));
+    				UpdateRecentList(mEditNumber.getText().toString());
     			}
     		}
     	});
@@ -144,6 +168,7 @@ public class DialPad
 	    			{
 	    				mEditNumber.setText(mEditNumber.getText().toString() + '0');
 	    			}
+	    			UpdateRecentList(mEditNumber.getText().toString());
 	    		}
 	    	});
 		}
@@ -167,4 +192,10 @@ public class DialPad
     		}
     	});
     }
+    
+  //----------------------------------------------------------------------------------------------
+  public void UpdateRecentList(String selectionQuery)
+  {
+	  mListPresenter.FillList(mActivity.GetRecentCallsStore(), selectionQuery);
+  }
 }

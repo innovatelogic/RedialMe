@@ -22,7 +22,6 @@ public class TerritoryEntry
 	public TerritoryEntry(String code)
 	{
 		Code = code;
-		
 		MapProviders = new HashMap<String, ProviderEntry>();
 	}
 	//----------------------------------------------------------------------------------------------

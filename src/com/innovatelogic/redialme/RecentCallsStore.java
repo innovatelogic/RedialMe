@@ -42,7 +42,6 @@ public class RecentCallsStore
 	public RecentCallsStore(MainActivity activity)
 	{
 		mActivity = activity;
-
 		mListRecentCalls = new ArrayList<CallInfo>();
 	}
 	
