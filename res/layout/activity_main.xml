@@ -37,7 +37,8 @@
                         android:id="@+id/tab1"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:gravity="center|left" >
+                        android:gravity="center|left"
+                        android:visibility="visible" >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -290,12 +291,14 @@
                     <LinearLayout
                         android:id="@+id/tab2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent"
+                        android:visibility="visible" >
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical" >
+                            android:orientation="vertical"
+                            android:visibility="visible" >
 
                             <ListView
                                 android:id="@+id/listRecentCalls"
@@ -310,13 +313,66 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" >
 
-                        <ListView
-                            android:id="@+id/listContacts"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:id="@+id/SearchLayout"
+                            android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1" >
-                        </ListView>
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:weightSum="1" >
+
+                            <TableLayout
+                                android:id="@+id/searchcontact"
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.1"
+                                android:gravity="bottom"
+                                android:paddingBottom="0dp" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="fill_horizontal"
+                                    android:weightSum="1" >
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="fill_parent"
+                                        android:layout_weight=".85"
+                                        android:gravity="center" >
+
+                                        <EditText
+                                            android:id="@+id/editName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_gravity="top"
+                                            android:ems="10"
+                                            android:inputType="textPersonName" >
+
+                                            <requestFocus />
+                                        </EditText>
+                                    </LinearLayout>
+
+                                    <Button
+                                        android:id="@+id/BtnBackspaceName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="0.15"
+                                        android:minWidth="54dip"
+                                        android:src="@android:drawable/btn_star"
+                                        android:text="@string/Backspace" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <ListView
+                                android:id="@+id/listContacts"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight=".85" >
+                            </ListView>
+                        </LinearLayout>
                     </LinearLayout>
+
                 </FrameLayout>
             </LinearLayout>
 

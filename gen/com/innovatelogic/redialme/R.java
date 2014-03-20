@@ -215,6 +215,7 @@ containing a value of this type.
     public static final class id {
         public static final int ActionLayout=0x7f050018;
         public static final int BtnBackspace=0x7f05000c;
+        public static final int BtnBackspaceName=0x7f050020;
         public static final int Btn_EIGHT=0x7f050015;
         public static final int Btn_FIVE=0x7f050012;
         public static final int Btn_FORE=0x7f050011;
@@ -225,31 +226,34 @@ containing a value of this type.
         public static final int Btn_THREE=0x7f050010;
         public static final int Btn_TWO=0x7f05000f;
         public static final int Btn_ZERO=0x7f050017;
+        public static final int SearchLayout=0x7f05001d;
         public static final int buttonActionDialPad=0x7f050019;
-        public static final int calltime=0x7f050024;
+        public static final int calltime=0x7f050028;
         public static final int dialpad=0x7f05000d;
-        public static final int duration=0x7f050023;
+        public static final int duration=0x7f050027;
+        public static final int editName=0x7f05001f;
         public static final int editNumber=0x7f05000b;
         public static final int hybrid=0x7f050004;
-        public static final int img=0x7f050021;
+        public static final int img=0x7f050025;
         public static final int imguser=0x7f050005;
-        public static final int listContacts=0x7f05001d;
+        public static final int listContacts=0x7f050021;
         public static final int listRecentCalls=0x7f05001b;
         public static final int listRecentCallsLite=0x7f050009;
-        public static final int menu_settings=0x7f050025;
+        public static final int menu_settings=0x7f050029;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int numpad=0x7f05000a;
-        public static final int popupname=0x7f05001e;
-        public static final int popupnumber=0x7f05001f;
-        public static final int processActionPopUp=0x7f050020;
+        public static final int popupname=0x7f050022;
+        public static final int popupnumber=0x7f050023;
+        public static final int processActionPopUp=0x7f050024;
         public static final int rootLayout=0x7f050007;
         public static final int satellite=0x7f050002;
+        public static final int searchcontact=0x7f05001e;
         public static final int tab1=0x7f050008;
         public static final int tab2=0x7f05001a;
         public static final int tab3=0x7f05001c;
         public static final int terrain=0x7f050003;
-        public static final int title=0x7f050022;
+        public static final int title=0x7f050026;
         public static final int username=0x7f050006;
     }
     public static final class integer {
