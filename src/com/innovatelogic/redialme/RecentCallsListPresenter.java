@@ -75,39 +75,4 @@ public class RecentCallsListPresenter
 	{
 		mList.setAdapter(null);
 	}
-	
-	//----------------------------------------------------------------------------------------------
-	static public Map<String, String> ParseData(String str)
-	{
-		Map<String, String> out = new HashMap<String, String>();
-		
-		str = str.replace("{", "");
-		str = str.replace("}", "");
-		
-		String delims = "[ ,]+";
-		String [] tokens = str.split(delims);
-		
-		for (String token : tokens)
-		{
-			String delim = "[=]";
-			String [] subtokens = token.split(delim);
-			
-			if (subtokens.length == 2)
-			{
-				out.put(subtokens[0], subtokens[1]);
-			}
-			else
-			{
-				//TODO: log error
-			}
-		}
-		return out;
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	static String GetValueByKey(String str, String key)
-	{
-		Map<String, String> out = ParseData(str);
-		return out.get(key);
-	}
 }

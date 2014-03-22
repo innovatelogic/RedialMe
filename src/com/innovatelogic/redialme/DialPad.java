@@ -85,7 +85,7 @@ public class DialPad
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     		{
     			String str = parent.getItemAtPosition(position).toString();
-    			String idx = RecentCallsListPresenter.GetValueByKey(str, "idx");
+    			String idx = MainActivity.GetValueByKey(str, "idx");
     			
     			if (idx != null)
     			{

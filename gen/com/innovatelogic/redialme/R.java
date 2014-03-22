@@ -231,8 +231,8 @@ containing a value of this type.
         public static final int calltime=0x7f050028;
         public static final int dialpad=0x7f05000d;
         public static final int duration=0x7f050027;
-        public static final int editName=0x7f05001f;
         public static final int editNumber=0x7f05000b;
+        public static final int editUserName=0x7f05001f;
         public static final int hybrid=0x7f050004;
         public static final int img=0x7f050025;
         public static final int imguser=0x7f050005;

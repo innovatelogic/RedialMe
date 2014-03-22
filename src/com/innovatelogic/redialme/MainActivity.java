@@ -3,7 +3,9 @@ package com.innovatelogic.redialme;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -15,11 +17,14 @@ import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 
 import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
@@ -33,8 +38,12 @@ public class MainActivity extends Activity
 	private TabHost			mTabView;
 	private ListView		mListRecentCalls;
 	private ListView		mListContacts;
+	private TextView		mUserNameEdit;
+	private Button			mUserNameBackspace;
+	
 	private RecentCallsListPresenter mListPresenter;
-
+	private ContactsListPresenter mListPresenterContacts;
+	
 	// stores
 	private ProviderStore 	mProviderStore;
 	private ContactsStore	mContactsStore;
@@ -49,7 +58,6 @@ public class MainActivity extends Activity
     private RecentCallsStore mRecentCallsStore = null;
     private ActionPopupWindow mActionPopupWindow = null;
 
-    //----------------------------------------------------------------------------------------------
     public static Context getAppContext() { return mContext; }
     
     public ContactsStore getContactsStore() { return mContactsStore; }
@@ -66,12 +74,37 @@ public class MainActivity extends Activity
     
     public ActionBar GetActionBar() { return mActionBar; }
     
-    //----------------------------------------------------------------------------------------------
-    public String GetCurrentNumber()
-    {
-    	return mDialPad.GetNumber();
-    }
+    public String GetCurrentNumber() {	return mDialPad.GetNumber(); }
 
+	//----------------------------------------------------------------------------------------------
+    private void findAllViewsById()
+    {
+    	mTabView = (TabHost) findViewById(android.R.id.tabhost);
+    	mTabView.setup();
+    	
+    	TabSpec spec1 = mTabView.newTabSpec("DialPad");
+    	spec1.setIndicator("Number");
+    	spec1.setContent(R.id.tab1);
+
+    	TabSpec spec2 = mTabView.newTabSpec("Recent");
+    	spec2.setIndicator(getString(R.string.Recent));
+    	spec2.setContent(R.id.tab2);
+              
+    	TabSpec spec3 = mTabView.newTabSpec("Contacts");
+    	spec3.setIndicator(getString(R.string.Contacts));
+    	spec3.setContent(R.id.tab3);
+         
+    	mTabView.addTab(spec1);
+    	mTabView.addTab(spec2);
+    	mTabView.addTab(spec3);
+    	
+    	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
+    	mListContacts = (ListView) findViewById(R.id.listContacts);
+    	
+    	mUserNameEdit = (TextView) findViewById(R.id.editUserName);
+    	mUserNameBackspace = (Button) findViewById(R.id.BtnBackspaceName);
+     }
+    
     //----------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -98,7 +131,6 @@ public class MainActivity extends Activity
     		    		
     		mContactsStore = new ContactsStore();
     		mContactsStore.LoadContacts(getAppContext());
-    		mContactsStore.FillListContacts(getAppContext(), mListContacts);
     		
     		mRecentCallsStore = new RecentCallsStore(this);
     		mRecentCallsStore.Initialize();
@@ -107,6 +139,9 @@ public class MainActivity extends Activity
         	
         	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
         	mListPresenter.FillList(GetRecentCallsStore());
+        	
+        	mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
+        	mListPresenterContacts.FillList(mContactsStore);		
         	
         	mDialPad = new DialPad(this);
         	mDialPad.findAllViewsById(MainActivity.this);
@@ -117,7 +152,6 @@ public class MainActivity extends Activity
         	mActionBar.ApplyActionBar(provider);
 
         	mActionPopupWindow = new ActionPopupWindow(this);
-        	
     	}
     	catch (IOException ex)
     	{
@@ -144,28 +178,32 @@ public class MainActivity extends Activity
     				
     				mActionPopupWindow.Toggle(true);
     			}
-    		}
-    	});
-    	
-    	mListContacts.setOnItemClickListener(new OnItemClickListener() 
-    	{
-    		@Override
-    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-    		{ 
-    			ArrayList<UserContactInfo> contacts = mContactsStore.GetContactsStore();
-    			
-    			if (position >= 0 && position < contacts.size())
-    			{
-    				mActionPopupWindow.mName = contacts.get(position).Name;
-    				mActionPopupWindow.mNumber = contacts.get(position).ContactNumber;
-    				mActionPopupWindow.Toggle(true);
-    			}
     			else
     			{
     				// log error
     			}
     		}
     	});
+    	
+    	mUserNameBackspace.setOnClickListener(new OnClickListener()
+    	{
+    		@Override
+    		public void onClick(View v)
+    		{
+    			if (mUserNameBackspace.getText().toString().length() > 0)
+    				mUserNameEdit.setText("");
+    		}
+    	});
+    	
+    	android.text.TextWatcher inputTextWatcher = new android.text.TextWatcher() {
+            public void afterTextChanged(android.text.Editable s) {
+            	mListPresenterContacts.FillList(mContactsStore, mUserNameEdit.getText().toString());
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+            public void onTextChanged(CharSequence s, int start, int before, int count){}
+        };
+        
+        mUserNameEdit.addTextChangedListener(inputTextWatcher);
      }
 
 	//----------------------------------------------------------------------------------------------
@@ -176,33 +214,7 @@ public class MainActivity extends Activity
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-    
-	//----------------------------------------------------------------------------------------------
-    private void findAllViewsById()
-    {
-    	mTabView = (TabHost) findViewById(android.R.id.tabhost);
-    	mTabView.setup();
-    	
-    	TabSpec spec1 = mTabView.newTabSpec("DialPad");
-    	spec1.setIndicator("Number");
-    	spec1.setContent(R.id.tab1);
 
-    	TabSpec spec2 = mTabView.newTabSpec("Recent");
-    	spec2.setIndicator(getString(R.string.Recent));
-    	spec2.setContent(R.id.tab2);
-              
-    	TabSpec spec3 = mTabView.newTabSpec("Contacts");
-    	spec3.setIndicator(getString(R.string.Contacts));
-    	spec3.setContent(R.id.tab3);
-         
-    	mTabView.addTab(spec1);
-    	mTabView.addTab(spec2);
-    	mTabView.addTab(spec3);
-    	
-    	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
-    	mListContacts = (ListView) findViewById(R.id.listContacts);
-     }
-    
 	//----------------------------------------------------------------------------------------------
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
@@ -213,5 +225,41 @@ public class MainActivity extends Activity
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	// parse specific list on click data
+	static public Map<String, String> ParseData(String str)
+	{
+		Map<String, String> out = new HashMap<String, String>();
+		
+		str = str.replace("{", "");
+		str = str.replace("}", "");
+		
+		String delims = "[ ,]+";
+		String [] tokens = str.split(delims);
+		
+		for (String token : tokens)
+		{
+			String delim = "[=]";
+			String [] subtokens = token.split(delim);
+			
+			if (subtokens.length == 2)
+			{
+				out.put(subtokens[0], subtokens[1]);
+			}
+			else
+			{
+				//TODO: log error
+			}
+		}
+		return out;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	static String GetValueByKey(String str, String key)
+	{
+		Map<String, String> out = ParseData(str);
+		return out.get(key);
 	}
 }
