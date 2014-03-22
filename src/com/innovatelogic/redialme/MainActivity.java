@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -110,6 +111,8 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+        
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         
         MainActivity.mContext = getApplicationContext();
                 

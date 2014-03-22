@@ -416,6 +416,11 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        /**  Any customizations for your app running on 4.0+ devices here 
+ Any customizations for your app running on pre-3.0 devices here 
+ Any customizations for your app running on 3.0+ devices here 
+         */
+        public static final int MyAppTheme=0x7f080002;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.
