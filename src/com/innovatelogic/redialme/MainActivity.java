@@ -38,7 +38,6 @@ public class MainActivity extends Activity
 	
 	private TabHost			mTabView;
 	private ListView		mListRecentCalls;
-	private ListView		mListContacts;
 	private TextView		mUserNameEdit;
 	private Button			mUserNameBackspace;
 	
@@ -58,7 +57,9 @@ public class MainActivity extends Activity
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
     private ActionPopupWindow mActionPopupWindow = null;
-
+    
+    private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
+    
     public static Context getAppContext() { return mContext; }
     
     public ContactsStore getContactsStore() { return mContactsStore; }
@@ -100,8 +101,6 @@ public class MainActivity extends Activity
     	mTabView.addTab(spec3);
     	
     	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
-    	mListContacts = (ListView) findViewById(R.id.listContacts);
-    	
     	mUserNameEdit = (TextView) findViewById(R.id.editUserName);
     	mUserNameBackspace = (Button) findViewById(R.id.BtnBackspaceName);
      }
@@ -155,6 +154,16 @@ public class MainActivity extends Activity
         	mActionBar.ApplyActionBar(provider);
 
         	mActionPopupWindow = new ActionPopupWindow(this);
+        	
+        	 // Create an ad.
+       /*      adView = new AdView(this);
+            adView.setAdSize(AdSize.BANNER);
+            adView.setAdUnitId(AD_UNIT_ID);
+            
+           AdRequest adRequest = new AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+            .build();*/
     	}
     	catch (IOException ex)
     	{

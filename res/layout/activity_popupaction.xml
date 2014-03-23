@@ -14,19 +14,29 @@
 
           <TableRow
               android:layout_width="fill_parent"
-              android:layout_height="0dp"
+              android:layout_height="wrap_content"
               android:layout_gravity="top"
-              android:layout_weight="0.35"
+              android:layout_weight=".35"
               android:gravity="fill_horizontal"
               android:orientation="horizontal" >
-<!--
-				<com.google.ads.AdView android:id="@+id/adView"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         ads:adUnitId="111"
-                         ads:adSize="BANNER"
-                         ads:testDevices="222"
-                         ads:loadAdOnCreate="true"/>-->
+
+              <LinearLayout
+                  android:id="@+id/LayoutAdv"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical" >
+                 
+             <!--  <com.google.ads.AdView
+                      android:id="@+id/advert"
+                      android:layout_width="fill_parent"
+                      android:layout_height="match_parent"
+                      ads:adSize="BANNER"
+                      ads:adUnitId="ca-app-pub-7743614673711056/4483553123"
+                      ads:loadAdOnCreate="true"
+                      ads:testDevices="TEST_EMULATOR,TEST_DEVICE_ID_GOES_HERE" /> -->
+
+              </LinearLayout>
           </TableRow>
 
           <TableRow

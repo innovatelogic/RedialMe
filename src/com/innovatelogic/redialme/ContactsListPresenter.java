@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;

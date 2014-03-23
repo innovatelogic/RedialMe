@@ -3,8 +3,8 @@ package com.innovatelogic.redialme;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import android.os.Handler;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -14,6 +14,7 @@ public class RecentCallsListPresenter
 {
 	private ListView mList;
 	private MainActivity mActivity;
+	
 	
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsListPresenter(MainActivity activity, int resourceId)
