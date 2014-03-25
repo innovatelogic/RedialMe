@@ -20,6 +20,7 @@ public class AdapterContacts extends ArrayAdapter<UserContactInfo>
 	int layoutResourceId;
 	ArrayList<UserContactInfo> data = null;
 	
+	//----------------------------------------------------------------------------------------------	
 	public AdapterContacts(Context context, int layoutViewResourceId, ArrayList<UserContactInfo> data)
 	{
 		super(context, layoutViewResourceId, data);

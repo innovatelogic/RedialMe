@@ -64,6 +64,7 @@ public class DialPad
     	mBtnBackspace = (Button)activity.findViewById(R.id.BtnBackspace);
     	
     	mBtnAction = (Button)activity.findViewById(R.id.buttonActionDialPad);
+    	mBtnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
     	
     	mDialButtons[0] = (Button)activity.findViewById(R.id.Btn_ONE);
     	mDialButtons[1] = (Button)activity.findViewById(R.id.Btn_TWO);
@@ -100,7 +101,6 @@ public class DialPad
     					
     					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.Name : "Unknown number";
         				mActivity.GetPopupWindow().mNumber = info.mNumber;
-        				
         				mActivity.GetPopupWindow().Toggle(true);
     				}
     			}
@@ -186,7 +186,6 @@ public class DialPad
 				
     				mActivity.GetPopupWindow().mName = (info != null) ? info.Name : "Unknown number";
     				mActivity.GetPopupWindow().mNumber = number;
-				
     				mActivity.GetPopupWindow().Toggle(true);
     			}
     		}

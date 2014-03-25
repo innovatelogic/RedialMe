@@ -1,6 +1,7 @@
 package com.innovatelogic.redialme;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,34 +35,43 @@ public class ContactsStore
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 		  
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+		
 		Cursor cursor = context.getContentResolver().query(uri,	new String[] 
 				{ ContactsContract.CommonDataKinds.Phone.NUMBER,
 				  ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+				  ContactsContract.CommonDataKinds.Photo.PHOTO_ID,
 				  ContactsContract.CommonDataKinds.Phone._ID},
 				  null, null, sortOrder);
 		
-		cursor.moveToFirst();
-		
-		while (!cursor.isAfterLast())
+		try
 		{
-			String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-			int phoneContactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
+			cursor.moveToFirst();
 			
-			String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, "+380");
-			
-			UserContactInfo userInfo = new UserContactInfo();
-			userInfo.ContactNumber = NumberNorm;
-			userInfo.Name = contactName;
-			userInfo.Id = phoneContactID;
-			
-			mContacts.add(userInfo);
-			
-			cursor.moveToNext();
-		}
+			while (!cursor.isAfterLast())
+			{
+				String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+				String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+				int phoneContactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
+				int thumbnailId = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Photo.PHOTO_ID));
 				
-		cursor.close();
-		cursor = null;
+				String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, "+380");
+				
+				UserContactInfo userInfo = new UserContactInfo();
+				userInfo.Id = phoneContactID;			
+				userInfo.ContactNumber = NumberNorm;
+				userInfo.Name = contactName;
+				userInfo.thumbnailID = thumbnailId;
+				
+				mContacts.add(userInfo);
+				
+				cursor.moveToNext();
+			}
+		}
+		finally
+		{	
+			cursor.close();
+			cursor = null;
+		}
 		
 		Log.d("End", "load contact list");
 	}

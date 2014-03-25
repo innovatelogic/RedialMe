@@ -1,5 +1,7 @@
 package com.innovatelogic.redialme;
 
+import android.net.Uri;
+
 //----------------------------------------------------------------------------------------------
 public interface IUserContactInfo
 {
@@ -12,8 +14,9 @@ class UserContactInfo implements IUserContactInfo
 {
 	public String GetName() { return Name; }
 	public String GetNumber() { return ContactNumber; }
-		
+	
+	public int 	  Id;
 	public String Name;
 	public String ContactNumber;
-	public int Id;
+	public int thumbnailID;
 }

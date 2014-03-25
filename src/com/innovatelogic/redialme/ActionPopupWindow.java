@@ -78,6 +78,9 @@ public class ActionPopupWindow
 	    	txtName.setText(mName);
 	    	txtNumber.setText(mNumber);
 	    	
+	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
+	    	btnAction.setText("CallMe");
+	    	
 	    	btnAction.setOnClickListener(new Button.OnClickListener()
 	    	{
 	    		@Override
@@ -88,7 +91,7 @@ public class ActionPopupWindow
 	    			
 	    			if (mActionType == EActionType.EProcessAction)
 		    		{
-	    				btnHandler.setBackgroundResource(R.layout.buttonstyle_action);
+	    				btnHandler.setBackgroundResource(R.layout.buttonstyle_action_cancel);
 		    			btnHandler.setText("Cancel");
 		    		
 		    			StartDelayAction();
