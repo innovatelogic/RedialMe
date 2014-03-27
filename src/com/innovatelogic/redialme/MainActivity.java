@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -207,7 +208,8 @@ public class MainActivity extends Activity
     		}
     	});
     	
-    	android.text.TextWatcher inputTextWatcher = new android.text.TextWatcher() {
+    	android.text.TextWatcher inputTextWatcher = new android.text.TextWatcher()
+    	{
             public void afterTextChanged(android.text.Editable s) {
             	mListPresenterContacts.FillList(mContactsStore, mUserNameEdit.getText().toString());
             }
@@ -216,6 +218,27 @@ public class MainActivity extends Activity
         };
         
         mUserNameEdit.addTextChangedListener(inputTextWatcher);
+        
+        mTabView.setOnTabChangedListener(new TabHost.OnTabChangeListener() 
+        {
+        	@Override
+        	public void onTabChanged(String tabId)
+        	{
+        		int i = mTabView.getCurrentTab();
+        		if("Number".equals(tabId)) 
+        		{
+        			OnTabPageChanged();
+        	    }
+        	    if("Recent".equals(tabId)) 
+        	    {
+        	    	OnTabPageChanged();
+        	    }
+        	    if("Contacts".equals(tabId)) 
+        	    {
+        	    	//OnTabPageChanged();
+        	    }
+        	}
+        });
      }
 
 	//----------------------------------------------------------------------------------------------
@@ -237,6 +260,14 @@ public class MainActivity extends Activity
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void OnTabPageChanged()
+	{
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(mUserNameEdit.getWindowToken(), 0);
+		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 	
 	//----------------------------------------------------------------------------------------------
