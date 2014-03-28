@@ -59,6 +59,7 @@ public class ContactsListPresenter
 
             	List<UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStore();
             	
+            	boolean bDefault = true;
             	if (idxInContacts >= 0 && idxInContacts < contacts.size())
             	{
 					if (contacts.get(idxInContacts).thumbnailID > 0)
@@ -66,16 +67,15 @@ public class ContactsListPresenter
 						 Bitmap bitmap = fetchThumbnail(contacts.get(idxInContacts).thumbnailID, mActivity.getApplicationContext());
 						 
 						 if (bitmap != null){
-							 imageuser.setImageBitmap(bitmap);   
+							 imageuser.setImageBitmap(bitmap);
+							 bDefault = false;
 						 }
-						 else{
-							 imageuser.setImageResource(R.drawable.ic_launcher);
-						 }
-					 }
-					 else{
-						 imageuser.setImageResource(R.drawable.ic_launcher);
 					 }
             	}
+            	
+            	if (bDefault){
+					 imageuser.setImageResource(R.drawable.default_person);
+				 }
             }
             return v;
 	    }

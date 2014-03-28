@@ -2,7 +2,6 @@ package com.innovatelogic.redialme;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,13 +52,15 @@ public class MainActivity extends Activity
     private String mDefaultTerritory = "UA";
     private String mDataFilename = "Providers.xml";
     
+    private static int mCurrentTab = 0;
+    
 	private ActionBar mActionBar = null;
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
     private ActionPopupWindow mActionPopupWindow = null;
     
-    private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
+    //private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
     
     public static Context getAppContext() { return mContext; }
     
@@ -82,7 +83,7 @@ public class MainActivity extends Activity
 	//----------------------------------------------------------------------------------------------
     private void findAllViewsById()
     {
-    	mTabView = (TabHost) findViewById(android.R.id.tabhost);
+    	mTabView = (TabHost)findViewById(android.R.id.tabhost);
     	mTabView.setup();
     	
     	TabSpec spec1 = mTabView.newTabSpec("DialPad");
@@ -101,9 +102,9 @@ public class MainActivity extends Activity
     	mTabView.addTab(spec2);
     	mTabView.addTab(spec3);
     	
-    	mListRecentCalls = (ListView) findViewById(R.id.listRecentCalls);
-    	mUserNameEdit = (TextView) findViewById(R.id.editUserName);
-    	mUserNameBackspace = (Button) findViewById(R.id.BtnBackspaceName);
+    	mListRecentCalls = (ListView)findViewById(R.id.listRecentCalls);
+    	mUserNameEdit = (TextView)findViewById(R.id.editUserName);
+    	mUserNameBackspace = (Button)findViewById(R.id.BtnBackspaceName);
      }
     
     //----------------------------------------------------------------------------------------------
@@ -155,6 +156,8 @@ public class MainActivity extends Activity
         	mActionBar.ApplyActionBar(provider);
 
         	mActionPopupWindow = new ActionPopupWindow(this);
+        	
+        	mCurrentTab = mTabView.getCurrentTab();
         	
         	 // Create an ad.
        /*      adView = new AdView(this);
@@ -224,19 +227,16 @@ public class MainActivity extends Activity
         	@Override
         	public void onTabChanged(String tabId)
         	{
-        		int i = mTabView.getCurrentTab();
-        		if("Number".equals(tabId)) 
+        		int newTab = mTabView.getCurrentTab();
+        		
+        		if (mCurrentTab != newTab)
         		{
-        			OnTabPageChanged();
-        	    }
-        	    if("Recent".equals(tabId)) 
-        	    {
-        	    	OnTabPageChanged();
-        	    }
-        	    if("Contacts".equals(tabId)) 
-        	    {
-        	    	//OnTabPageChanged();
-        	    }
+            		if (mCurrentTab == 2) 
+            		{
+            			OnTabPageChanged();
+            	    }
+            		mCurrentTab = newTab;
+        		}
         	}
         });
      }
