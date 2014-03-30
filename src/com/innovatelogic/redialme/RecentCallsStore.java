@@ -22,7 +22,7 @@ public class RecentCallsStore
 	{
 		String 		mNumber;
 		ECallType 	mCallType;
-		String 		mCallDuration;
+		int 		mCallDuration;
 		Date 		mCallDayTime;
 		
 		public CallInfo()
@@ -48,8 +48,9 @@ public class RecentCallsStore
 	//----------------------------------------------------------------------------------------------
 	public void Initialize()
 	{
-		Cursor managedCursor = mActivity.getApplicationContext().getContentResolver().query(CallLog.Calls.CONTENT_URI,
-				null, null, null, CallLog.Calls.DATE + " DESC");
+		Cursor managedCursor = 
+				mActivity.getApplicationContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, 
+						null, null, null, CallLog.Calls.DATE + " DESC");
 
 		int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
 		int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
@@ -86,7 +87,7 @@ public class RecentCallsStore
 			info.mNumber = NormNumber;
 			info.mCallType = calltype;
 			info.mCallDayTime = new Date(Long.valueOf(callDate));
-			info.mCallDuration = managedCursor.getString(duration);
+			info.mCallDuration = managedCursor.getInt(duration);
 			
 			mListRecentCalls.add(info);
 			

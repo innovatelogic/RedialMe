@@ -80,15 +80,6 @@ public class ContactsStore
 					findInfo.ContactNumbers.add(NumberNorm);
 				}
 				
-				// old flow
-/*				UserContactInfo userInfo = new UserContactInfo();
-				userInfo.Id = phoneContactID;			
-				userInfo.ContactNumber = NumberNorm;
-				userInfo.Name = contactName;
-				userInfo.thumbnailID = thumbnailId;
-				
-				mContacts.add(userInfo);
-	*/			
 				cursor.moveToNext();
 			}
 		}
@@ -112,10 +103,13 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public UserContactInfo GetInfoByNum(String number)
 	{
-		for (UserContactInfo v : mContacts)
+		for (Map.Entry<Integer, UserContactInfo> entry : mMapContacts.entrySet())
 		{
-			if (number.equals(v.GetNumber()))
-				return v;
+			for (String v : entry.getValue().ContactNumbers)
+			{
+				if (number.equals(v))
+					return entry.getValue();
+			}
 		}
 		return null;
 	}

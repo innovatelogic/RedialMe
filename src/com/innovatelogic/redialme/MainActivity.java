@@ -308,4 +308,27 @@ public class MainActivity extends Activity
 		Map<String, String> out = ParseData(str);
 		return out.get(key);
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	static String FormatSec(int Sec)
+	{
+		int numHours = Sec / 3600;
+		int numMin = (Sec - numHours * 3600) / 60;
+		int numSec = Sec - (numHours * 3600) - (numMin * 60);
+		
+		String outString = "";
+		
+		if (numHours > 0){
+			outString += Integer.toString(numHours) + "h ";
+		}
+		
+		if (numMin > 0){
+			outString += Integer.toString(numMin) + "m ";
+		}
+		
+		if (numSec > 0){
+			outString += Integer.toString(numSec) + "s ";
+		}
+		return outString;
+	}
 }

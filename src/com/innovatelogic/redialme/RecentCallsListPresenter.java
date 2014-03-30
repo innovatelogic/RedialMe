@@ -52,7 +52,7 @@ public class RecentCallsListPresenter
 				}
 				
 				map.put("title", title);
-				map.put("duration", call.mCallDuration.toString());
+				map.put("duration", MainActivity.FormatSec(call.mCallDuration));
 				map.put("calltime", call.mCallDayTime.toString());
 				map.put("img", String.valueOf(R.drawable.ic_launcher));
 				map.put("idx", Integer.toString(index));
