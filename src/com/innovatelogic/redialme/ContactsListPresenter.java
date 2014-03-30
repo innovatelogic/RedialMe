@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.DropBoxManager.Entry;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,8 @@ public class ContactsListPresenter
 		
 	    public OrderAdapter(Context context, int textViewResourceId, ArrayList<ArrayList<String>> items) 
 	    {
-	            super(context, textViewResourceId, items);
-	            this.mListItem = items;
+	    	super(context, textViewResourceId, items);
+	    	this.mListItem = items;
 	    }
 
 	    @Override
@@ -52,30 +53,32 @@ public class ContactsListPresenter
             	ImageView imageuser = (ImageView) v.findViewById(R.id.imguser);
                 TextView username = (TextView) v.findViewById(R.id.username);
                 
-            	int idxInContacts = Integer.parseInt(info.get(0));
+            	int contactID = Integer.parseInt(info.get(0));
             	String name = (String)info.get(1);
             	
             	username.setText(name);
 
-            	List<UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStore();
-            	
+            	Map<Integer, UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStoreMap();
             	boolean bDefault = true;
-            	if (idxInContacts >= 0 && idxInContacts < contacts.size())
-            	{
-					if (contacts.get(idxInContacts).thumbnailID > 0)
+            	
+            	UserContactInfo findInfo = contacts.get(contactID);
+				if (findInfo != null)
+				{
+					int thumbnailID = findInfo.thumbnailID;
+					if (thumbnailID > 0)
 					{
-						 Bitmap bitmap = fetchThumbnail(contacts.get(idxInContacts).thumbnailID, mActivity.getApplicationContext());
-						 
-						 if (bitmap != null){
-							 imageuser.setImageBitmap(bitmap);
-							 bDefault = false;
-						 }
-					 }
-            	}
+						Bitmap bitmap = fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
+						if (bitmap != null)
+						{
+							imageuser.setImageBitmap(bitmap);
+							bDefault = false;
+						}
+					}
+				}
             	
             	if (bDefault){
-					 imageuser.setImageResource(R.drawable.default_person);
-				 }
+            		imageuser.setImageResource(R.drawable.default_person);
+				}
             }
             return v;
 	    }
@@ -119,16 +122,18 @@ public class ContactsListPresenter
     			
     			if (list.size() >= 2)
     			{
-    				int index = Integer.parseInt(list.get(0));
+    				int contactId = Integer.parseInt(list.get(0));
+    	
+    				Map<Integer, UserContactInfo> mapContacts = mActivity.getContactsStore().GetContactsStoreMap();
     				
-    				ArrayList<UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStore();
-        			
-        			if (index >= 0 && index < contacts.size())
-        			{
-        				mActivity.GetPopupWindow().mName = contacts.get(index).Name;
-        				mActivity.GetPopupWindow().mNumber = contacts.get(index).ContactNumber;
+    				UserContactInfo findInfo = mapContacts.get(contactId);
+    				
+    				if (findInfo != null)
+    				{
+    					mActivity.GetPopupWindow().mName = findInfo.Name;
+        				mActivity.GetPopupWindow().mNumber = findInfo.ContactNumbers.get(0);
         				mActivity.GetPopupWindow().Toggle(true);
-        			}
+    				}
     			}
     		}
     	});
@@ -147,24 +152,20 @@ public class ContactsListPresenter
 		
 		ArrayList <ArrayList<String>> listItems = new ArrayList <ArrayList<String>>();
 		
-		int index = 0;
-		List<UserContactInfo> contacts = store.GetContactsStore();
+		Map<Integer, UserContactInfo> mapContacts = store.GetContactsStoreMap();
 		
-		for (UserContactInfo contact : contacts )
+		for (Map.Entry<Integer, UserContactInfo> entry : mapContacts.entrySet())
 		{
 			ArrayList<String> map = new ArrayList<String>();
-			
-			String  name = contact.GetName();
+			String  name = entry.getValue().GetName();
 			
 			if (queryNum.equals("") || name.toLowerCase().contains(queryNum.toLowerCase()))
 			{
-				//map.add(String.valueOf(R.drawable.ic_launcher));
-				map.add(Integer.toString(index));
+				map.add(Integer.toString(entry.getKey()));
 				map.add(name);
 				
 				listItems.add(map);
 			}
-			++index;
 		}
 		
 		ArrayAdapter<ArrayList<String>> adapter = new OrderAdapter(mActivity.getBaseContext(), R.layout.activity_contacts, listItems);
@@ -185,7 +186,8 @@ public class ContactsListPresenter
 	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
 	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
 
-	    try {
+	    try 
+	    {
 	        Bitmap thumbnail = null;
 	        if (cursor.moveToFirst()) {
 	            final byte[] thumbnailBytes = cursor.getBlob(0);

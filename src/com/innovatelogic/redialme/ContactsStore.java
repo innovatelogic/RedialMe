@@ -1,6 +1,8 @@
 package com.innovatelogic.redialme;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -18,14 +20,17 @@ import com.innovatelogic.redialme.AdapterContacts;
 public class ContactsStore 
 {
 	private ArrayList<UserContactInfo> mContacts = null;
+	private Map<Integer, UserContactInfo> mMapContacts = null;
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
 		mContacts = new ArrayList<UserContactInfo>();
+		mMapContacts = new HashMap<Integer, UserContactInfo>();
 	}
 	
 	public ArrayList<UserContactInfo> GetContactsStore() { return mContacts; }
+	public Map<Integer, UserContactInfo> GetContactsStoreMap() { return mMapContacts; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void LoadContacts(Context context)
@@ -37,7 +42,8 @@ public class ContactsStore
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 		
 		Cursor cursor = context.getContentResolver().query(uri,	new String[] 
-				{ ContactsContract.CommonDataKinds.Phone.NUMBER,
+				{ ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+				  ContactsContract.CommonDataKinds.Phone.NUMBER,
 				  ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
 				  ContactsContract.CommonDataKinds.Photo.PHOTO_ID,
 				  ContactsContract.CommonDataKinds.Phone._ID},
@@ -49,6 +55,7 @@ public class ContactsStore
 			
 			while (!cursor.isAfterLast())
 			{
+				int contactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
 				String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 				String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 				int phoneContactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
@@ -56,14 +63,32 @@ public class ContactsStore
 				
 				String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, "+380");
 				
-				UserContactInfo userInfo = new UserContactInfo();
+				// new flow
+				UserContactInfo findInfo = mMapContacts.get(contactID);
+				if (findInfo == null)
+				{
+					UserContactInfo userInfo = new UserContactInfo();
+					userInfo.ContactNumbers = new ArrayList<String>();
+					userInfo.ContactNumbers.add(NumberNorm);
+					userInfo.Name = contactName;
+					userInfo.thumbnailID = thumbnailId;
+					
+					mMapContacts.put(contactID, userInfo);
+				}
+				else
+				{
+					findInfo.ContactNumbers.add(NumberNorm);
+				}
+				
+				// old flow
+/*				UserContactInfo userInfo = new UserContactInfo();
 				userInfo.Id = phoneContactID;			
 				userInfo.ContactNumber = NumberNorm;
 				userInfo.Name = contactName;
 				userInfo.thumbnailID = thumbnailId;
 				
 				mContacts.add(userInfo);
-				
+	*/			
 				cursor.moveToNext();
 			}
 		}

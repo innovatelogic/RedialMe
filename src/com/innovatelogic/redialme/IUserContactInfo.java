@@ -1,6 +1,6 @@
 package com.innovatelogic.redialme;
 
-import android.net.Uri;
+import java.util.ArrayList;
 
 //----------------------------------------------------------------------------------------------
 public interface IUserContactInfo
@@ -18,5 +18,6 @@ class UserContactInfo implements IUserContactInfo
 	public int 	  Id;
 	public String Name;
 	public String ContactNumber;
+	public ArrayList<String> ContactNumbers = null; 
 	public int thumbnailID;
 }

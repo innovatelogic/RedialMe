@@ -160,7 +160,8 @@ public class MainActivity extends Activity
         	mCurrentTab = mTabView.getCurrentTab();
         	
         	 // Create an ad.
-       /*      adView = new AdView(this);
+       /*
+            adView = new AdView(this);
             adView.setAdSize(AdSize.BANNER);
             adView.setAdUnitId(AD_UNIT_ID);
             
@@ -266,7 +267,9 @@ public class MainActivity extends Activity
 	public void OnTabPageChanged()
 	{
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		
 		imm.hideSoftInputFromWindow(mUserNameEdit.getWindowToken(), 0);
+		
 		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 	
@@ -293,7 +296,7 @@ public class MainActivity extends Activity
 			}
 			else
 			{
-				//TODO: log error
+				// TODO: log error
 			}
 		}
 		return out;
