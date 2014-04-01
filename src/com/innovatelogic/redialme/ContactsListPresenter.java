@@ -24,7 +24,9 @@ import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-
+//----------------------------------------------------------------------------------------------
+//
+//----------------------------------------------------------------------------------------------
 public class ContactsListPresenter 
 {
 	private class OrderAdapter extends ArrayAdapter<ArrayList<String>> 
@@ -67,7 +69,7 @@ public class ContactsListPresenter
 					int thumbnailID = findInfo.thumbnailID;
 					if (thumbnailID > 0)
 					{
-						Bitmap bitmap = fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
+						Bitmap bitmap = MainActivity.fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
 						if (bitmap != null)
 						{
 							imageuser.setImageBitmap(bitmap);
@@ -130,6 +132,7 @@ public class ContactsListPresenter
     				
     				if (findInfo != null)
     				{
+    					mActivity.GetPopupWindow().mContactID = contactId;
     					mActivity.GetPopupWindow().mName = findInfo.Name;
         				mActivity.GetPopupWindow().mNumber = findInfo.ContactNumbers.get(0);
         				mActivity.GetPopupWindow().Toggle(true);
@@ -177,28 +180,5 @@ public class ContactsListPresenter
 	public void ClearList()
 	{
 		mList.setAdapter(null);
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	final Bitmap fetchThumbnail(final int thumbnailId, Context context) 
-	{
-	    final Uri uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, thumbnailId);
-	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
-	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
-
-	    try 
-	    {
-	        Bitmap thumbnail = null;
-	        if (cursor.moveToFirst()) {
-	            final byte[] thumbnailBytes = cursor.getBlob(0);
-	            if (thumbnailBytes != null) {
-	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length);
-	            }
-	        }
-	        return thumbnail;
-	    }
-	    finally {
-	        cursor.close();
-	    }
 	}
 }

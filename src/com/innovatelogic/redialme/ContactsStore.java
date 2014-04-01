@@ -19,6 +19,18 @@ import com.innovatelogic.redialme.AdapterContacts;
 //----------------------------------------------------------------------------------------------
 public class ContactsStore 
 {
+	public class KeyContactInfo
+	{
+		public int mKey;
+		public UserContactInfo mInfo = null;
+		
+		KeyContactInfo(int key, UserContactInfo info)
+		{
+			mKey = key;
+			mInfo = info;
+		}
+	}
+	
 	private ArrayList<UserContactInfo> mContacts = null;
 	private Map<Integer, UserContactInfo> mMapContacts = null;
 	
@@ -101,14 +113,14 @@ public class ContactsStore
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	public UserContactInfo GetInfoByNum(String number)
+	public KeyContactInfo GetInfoByNum(String number)
 	{
 		for (Map.Entry<Integer, UserContactInfo> entry : mMapContacts.entrySet())
 		{
 			for (String v : entry.getValue().ContactNumbers)
 			{
 				if (number.equals(v))
-					return entry.getValue();
+					return new KeyContactInfo(entry.getKey(), entry.getValue());
 			}
 		}
 		return null;

@@ -5,22 +5,49 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.os.Handler;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.RecentCallsStore;
+import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 public class RecentCallsListPresenter
 {
 	private ListView mList;
 	private MainActivity mActivity;
 	
-	
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsListPresenter(MainActivity activity, int resourceId)
 	{
 		mActivity = activity;
 		mList = (ListView) mActivity.findViewById(resourceId);
+		
+		mList.setOnItemClickListener(new OnItemClickListener() 
+    	{
+    		@Override
+    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+    		{
+    			List<CallInfo> store = mActivity.GetRecentCallsStore().GetRecentInfoList();
+    			
+    			if (position >= 0 && position < store.size())
+    			{
+    				ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(store.get(position).mNumber);
+    				
+    				mActivity.GetPopupWindow().mContactID = (info != null) ? info.mInfo.Id : -1;
+    				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : "Unknown number";
+    				mActivity.GetPopupWindow().mNumber = store.get(position).mNumber;
+    				
+    				mActivity.GetPopupWindow().Toggle(true);
+    			}
+    			else
+    			{
+    				// log error
+    			}
+    		}
+    	});
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -43,18 +70,19 @@ public class RecentCallsListPresenter
 			HashMap<String, String> map = new HashMap<String, String>();
 			
 			String title = call.mNumber;
+			String duration = call.mCallDuration == 0 ? "" : MainActivity.FormatSec(call.mCallDuration);
 			
 			if (queryNum.equals("") || title.contains(queryNum))
 			{
-				UserContactInfo info =  mActivity.getContactsStore().GetInfoByNum(call.mNumber);
+				ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(call.mNumber);
 				if (info != null){
-					title = info.Name;
+					title = info.mInfo.Name;
 				}
 				
 				map.put("title", title);
-				map.put("duration", MainActivity.FormatSec(call.mCallDuration));
+				map.put("duration", duration);
 				map.put("calltime", call.mCallDayTime.toString());
-				map.put("img", String.valueOf(R.drawable.ic_launcher));
+				map.put("img", String.valueOf(R.drawable.default_person));
 				map.put("idx", Integer.toString(index));
 				
 				listItem.add(map);

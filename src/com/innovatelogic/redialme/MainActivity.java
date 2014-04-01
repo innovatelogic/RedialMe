@@ -9,9 +9,15 @@ import java.util.Map;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -179,7 +185,7 @@ public class MainActivity extends Activity
 			e.printStackTrace();
 		}
     	
-    	mListRecentCalls.setOnItemClickListener(new OnItemClickListener() 
+    	/*mListRecentCalls.setOnItemClickListener(new OnItemClickListener() 
     	{
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
@@ -200,7 +206,7 @@ public class MainActivity extends Activity
     				// log error
     			}
     		}
-    	});
+    	});*/
     	
     	mUserNameBackspace.setOnClickListener(new OnClickListener()
     	{
@@ -330,5 +336,28 @@ public class MainActivity extends Activity
 			outString += Integer.toString(numSec) + "s ";
 		}
 		return outString;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	static Bitmap fetchThumbnail(final int thumbnailId, Context context) 
+	{
+	    final Uri uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, thumbnailId);
+	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
+	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
+
+	    try 
+	    {
+	        Bitmap thumbnail = null;
+	        if (cursor.moveToFirst()) {
+	            final byte[] thumbnailBytes = cursor.getBlob(0);
+	            if (thumbnailBytes != null) {
+	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length);
+	            }
+	        }
+	        return thumbnail;
+	    }
+	    finally {
+	        cursor.close();
+	    }
 	}
 }

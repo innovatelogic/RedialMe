@@ -1,6 +1,10 @@
 package com.innovatelogic.redialme;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -8,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -23,13 +28,16 @@ public class ActionPopupWindow
 		EProcessAction,
 		ECancelAction,
 	}
-	
+
 	private MainActivity mActivity;
-	
+
+	public int mContactID = -1;
 	public String mName;
 	public String mNumber;
-	public Button mBtnAction;
+	public ArrayList<String> mNumbersList = null;
 	
+	public Button mBtnAction;
+
 	private PopupWindow mPopupWindow = null;
 	
 	private final int interval = 1000; // 1 Second
@@ -45,6 +53,8 @@ public class ActionPopupWindow
 		mActivity = activity;
 		
 		mHandler = new Handler();
+		
+		mNumbersList = new ArrayList<String>();
 		
 /*		LinearLayout parent = (LinearLayout) mActivity.findViewById(R.id.LayoutAdv);
 		String strPublisherID = "4483553123";
@@ -74,10 +84,37 @@ public class ActionPopupWindow
 	    	Button btnAction = (Button)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
+	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
 	    
 	    	txtName.setText(mName);
 	    	txtNumber.setText(mNumber);
 	    	
+	    	boolean bDefault = true;
+	    	
+	    	if (mContactID >= 0)
+	    	{
+	    		Map<Integer, UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStoreMap();
+	    		UserContactInfo findInfo = contacts.get(mContactID);
+	    		
+	    		if (findInfo != null)
+	    		{
+	    			int thumbnailID = findInfo.thumbnailID;
+					if (thumbnailID > 0)
+					{
+						Bitmap bitmap = MainActivity.fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
+						if (bitmap != null)
+						{
+							imageuser.setImageBitmap(bitmap);
+							bDefault = false;
+						}
+					}
+	    		}
+	    	}
+	    	
+	    	if (bDefault){
+        		imageuser.setImageResource(R.drawable.default_person);
+			}
+
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	    	btnAction.setText("CallMe");
 	    	
@@ -116,6 +153,7 @@ public class ActionPopupWindow
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
+			mContactID = -1;
 			mPopupWindow.dismiss();
 			mPopupWindow = null;
 		}
