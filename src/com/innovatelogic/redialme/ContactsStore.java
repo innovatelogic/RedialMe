@@ -12,7 +12,6 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.innovatelogic.redialme.UserContactInfo;
-import com.innovatelogic.redialme.AdapterContacts;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -31,17 +30,14 @@ public class ContactsStore
 		}
 	}
 	
-	private ArrayList<UserContactInfo> mContacts = null;
 	private Map<Integer, UserContactInfo> mMapContacts = null;
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
-		mContacts = new ArrayList<UserContactInfo>();
 		mMapContacts = new HashMap<Integer, UserContactInfo>();
 	}
 	
-	public ArrayList<UserContactInfo> GetContactsStore() { return mContacts; }
 	public Map<Integer, UserContactInfo> GetContactsStoreMap() { return mMapContacts; }
 	
 	//----------------------------------------------------------------------------------------------
@@ -102,14 +98,6 @@ public class ContactsStore
 		}
 		
 		Log.d("End", "load contact list");
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	public void FillListContacts(Context context, ListView list)
-	{
-		AdapterContacts adapter = new AdapterContacts(context, R.layout.activity_contacts, mContacts);
-	
-		list.setAdapter(adapter);
 	}
 	
 	//----------------------------------------------------------------------------------------------

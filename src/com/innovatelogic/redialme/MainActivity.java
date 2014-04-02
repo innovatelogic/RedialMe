@@ -184,30 +184,7 @@ public class MainActivity extends Activity
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	/*mListRecentCalls.setOnItemClickListener(new OnItemClickListener() 
-    	{
-    		@Override
-    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-    		{
-    			List<CallInfo> store = mRecentCallsStore.GetRecentInfoList();
-    			
-    			if (position >= 0 && position < store.size())
-    			{
-    				UserContactInfo info = mContactsStore.GetInfoByNum(store.get(position).mNumber);
-    				
-    				mActionPopupWindow.mName = (info != null) ? info.Name : "Unknown number";
-    				mActionPopupWindow.mNumber = store.get(position).mNumber;
-    				
-    				mActionPopupWindow.Toggle(true);
-    			}
-    			else
-    			{
-    				// log error
-    			}
-    		}
-    	});*/
-    	
+   	
     	mUserNameBackspace.setOnClickListener(new OnClickListener()
     	{
     		@Override
