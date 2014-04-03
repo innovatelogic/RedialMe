@@ -50,7 +50,7 @@ public final class R {
         public static final int processActionPopUp=0x7f070022;
         public static final int rootLayout=0x7f070002;
         public static final int searchcontact=0x7f070019;
-        public static final int spinner1=0x7f070021;
+        public static final int spinnerNumbers=0x7f070021;
         public static final int tab1=0x7f070003;
         public static final int tab2=0x7f070015;
         public static final int tab3=0x7f070017;

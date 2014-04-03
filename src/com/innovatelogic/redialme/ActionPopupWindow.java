@@ -11,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.innovatelogic.redialme.MainActivity;
@@ -21,7 +25,7 @@ import com.innovatelogic.redialme.MainActivity;
 //----------------------------------------------------------------------------------------------
 //
 //----------------------------------------------------------------------------------------------
-public class ActionPopupWindow 
+public class ActionPopupWindow implements OnItemSelectedListener
 {
 	enum EActionType
 	{
@@ -74,8 +78,7 @@ public class ActionPopupWindow
 	{
 		if (bFlag && mPopupWindow == null)
 		{
-			LayoutInflater layoutInflater = 
-					(LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater layoutInflater = (LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		    
 	    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
 	    	
@@ -85,9 +88,15 @@ public class ActionPopupWindow
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
 	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
-	    
+	    	Spinner spinner = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
+	    	
+	    	//View viewToLoad = layoutInflater.from(mActivity.getParent()).inflate(R.layout.activity_popupaction, null);  
+	    	//mActivity.setContentView(viewToLoad);
+	    	
 	    	txtName.setText(mName);
 	    	txtNumber.setText(mNumber);
+	    	
+	    	//spinner.setOnItemSelectedListener(this);
 	    	
 	    	boolean bDefault = true;
 	    	
@@ -118,6 +127,33 @@ public class ActionPopupWindow
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	    	btnAction.setText("CallMe");
 	    	
+	    	String[] data = {"one", "two", "three", "four", "five"};
+	    	
+	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, data);
+	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	        
+	        spinner.setAdapter(adapter);
+	        spinner.setPrompt("Title");
+	        spinner.setSelection(2);
+	        /*
+	        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+	        {
+	        	@Override
+	            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
+	        	{
+	              //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
+	            }
+	            @Override
+	            public void onNothingSelected(AdapterView<?> arg0) {
+	            }
+	        });*/
+	    	
+	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
+	    	View root = (ViewGroup) decor.getChildAt(0);
+	     	
+	    	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
+	        //mPopupWindow.showAtLocation(mActivity.getParent(), Gravity.CENTER, 0, 0);
+	    	
 	    	btnAction.setOnClickListener(new Button.OnClickListener()
 	    	{
 	    		@Override
@@ -146,10 +182,7 @@ public class ActionPopupWindow
 		    	}
 	    	});
 	     	
-	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
-	    	View root = (ViewGroup) decor.getChildAt(0);
-	     	
-	    	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
+
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
@@ -197,5 +230,15 @@ public class ActionPopupWindow
 			mHandler.removeCallbacks(mRunnable);
 			mRunnable = null;
 		}
+	}
+	
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+	 
+	
+	}
+	 
+	public void onNothingSelected(AdapterView<?> arg0) {
+	 
 	}
 }

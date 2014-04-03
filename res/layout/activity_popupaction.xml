@@ -22,8 +22,8 @@
 
               <LinearLayout
                   android:id="@+id/LayoutAdv"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
                   android:layout_weight="1"
                   android:orientation="vertical" >
                  
@@ -37,6 +37,7 @@
                       ads:testDevices="TEST_EMULATOR,TEST_DEVICE_ID_GOES_HERE" /> -->
 
               </LinearLayout>
+
           </TableRow>
 
           <TableRow
@@ -80,13 +81,13 @@
                           android:text="duration"
                           android:textSize="20sp" />
 
-                  </LinearLayout>
+                      <Spinner
+                          android:id="@+id/spinnerNumbers"
+                          android:spinnerMode="dialog"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content" />
 
-                  <Spinner
-                      android:id="@+id/spinner1"
-                      android:layout_width="0dp"
-                      android:layout_height="match_parent"
-                      android:layout_weight=".15" />
+                  </LinearLayout>
 
               </LinearLayout>
         
@@ -107,6 +108,7 @@
                   android:layout_weight="1"
                   android:background="@drawable/btndefaultnormalred"
                   android:text="Send" />
+
           </TableRow>
 
       </TableLayout>  
