@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.RecentCallsStore;
 import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
+import com.innovatelogic.redialme.RecentCallsStore.ECallType;
 
 public class RecentCallsListPresenter
 {
@@ -78,10 +78,13 @@ public class RecentCallsListPresenter
 					title = info.mInfo.Name;
 				}
 				
+				int img_resource = (call.mCallType == ECallType.EOutgoing) ? R.drawable.out_call :
+									(call.mCallType == ECallType.EIncoming ? R.drawable.inner_call : R.drawable.inner_call_missed);
+				
 				map.put("title", title);
 				map.put("duration", duration);
 				map.put("calltime", call.mCallDayTime.toString());
-				map.put("img", String.valueOf(R.drawable.default_person));
+				map.put("img", String.valueOf(img_resource));
 				map.put("idx", Integer.toString(index));
 				
 				listItem.add(map);

@@ -108,6 +108,7 @@
                                 android:layout_height="0px"
                                 android:layout_marginTop="5dip"
                                 android:layout_weight=".45"
+                                android:background="@android:color/darker_gray"
                                 android:gravity="bottom" >
 
                                 <TableRow
