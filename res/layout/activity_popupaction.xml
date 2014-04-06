@@ -74,13 +74,6 @@
                           android:text="Name"
                           android:textSize="22sp" />
 
-                      <TextView
-                          android:id="@+id/popupnumber"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:text="duration"
-                          android:textSize="20sp" />
-
                       <Spinner
                           android:id="@+id/spinnerNumbers"
                           android:spinnerMode="dialog"

@@ -134,7 +134,10 @@ public class ContactsListPresenter
     				{
     					mActivity.GetPopupWindow().mContactID = contactId;
     					mActivity.GetPopupWindow().mName = findInfo.Name;
-        				mActivity.GetPopupWindow().mNumber = findInfo.ContactNumbers.get(0);
+        				
+        				for (String number : findInfo.ContactNumbers){
+        					mActivity.GetPopupWindow().AddNumber(number);
+        				}
         				mActivity.GetPopupWindow().Toggle(true);
     				}
     			}

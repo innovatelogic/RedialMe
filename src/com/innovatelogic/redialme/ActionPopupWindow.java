@@ -1,6 +1,7 @@
 package com.innovatelogic.redialme;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -37,8 +38,7 @@ public class ActionPopupWindow implements OnItemSelectedListener
 
 	public int mContactID = -1;
 	public String mName;
-	public String mNumber;
-	public ArrayList<String> mNumbersList = null;
+	private ArrayList<String> mNumbersList = null;
 	
 	public Button mBtnAction;
 
@@ -50,6 +50,8 @@ public class ActionPopupWindow implements OnItemSelectedListener
 			
 	private Handler mHandler = null;
 	private Runnable mRunnable = null;
+	
+	private int mSelectedNumber = -1;
 			
 	//----------------------------------------------------------------------------------------------
 	public ActionPopupWindow(MainActivity activity)
@@ -86,18 +88,11 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    	    	
 	    	Button btnAction = (Button)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
-	    	TextView txtNumber = (TextView)popupView.findViewById(R.id.popupnumber);
 	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
 	    	Spinner spinner = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
 	    	
-	    	//View viewToLoad = layoutInflater.from(mActivity.getParent()).inflate(R.layout.activity_popupaction, null);  
-	    	//mActivity.setContentView(viewToLoad);
-	    	
 	    	txtName.setText(mName);
-	    	txtNumber.setText(mNumber);
-	    	
-	    	//spinner.setOnItemSelectedListener(this);
-	    	
+    	
 	    	boolean bDefault = true;
 	    	
 	    	if (mContactID >= 0)
@@ -107,6 +102,11 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    		
 	    		if (findInfo != null)
 	    		{
+	    			// add numbers if necessary 
+	    			for (String number : findInfo.ContactNumbers){
+    					AddNumber(number);
+    				}
+	    			
 	    			int thumbnailID = findInfo.thumbnailID;
 					if (thumbnailID > 0)
 					{
@@ -127,32 +127,21 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	    	btnAction.setText("CallMe");
 	    	
-	    	String[] data = {"one", "two", "three", "four", "five"};
-	    	
-	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, data);
+	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, mNumbersList);
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        
 	        spinner.setAdapter(adapter);
-	        spinner.setPrompt("Title");
-	        spinner.setSelection(2);
-	        /*
-	        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-	        {
-	        	@Override
-	            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
-	        	{
-	              //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
-	            }
-	            @Override
-	            public void onNothingSelected(AdapterView<?> arg0) {
-	            }
-	        });*/
+	        spinner.setPrompt("Select number");
+	        
+	        mSelectedNumber = 0;
+	        spinner.setSelection(mSelectedNumber);
+	        
+	        spinner.setOnItemSelectedListener(this);
 	    	
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
 	     	
 	    	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
-	        //mPopupWindow.showAtLocation(mActivity.getParent(), Gravity.CENTER, 0, 0);
 	    	
 	    	btnAction.setOnClickListener(new Button.OnClickListener()
 	    	{
@@ -181,11 +170,11 @@ public class ActionPopupWindow implements OnItemSelectedListener
 		    		}
 		    	}
 	    	});
-	     	
-
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
+			ClearNumberList();
+			
 			mContactID = -1;
 			mPopupWindow.dismiss();
 			mPopupWindow = null;
@@ -198,7 +187,7 @@ public class ActionPopupWindow implements OnItemSelectedListener
 		String operator = mActivity.GetCurrentOperator();
 		ProviderEntry provider = mActivity.GetCurrentTerritory().GetProvider(operator);
 		
-		mActivity.GetActionBar().ProcessAction(provider, mNumber);
+		mActivity.GetActionBar().ProcessAction(provider, mNumbersList.get(mSelectedNumber));
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -232,13 +221,31 @@ public class ActionPopupWindow implements OnItemSelectedListener
 		}
 	}
 	
+	//----------------------------------------------------------------------------------------------
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-	 
-	
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
+	{
+		mSelectedNumber = position;
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void onNothingSelected(AdapterView<?> arg0) 
+	{
 	 
-	public void onNothingSelected(AdapterView<?> arg0) {
-	 
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void AddNumber(String number)
+	{
+		if (!mNumbersList.contains(number))
+		{
+			mNumbersList.add(number);
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void ClearNumberList()
+	{
+		mNumbersList.clear();
 	}
 }

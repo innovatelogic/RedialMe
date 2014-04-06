@@ -38,8 +38,7 @@ public class RecentCallsListPresenter
     				
     				mActivity.GetPopupWindow().mContactID = (info != null) ? info.mInfo.Id : -1;
     				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : "Unknown number";
-    				mActivity.GetPopupWindow().mNumber = store.get(position).mNumber;
-    				
+    				mActivity.GetPopupWindow().AddNumber(store.get(position).mNumber);
     				mActivity.GetPopupWindow().Toggle(true);
     			}
     			else
