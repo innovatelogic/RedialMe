@@ -36,7 +36,7 @@ public class RecentCallsListPresenter
     			{
     				ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(store.get(position).mNumber);
     				
-    				mActivity.GetPopupWindow().mContactID = (info != null) ? info.mInfo.Id : -1;
+    				mActivity.GetPopupWindow().mContactID = (info != null) ? info.mKey : -1;
     				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : "Unknown number";
     				mActivity.GetPopupWindow().AddNumber(store.get(position).mNumber);
     				mActivity.GetPopupWindow().Toggle(true);

@@ -70,6 +70,8 @@ public class MainActivity extends Activity
     
     public static Context getAppContext() { return mContext; }
     
+    public ProviderStore GetProviderStore() { return mProviderStore; }
+    
     public ContactsStore getContactsStore() { return mContactsStore; }
     
     public TerritoryEntry GetCurrentTerritory() { return mTerritory; }
@@ -85,6 +87,8 @@ public class MainActivity extends Activity
     public ActionBar GetActionBar() { return mActionBar; }
     
     public String GetCurrentNumber() {	return mDialPad.GetNumber(); }
+    
+    
 
 	//----------------------------------------------------------------------------------------------
     private void findAllViewsById()

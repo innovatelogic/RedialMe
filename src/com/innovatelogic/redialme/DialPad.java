@@ -100,7 +100,7 @@ public class DialPad
     					ContactsStore.KeyContactInfo contactinfo = mActivity.getContactsStore().GetInfoByNum(info.mNumber);
     					
     					if (contactinfo != null){
-    						mActivity.GetPopupWindow().mContactID = contactinfo.mInfo.Id;
+    						mActivity.GetPopupWindow().mContactID = contactinfo.mKey;
     					}
     					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.mInfo.Name : "Unknown number";
         				mActivity.GetPopupWindow().AddNumber(info.mNumber);
@@ -188,7 +188,7 @@ public class DialPad
     				ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(number);
 				
 					if (info != null){
-						mActivity.GetPopupWindow().mContactID = info.mInfo.Id;
+						mActivity.GetPopupWindow().mContactID = info.mKey;
 					}
     				mActivity.GetPopupWindow().mName = (info.mInfo != null) ? info.mInfo.Name : "Unknown number";
     				mActivity.GetPopupWindow().AddNumber(number);

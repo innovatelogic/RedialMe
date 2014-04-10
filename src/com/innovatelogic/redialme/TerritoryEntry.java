@@ -17,15 +17,20 @@ public class TerritoryEntry
 	
 	private String Code;
 	
-	private Map<String, ProviderEntry> MapProviders;
-		
+	private Map<String, ProviderEntry> mMapProviders;
+	
+	//----------------------------------------------------------------------------------------------
 	public TerritoryEntry(String code)
 	{
 		Code = code;
-		MapProviders = new HashMap<String, ProviderEntry>();
+		mMapProviders = new HashMap<String, ProviderEntry>();
 	}
+	
 	//----------------------------------------------------------------------------------------------
 	public String GetCode() { return Code; }
+	
+	//----------------------------------------------------------------------------------------------
+	public Map<String, ProviderEntry> GetProviders() { return mMapProviders; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void Deserialize(XmlPullParser parser) throws XmlPullParserException, IOException
@@ -50,17 +55,19 @@ public class TerritoryEntry
 				{
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
 					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
+					String aliasName = parser.getAttributeValue(ProviderStore.ns, "Alias");
 					
 					String[] NameAliases = atrName.split(";");
 										
 					String[] parts = atrCodes.split(";");
 					List<String> codes = Arrays.asList(parts);
 					
-					ProviderEntry provider = new ProviderEntry();
+					ProviderEntry provider = new ProviderEntry(aliasName);
 					provider.Deserialize(parser);
 					
-					for(String s : NameAliases)
-						MapProviders.put(s, provider);
+					for(String s : NameAliases){
+						mMapProviders.put(s, provider);
+					}
 					
 					event = parser.getEventType();
 					readTag = true;
@@ -85,6 +92,6 @@ public class TerritoryEntry
 	//----------------------------------------------------------------------------------------------
 	public ProviderEntry GetProvider(String name)
 	{
-		return MapProviders.get(name);
+		return mMapProviders.get(name);
 	}
 }

@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.innovatelogic.redialme.MainActivity;
+import com.innovatelogic.redialme.ContactsStore.KeyContactInfo;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -90,6 +91,7 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
 	    	Spinner spinner = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
+	    	Spinner spinnerProviders = (Spinner)popupView.findViewById(R.id.spinnerProviders);
 	    	
 	    	txtName.setText(mName);
     	
@@ -135,8 +137,9 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	        
 	        mSelectedNumber = 0;
 	        spinner.setSelection(mSelectedNumber);
-	        
 	        spinner.setOnItemSelectedListener(this);
+	        
+	        InitSpinerProviders(spinnerProviders);
 	    	
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
@@ -247,5 +250,29 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	public void ClearNumberList()
 	{
 		mNumbersList.clear();
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void InitSpinerProviders(Spinner spinner)
+	{
+		ArrayList<String> mAdapterList = new ArrayList<String>();
+		
+		Map<String, TerritoryEntry> territories = mActivity.GetProviderStore().GetTerritoryEntries();
+		
+		for (Map.Entry<String, TerritoryEntry> entry : territories.entrySet())
+		{
+			Map<String, ProviderEntry> providers = entry.getValue().GetProviders();
+			
+			for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
+			{
+				mAdapterList.add(entPrv.getValue().GetAliasName());
+			}
+		}
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, mAdapterList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        spinner.setAdapter(adapter);
+        spinner.setPrompt("Select provider");
 	}
 }

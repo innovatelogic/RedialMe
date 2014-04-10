@@ -29,6 +29,9 @@ public class ProviderStore
 	}
 	
 	//----------------------------------------------------------------------------------------------
+	public Map<String, TerritoryEntry> GetTerritoryEntries() { return MapTerritoryEntries; }
+	
+	//----------------------------------------------------------------------------------------------
 	public void Deserialize(InputStream stream) throws XmlPullParserException, IOException
 	{
 		try
@@ -104,8 +107,9 @@ public class ProviderStore
 				depth++;
 				
 			case XmlPullParser.END_TAG:
-				if (name.equals(TERRITORY_TAG) && readTag)
+				if (name.equals(TERRITORY_TAG) && readTag){
 					readTag = false;
+				}
 				depth--;
 			}
 			
