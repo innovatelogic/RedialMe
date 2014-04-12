@@ -22,17 +22,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.innovatelogic.redialme.MainActivity;
-import com.innovatelogic.redialme.ContactsStore.KeyContactInfo;
 
 //----------------------------------------------------------------------------------------------
 //
 //----------------------------------------------------------------------------------------------
-public class ActionPopupWindow implements OnItemSelectedListener
+public class ActionPopupWindow
 {
 	enum EActionType
 	{
 		EProcessAction,
 		ECancelAction,
+	}
+	
+	private class MaskParser
+	{
+		public final String mTERR;
+		public final String mPROVIDER;
+		public final String mABONENT;
+		
+		public MaskParser(String terr, String provider, String abonent, boolean found)
+		{
+			mTERR = terr;
+			mPROVIDER = provider;
+			mABONENT = abonent;
+		}
 	}
 
 	private MainActivity mActivity;
@@ -53,7 +66,12 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	private Runnable mRunnable = null;
 	
 	private int mSelectedNumber = -1;
-			
+	
+	private Spinner mSpinnerNumber = null;
+	private Spinner mSpinnerProvider = null;
+	
+	private ProviderEntry mUseProvider = null;
+	
 	//----------------------------------------------------------------------------------------------
 	public ActionPopupWindow(MainActivity activity)
 	{
@@ -62,6 +80,11 @@ public class ActionPopupWindow implements OnItemSelectedListener
 		mHandler = new Handler();
 		
 		mNumbersList = new ArrayList<String>();
+		
+		mUseProvider = mActivity.GetProviderDefault();
+		
+		mSpinnerNumber = null;
+		mSpinnerProvider = null;
 		
 /*		LinearLayout parent = (LinearLayout) mActivity.findViewById(R.id.LayoutAdv);
 		String strPublisherID = "4483553123";
@@ -90,8 +113,9 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    	Button btnAction = (Button)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
-	    	Spinner spinner = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
-	    	Spinner spinnerProviders = (Spinner)popupView.findViewById(R.id.spinnerProviders);
+	    	
+	    	mSpinnerNumber = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
+	    	mSpinnerProvider = (Spinner)popupView.findViewById(R.id.spinnerProviders);
 	    	
 	    	txtName.setText(mName);
     	
@@ -132,14 +156,25 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, mNumbersList);
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        
-	        spinner.setAdapter(adapter);
-	        spinner.setPrompt("Select number");
+	        mSpinnerNumber.setAdapter(adapter);
+	        mSpinnerNumber.setPrompt("Select number");
 	        
 	        mSelectedNumber = 0;
-	        spinner.setSelection(mSelectedNumber);
-	        spinner.setOnItemSelectedListener(this);
+	        mSpinnerNumber.setSelection(mSelectedNumber);
 	        
-	        InitSpinerProviders(spinnerProviders);
+	        mSpinnerNumber.setOnItemSelectedListener(new OnItemSelectedListener()
+	        {
+		        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
+		        {
+		        	mSelectedNumber = position;
+		        }
+		        public void onNothingSelected(AdapterView<?> parentView)
+		        {
+		        
+		        }
+	        });
+	        
+	        InitSpinerProviders(mSpinnerProvider);
 	    	
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
@@ -180,6 +215,9 @@ public class ActionPopupWindow implements OnItemSelectedListener
 			
 			mContactID = -1;
 			mPopupWindow.dismiss();
+			
+			mSpinnerNumber = null;
+			mSpinnerProvider = null;
 			mPopupWindow = null;
 		}
 	}
@@ -187,10 +225,10 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	//----------------------------------------------------------------------------------------------
 	void Process()
 	{
-		String operator = mActivity.GetCurrentOperator();
-		ProviderEntry provider = mActivity.GetCurrentTerritory().GetProvider(operator);
-		
-		mActivity.GetActionBar().ProcessAction(provider, mNumbersList.get(mSelectedNumber));
+		if (mUseProvider != null)
+		{
+			ProcessAction(mUseProvider, mNumbersList.get(mSelectedNumber));
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -225,19 +263,6 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
-	{
-		mSelectedNumber = position;
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	public void onNothingSelected(AdapterView<?> arg0) 
-	{
-	 
-	}
-	
-	//----------------------------------------------------------------------------------------------
 	public void AddNumber(String number)
 	{
 		if (!mNumbersList.contains(number))
@@ -255,6 +280,9 @@ public class ActionPopupWindow implements OnItemSelectedListener
 	//----------------------------------------------------------------------------------------------
 	public void InitSpinerProviders(Spinner spinner)
 	{
+		int selectedElement = -1;
+		int Index = 0;
+		
 		ArrayList<String> mAdapterList = new ArrayList<String>();
 		
 		Map<String, TerritoryEntry> territories = mActivity.GetProviderStore().GetTerritoryEntries();
@@ -262,10 +290,14 @@ public class ActionPopupWindow implements OnItemSelectedListener
 		for (Map.Entry<String, TerritoryEntry> entry : territories.entrySet())
 		{
 			Map<String, ProviderEntry> providers = entry.getValue().GetProviders();
-			
 			for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
 			{
 				mAdapterList.add(entPrv.getValue().GetAliasName());
+				
+				if (mUseProvider != null && mUseProvider.equals(entPrv.getValue())){
+					selectedElement = Index;
+				}
+				++Index;
 			}
 		}
 		
@@ -274,5 +306,84 @@ public class ActionPopupWindow implements OnItemSelectedListener
         
         spinner.setAdapter(adapter);
         spinner.setPrompt("Select provider");
+        
+        if (selectedElement != -1){
+        	spinner.setSelection(selectedElement);
+        }
+        	
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+        {
+	        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
+	        {
+	        	int Index = 0;
+				Map<String, TerritoryEntry> territories = mActivity.GetProviderStore().GetTerritoryEntries();
+				
+				for (Map.Entry<String, TerritoryEntry> entry : territories.entrySet())
+				{
+					Map<String, ProviderEntry> providers = entry.getValue().GetProviders();
+					for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
+					{
+						if (Index == position)
+						{
+							mUseProvider = entPrv.getValue();
+							break;
+						}
+						++Index;
+					}
+				}
+	        }
+	        public void onNothingSelected(AdapterView<?> parentView)
+	        {
+	        
+	        }
+        });
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void ProcessAction(ProviderEntry provider, String number)
+    {
+    	List<IUserOperation> operations = provider.GetOperationList();
+		
+		for (IUserOperation op : operations)
+		{
+			if (op instanceof UserOperationSMS || op instanceof UserOperationCall)
+			{
+				MaskParser info = ParseNumber(number);
+				
+				String mask = op.GetMask();
+				
+				mask = mask.replace("%TERR%", info.mTERR);
+				mask = mask.replace("%PRV%", info.mPROVIDER);
+				mask = mask.replace("%NUM%", info.mABONENT);
+				
+				op.Process(mask);
+				break;
+			}
+		}
+    }
+	
+    //----------------------------------------------------------------------------------------------
+    private MaskParser ParseNumber(String number)
+    {
+    	boolean bFound = false;
+    	
+    	String TERR = mActivity.GetCurrentTerritory().GetCode();
+    	String PROVIDER = "";
+    	String ABONENT = "";
+    	
+    	int length = number.length();
+		if (length >= 10 && length <= 13)
+		{
+			ABONENT = number.substring(length - 7);
+			
+			number = number.substring(0, number.length() - 7);
+			
+			if (number.length() >= 3 && number.length() <= 6)
+			{
+				PROVIDER = number.substring(number.length() - 2);
+				bFound = true;
+			}
+		}
+    	return new MaskParser(TERR, PROVIDER, ABONENT, bFound);
+    }
 }

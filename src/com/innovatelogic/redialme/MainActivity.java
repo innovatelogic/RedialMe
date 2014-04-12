@@ -43,7 +43,6 @@ public class MainActivity extends Activity
 	private static Context  mContext;
 	
 	private TabHost			mTabView;
-	private ListView		mListRecentCalls;
 	private TextView		mUserNameEdit;
 	private Button			mUserNameBackspace;
 	
@@ -56,15 +55,15 @@ public class MainActivity extends Activity
 			
     private String mOperatorName = null;
     private String mDefaultTerritory = "UA";
-    private String mDataFilename = "Providers.xml";
     
     private static int mCurrentTab = 0;
-    
-	private ActionBar mActionBar = null;
+
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
     private ActionPopupWindow mActionPopupWindow = null;
+    
+    private ProviderEntry mProviderDefault = null;
     
     //private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
     
@@ -84,11 +83,9 @@ public class MainActivity extends Activity
     
     public String GetCurrentOperator() { return mOperatorName; }
     
-    public ActionBar GetActionBar() { return mActionBar; }
-    
     public String GetCurrentNumber() {	return mDialPad.GetNumber(); }
     
-    
+    public ProviderEntry GetProviderDefault() { return mProviderDefault; }
 
 	//----------------------------------------------------------------------------------------------
     private void findAllViewsById()
@@ -112,7 +109,6 @@ public class MainActivity extends Activity
     	mTabView.addTab(spec2);
     	mTabView.addTab(spec3);
     	
-    	mListRecentCalls = (ListView)findViewById(R.id.listRecentCalls);
     	mUserNameEdit = (TextView)findViewById(R.id.editUserName);
     	mUserNameBackspace = (Button)findViewById(R.id.BtnBackspaceName);
      }
@@ -138,7 +134,7 @@ public class MainActivity extends Activity
     	try
     	{
     		AssetManager assetManager = getAssets();
-    		InputStream ism = assetManager.open(mDataFilename);
+    		InputStream ism = assetManager.open(getString(R.string.providers_data_file));
     		
     		mProviderStore = new ProviderStore();
     		mProviderStore.Deserialize(ism);
@@ -160,11 +156,8 @@ public class MainActivity extends Activity
         	mDialPad = new DialPad(this);
         	mDialPad.findAllViewsById(MainActivity.this);
         	
-        	ProviderEntry provider = mTerritory.GetProvider(mOperatorName);
+        	mProviderDefault = mTerritory.GetProvider(mOperatorName);
         	
-           	mActionBar = new ActionBar(this, R.id.ActionLayout);
-        	mActionBar.ApplyActionBar(provider);
-
         	mActionPopupWindow = new ActionPopupWindow(this);
         	
         	mCurrentTab = mTabView.getCurrentTab();
@@ -219,8 +212,7 @@ public class MainActivity extends Activity
         		
         		if (mCurrentTab != newTab)
         		{
-            		if (mCurrentTab == 2) 
-            		{
+            		if (mCurrentTab == 2){
             			OnTabPageChanged();
             	    }
             		mCurrentTab = newTab;
@@ -305,15 +297,15 @@ public class MainActivity extends Activity
 		
 		String outString = "";
 		
-		if (numHours > 0){
+		if (numHours > 0) {
 			outString += Integer.toString(numHours) + "h ";
 		}
 		
-		if (numMin > 0){
+		if (numMin > 0) {
 			outString += Integer.toString(numMin) + "m ";
 		}
 		
-		if (numSec > 0){
+		if (numSec > 0) {
 			outString += Integer.toString(numSec) + "s ";
 		}
 		return outString;

@@ -77,8 +77,9 @@ public class TerritoryEntry
 							
 			if (event == XmlPullParser.END_TAG)
 			{
-				if (name.equals(PROVIDER_TAG) && readTag)
+				if (name.equals(PROVIDER_TAG) && readTag){
 					readTag = false;
+				}
 				depth--;
 			}
 			
