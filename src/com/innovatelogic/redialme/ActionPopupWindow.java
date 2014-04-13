@@ -57,20 +57,24 @@ public class ActionPopupWindow
 	public Button mBtnAction;
 
 	private PopupWindow mPopupWindow = null;
-	
-	private final int interval = 1000; // 1 Second
+
+	private final int mInterval = 1000; // 1 Second
+	private final int mIntervalAnim = 250; 
+	private int mAnimCounter = 0;
 		
 	private EActionType mActionType = EActionType.EProcessAction;
 			
 	private Handler mHandler = null;
 	private Runnable mRunnable = null;
+	private Runnable mRunnableAnim = null;
 	
 	private int mSelectedNumber = -1;
 	
 	private Spinner mSpinnerNumber = null;
 	private Spinner mSpinnerProvider = null;
-	
 	private ProviderEntry mUseProvider = null;
+	
+	private ImageView[] mAnimImages = new ImageView[3];
 	
 	//----------------------------------------------------------------------------------------------
 	public ActionPopupWindow(MainActivity activity)
@@ -116,6 +120,14 @@ public class ActionPopupWindow
 	    	
 	    	mSpinnerNumber = (Spinner)popupView.findViewById(R.id.spinnerNumbers);
 	    	mSpinnerProvider = (Spinner)popupView.findViewById(R.id.spinnerProviders);
+	    	
+			mAnimImages[0] = (ImageView)popupView.findViewById(R.id.imageAnim0);
+			mAnimImages[1] = (ImageView)popupView.findViewById(R.id.imageAnim1);
+			mAnimImages[2] = (ImageView)popupView.findViewById(R.id.imageAnim2);
+			
+			mAnimImages[0].setVisibility(0);
+			mAnimImages[1].setVisibility(0);
+			mAnimImages[2].setVisibility(0);
 	    	
 	    	txtName.setText(mName);
     	
@@ -189,19 +201,21 @@ public class ActionPopupWindow
 	    			// check style
 	    			Button btnHandler = (Button) v;
 	    			
-	    			if (mActionType == EActionType.EProcessAction)
+	    			if (mActionType == EActionType.EProcessAction) // start
 		    		{
 	    				btnHandler.setBackgroundResource(R.layout.buttonstyle_action_cancel);
 		    			btnHandler.setText("Cancel");
 		    		
+		    			StartAnimation();
 		    			StartDelayAction();
-		    			
+
 		    			mActionType = EActionType.ECancelAction;
 		    		}
-		    		else
+		    		else // cancel
 		    		{
 		    			mActionType = EActionType.EProcessAction;
 		    			
+		    			StopAnimation();
 		    			StopDelayAction();
 		    			
 		    			Toggle(false);
@@ -211,6 +225,9 @@ public class ActionPopupWindow
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
+			StopAnimation();
+			StopDelayAction();
+			
 			ClearNumberList();
 			
 			mContactID = -1;
@@ -248,7 +265,7 @@ public class ActionPopupWindow
 			    }
 			};
 				  
-			mHandler.postDelayed(mRunnable, interval * 3);
+			mHandler.postDelayed(mRunnable, mInterval * 3);
 		}
 	}
 	
@@ -262,6 +279,56 @@ public class ActionPopupWindow
 		}
 	}
 	
+	//----------------------------------------------------------------------------------------------
+	private void StartAnimation()
+	{
+		if (mRunnableAnim == null)
+		{
+			mAnimCounter = 0;
+			
+			for (int index = 0; index < 3; index++)
+				mAnimImages[index].setVisibility(1);
+			
+			// run timer
+			mRunnableAnim = new Runnable()
+			{
+			    public void run() 
+			    {
+			    	ProcessAnim();
+			    }
+			};
+				  
+			mHandler.postDelayed(mRunnableAnim, mIntervalAnim);
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void StopAnimation()
+	{
+		if (mRunnableAnim != null)
+		{
+			for (int index = 0; index < 3; index++)
+				mAnimImages[index].setVisibility(0);
+			
+			mHandler.removeCallbacks(mRunnableAnim);
+			mRunnableAnim = null;
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ProcessAnim()
+	{
+		int active = mAnimCounter % 3;
+		
+		for (int index = 0; index < 3; index++)
+		{
+			mAnimImages[index].setImageResource((index == active) ? R.drawable.arrow_right : R.drawable.backspace);
+		}
+		
+		mHandler.postDelayed(mRunnableAnim, mIntervalAnim);
+		mAnimCounter++;
+	}
+		
 	//----------------------------------------------------------------------------------------------
 	public void AddNumber(String number)
 	{
