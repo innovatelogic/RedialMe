@@ -3,7 +3,6 @@ package com.innovatelogic.redialme;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -25,15 +24,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-
-import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -315,16 +309,29 @@ public class MainActivity extends Activity
 	static Bitmap fetchThumbnail(final int thumbnailId, Context context) 
 	{
 	    final Uri uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, thumbnailId);
+	    
 	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
 	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
 
+	    
 	    try 
 	    {
 	        Bitmap thumbnail = null;
-	        if (cursor.moveToFirst()) {
+	        if (cursor.moveToFirst()) 
+	        {
 	            final byte[] thumbnailBytes = cursor.getBlob(0);
-	            if (thumbnailBytes != null) {
-	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length);
+	            
+	            if (thumbnailBytes != null) 
+	            {
+	            	BitmapFactory.Options options = new BitmapFactory.Options();
+	            	options.inJustDecodeBounds = true;
+	            	
+	            	BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);
+	            	
+	            	options.inSampleSize = calculateInSampleSize(options, 64, 64);
+	            		            	
+	            	options.inJustDecodeBounds = false;
+	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);
 	            }
 	        }
 	        return thumbnail;
@@ -332,5 +339,25 @@ public class MainActivity extends Activity
 	    finally {
 	        cursor.close();
 	    }
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public static int calculateInSampleSize(BitmapFactory.Options opt, int reqWidth, int reqHeight)
+	{
+		final int W = opt.outWidth;
+		final int H = opt.outHeight;
+		
+		int outSample = 1;
+		
+		if (H > reqHeight || W > reqWidth)
+		{
+			int half_W = W / 2;
+			int half_H = H / 2;
+			
+			while ((half_W / outSample) > reqWidth && (half_H / outSample) > reqHeight){
+				outSample *= 2;
+			}
+		}
+		return outSample;
 	}
 }
