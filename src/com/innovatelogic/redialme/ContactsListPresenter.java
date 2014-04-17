@@ -1,9 +1,11 @@
 package com.innovatelogic.redialme;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Map;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +21,38 @@ import android.widget.TextView;
 //----------------------------------------------------------------------------------------------
 public class ContactsListPresenter 
 {
+	private class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap>
+	{
+		private final ContactsListPresenter    mPresenter;
+		private final WeakReference<ImageView> mImageViewReference;
+		private int data = 0;
+		
+	    public BitmapWorkerTask(ContactsListPresenter presenter, ImageView imageView) 
+	    {
+	    	mPresenter = presenter;
+	        // Use a WeakReference to ensure the ImageView can be garbage collected
+	    	mImageViewReference = new WeakReference<ImageView>(imageView);
+	    }
+		    
+		@Override
+	    protected Bitmap doInBackground(Integer... params) 
+		{
+	    	final Bitmap bitmap = MainActivity.fetchThumbnail(params[0], mPresenter.mActivity.getApplicationContext());
+	    	mPresenter.mActivity.getContactsStore().AddBitmapToCache(params[0], bitmap);
+	        return bitmap;
+	    }
+	};
+	
 	private class OrderAdapter extends ArrayAdapter<ArrayList<String>> 
 	{
+		private ContactsListPresenter mPresenter = null;
 		ArrayList<ArrayList<String>> mListItem;
-		
-	    public OrderAdapter(Context context, int textViewResourceId, ArrayList<ArrayList<String>> items) 
+				
+	    public OrderAdapter(ContactsListPresenter presenter, Context context, int textViewResourceId, ArrayList<ArrayList<String>> items) 
 	    {
 	    	super(context, textViewResourceId, items);
+	    	
+	    	mPresenter = presenter;
 	    	this.mListItem = items;
 	    }
 
@@ -59,12 +86,25 @@ public class ContactsListPresenter
 					int thumbnailID = findInfo.thumbnailID;
 					if (thumbnailID > 0)
 					{
-						Bitmap bitmap = MainActivity.fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
+						final Bitmap bitmap = mActivity.getContactsStore().GetBitmapFromCache(thumbnailID);
 						if (bitmap != null)
 						{
 							imageuser.setImageBitmap(bitmap);
 							bDefault = false;
 						}
+						else
+						{
+							BitmapWorkerTask task = new BitmapWorkerTask(mPresenter, imageuser);
+							task.execute(thumbnailID);
+						}
+						
+						
+						/*Bitmap bitmap = MainActivity.fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
+						if (bitmap != null)
+						{
+							imageuser.setImageBitmap(bitmap);
+							bDefault = false;
+						}*/
 					}
 				}
             	
@@ -153,9 +193,10 @@ public class ContactsListPresenter
 		for (Map.Entry<Integer, UserContactInfo> entry : mapContacts.entrySet())
 		{
 			ArrayList<String> map = new ArrayList<String>();
-			String  name = entry.getValue().GetName();
-			
-			if (queryNum.equals("") || name.toLowerCase().contains(queryNum.toLowerCase()))
+			String name = entry.getValue().GetName();
+			String low_name = name.toLowerCase(); 
+					
+			if (queryNum.equals("") || low_name.contains(queryNum.toLowerCase()))
 			{
 				map.add(Integer.toString(entry.getKey()));
 				map.add(name);
@@ -164,7 +205,7 @@ public class ContactsListPresenter
 			}
 		}
 		
-		ArrayAdapter<ArrayList<String>> adapter = new OrderAdapter(mActivity.getBaseContext(), R.layout.activity_contacts, listItems);
+		ArrayAdapter<ArrayList<String>> adapter = new OrderAdapter(this, mActivity.getBaseContext(), R.layout.activity_contacts, listItems);
 		
 		mList.setAdapter(adapter);
 	}

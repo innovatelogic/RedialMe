@@ -313,7 +313,6 @@ public class MainActivity extends Activity
 	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
 	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
 
-	    
 	    try 
 	    {
 	        Bitmap thumbnail = null;

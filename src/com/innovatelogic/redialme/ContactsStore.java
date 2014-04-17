@@ -6,9 +6,12 @@ import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.util.LruCache;
 
 import com.innovatelogic.redialme.UserContactInfo;
 
@@ -30,14 +33,48 @@ public class ContactsStore
 	}
 	
 	private Map<Integer, UserContactInfo> mMapContacts = null;
+	private LruCache<Integer, Bitmap> mBitmapCache = null;
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
 		mMapContacts = new HashMap<Integer, UserContactInfo>();
+		
+		// Get max available VM memory, exceeding this amount will throw an
+	    // OutOfMemory exception. Stored in kilobytes as LruCache takes an
+	    // int in its constructor.
+		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+		
+		// Use 1/8th of the available memory for this memory cache.
+	    final int cacheSize = maxMemory / 8;
+	    
+	    mBitmapCache = new LruCache<Integer, Bitmap>(cacheSize)
+	    {
+	        @Override
+	        protected int sizeOf(Integer key, Bitmap bitmap) 
+	        {
+	            // The cache size will be measured in kilobytes rather than
+	            // number of items.
+	            return bitmap.getByteCount() / 1024;
+	       }
+	    };
 	}
 	
 	public Map<Integer, UserContactInfo> GetContactsStoreMap() { return mMapContacts; }
+	
+	//----------------------------------------------------------------------------------------------
+	public void AddBitmapToCache(Integer key, Bitmap bitmap)
+	{
+		if (GetBitmapFromCache(key) == null){			
+			mBitmapCache.put(key, bitmap);
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public Bitmap GetBitmapFromCache(Integer key)
+	{
+		return mBitmapCache.get(key);
+	}
 	
 	//----------------------------------------------------------------------------------------------
 	public void LoadContacts(Context context)
