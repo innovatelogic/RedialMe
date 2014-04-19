@@ -15,6 +15,7 @@ class UserContactInfo implements IUserContactInfo
 	public String GetName() { return Name; }
 	public String GetNumber() { return ContactNumber; }
 	
+	public int ContactID;
 	public String Name;
 	public String ContactNumber;
 	public ArrayList<String> ContactNumbers = null; 

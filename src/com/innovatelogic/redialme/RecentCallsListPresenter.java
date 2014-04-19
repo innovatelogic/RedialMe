@@ -60,34 +60,54 @@ public class RecentCallsListPresenter
 	{
 		ClearList();
 		
-		ArrayList <HashMap<String, String>> listItem = new ArrayList <HashMap<String , String>>();
-		
-		int index = 0;
+		ArrayList <HashMap<String, String>> listItem = new ArrayList <HashMap<String, String>>();
+		HashMap<String, HashMap<String, String>> local_cache = new HashMap<String, HashMap<String, String>>(); //[Number, Data]
+				
 		List<RecentCallsStore.CallInfo> calls = store.GetRecentInfoList();
-		for (RecentCallsStore.CallInfo call : calls )
+		boolean isEmpty = queryNum.equals("");
+		int index = 0;
+		
+		for (RecentCallsStore.CallInfo call : calls)
 		{
-			HashMap<String, String> map = new HashMap<String, String>();
-			
 			String title = call.mNumber;
-			String duration = call.mCallDuration == 0 ? "" : MainActivity.FormatSec(call.mCallDuration);
 			
-			if (queryNum.equals("") || title.contains(queryNum))
+			HashMap<String, String> cache_inst = local_cache.get(call.mNumber);
+			boolean isInCache = cache_inst != null;
+			
+			if (isEmpty || isInCache || title.contains(queryNum))
 			{
-				ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(call.mNumber);
-				if (info != null){
-					title = info.mInfo.Name;
+				if (!isInCache)
+				{
+					ContactsStore.KeyContactInfo info = mActivity.getContactsStore().GetInfoByNum(call.mNumber);
+									
+					if (info != null){
+						title = info.mInfo.Name;
+					}
+	
+					HashMap<String, String> map = new HashMap<String, String>();
+					
+					int img_resource = (call.mCallType == ECallType.EOutgoing) ? R.drawable.out_call :
+										(call.mCallType == ECallType.EIncoming ? R.drawable.inner_call : R.drawable.inner_call_missed);
+					
+					String duration = call.mCallDuration == 0 ? "" : MainActivity.FormatSec(call.mCallDuration);
+					
+					map.put("title", title);
+					map.put("duration", duration);
+					map.put("calltime", call.mCallDayTime.toString());
+					map.put("img", String.valueOf(img_resource));
+					map.put("idx", Integer.toString(index));
+					
+					listItem.add(map);
+					
+					// add to cache
+					if (!local_cache.containsKey(call.mNumber)){
+						local_cache.put(call.mNumber, map);
+					}
 				}
-				
-				int img_resource = (call.mCallType == ECallType.EOutgoing) ? R.drawable.out_call :
-									(call.mCallType == ECallType.EIncoming ? R.drawable.inner_call : R.drawable.inner_call_missed);
-				
-				map.put("title", title);
-				map.put("duration", duration);
-				map.put("calltime", call.mCallDayTime.toString());
-				map.put("img", String.valueOf(img_resource));
-				map.put("idx", Integer.toString(index));
-				
-				listItem.add(map);
+				else
+				{
+					listItem.add(cache_inst); // add from cache
+				}
 			}
 			++index;
 		}

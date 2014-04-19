@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.LruCache;
@@ -32,13 +31,16 @@ public class ContactsStore
 		}
 	}
 	
-	private Map<Integer, UserContactInfo> mMapContacts = null;
+	private Map<Integer, UserContactInfo> mMapContacts = null; // [ContactID, UserInfo]
+	private Map<String, UserContactInfo>  mMapContacts_KeyNumber = null;
+	
 	private LruCache<Integer, Bitmap> mBitmapCache = null;
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
 		mMapContacts = new HashMap<Integer, UserContactInfo>();
+		mMapContacts_KeyNumber = new HashMap<String, UserContactInfo>();
 		
 		// Get max available VM memory, exceeding this amount will throw an
 	    // OutOfMemory exception. Stored in kilobytes as LruCache takes an
@@ -111,16 +113,20 @@ public class ContactsStore
 				if (findInfo == null)
 				{
 					UserContactInfo userInfo = new UserContactInfo();
+					
+					userInfo.ContactID = contactID;
+					userInfo.Name = contactName;
 					userInfo.ContactNumbers = new ArrayList<String>();
 					userInfo.ContactNumbers.add(NumberNorm);
-					userInfo.Name = contactName;
 					userInfo.thumbnailID = thumbnailId;
 					
 					mMapContacts.put(contactID, userInfo);
+					mMapContacts_KeyNumber.put(NumberNorm, userInfo);
 				}
 				else
 				{
 					findInfo.ContactNumbers.add(NumberNorm);
+					mMapContacts_KeyNumber.put(NumberNorm, findInfo);
 				}
 				
 				cursor.moveToNext();
@@ -138,14 +144,21 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public KeyContactInfo GetInfoByNum(String number)
 	{
-		for (Map.Entry<Integer, UserContactInfo> entry : mMapContacts.entrySet())
+		UserContactInfo info = mMapContacts_KeyNumber.get(number);
+		
+		if (info != null)
+		{
+			return new KeyContactInfo(info.ContactID, info);
+		}
+		
+		/*for (Map.Entry<Integer, UserContactInfo> entry : mMapContacts.entrySet())
 		{
 			for (String v : entry.getValue().ContactNumbers)
 			{
 				if (number.equals(v))
-					return new KeyContactInfo(entry.getKey(), entry.getValue());
+					
 			}
-		}
+		}*/
 		return null;
 	}
 	

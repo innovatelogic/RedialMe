@@ -25,7 +25,6 @@ public class ContactsListPresenter
 	{
 		private final ContactsListPresenter    mPresenter;
 		private final WeakReference<ImageView> mImageViewReference;
-		private int data = 0;
 		
 	    public BitmapWorkerTask(ContactsListPresenter presenter, ImageView imageView) 
 	    {
@@ -41,8 +40,21 @@ public class ContactsListPresenter
 	    	mPresenter.mActivity.getContactsStore().AddBitmapToCache(params[0], bitmap);
 	        return bitmap;
 	    }
+		
+		@Override
+		protected void onPostExecute(Bitmap result)
+		{
+			super.onPostExecute(result);
+			
+			ImageView image = mImageViewReference.get();
+			if (image != null)
+			{
+				image.setImageBitmap(result);
+			}
+		}
 	};
 	
+	//----------------------------------------------------------------------------------------------
 	private class OrderAdapter extends ArrayAdapter<ArrayList<String>> 
 	{
 		private ContactsListPresenter mPresenter = null;
@@ -97,14 +109,6 @@ public class ContactsListPresenter
 							BitmapWorkerTask task = new BitmapWorkerTask(mPresenter, imageuser);
 							task.execute(thumbnailID);
 						}
-						
-						
-						/*Bitmap bitmap = MainActivity.fetchThumbnail(thumbnailID, mActivity.getApplicationContext()); 
-						if (bitmap != null)
-						{
-							imageuser.setImageBitmap(bitmap);
-							bDefault = false;
-						}*/
 					}
 				}
             	

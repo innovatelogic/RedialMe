@@ -60,7 +60,6 @@ public class TerritoryEntry
 					String[] NameAliases = atrName.split(";");
 										
 					String[] parts = atrCodes.split(";");
-					List<String> codes = Arrays.asList(parts);
 					
 					ProviderEntry provider = new ProviderEntry(aliasName);
 					provider.Deserialize(parser);
