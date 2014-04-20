@@ -102,13 +102,12 @@ public class DialPad
     				if (index >= 0 && index < calls.size())
     				{
     					CallInfo info = calls.get(index);
-    					
     					ContactsStore.KeyContactInfo contactinfo = mActivity.getContactsStore().GetInfoByNum(info.mNumber);
     					
     					if (contactinfo != null){
     						mActivity.GetPopupWindow().mContactID = contactinfo.mKey;
     					}
-    					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.mInfo.Name : "Unknown number";
+    					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.mInfo.Name : mActivity.getString(R.string.unknown_number);
         				mActivity.GetPopupWindow().AddNumber(info.mNumber);
         				mActivity.GetPopupWindow().Toggle(true);
     				}
@@ -196,7 +195,7 @@ public class DialPad
 					if (info != null){
 						mActivity.GetPopupWindow().mContactID = info.mKey;
 					}
-    				mActivity.GetPopupWindow().mName = (info.mInfo != null) ? info.mInfo.Name : "Unknown number";
+    				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : mActivity.getString(R.string.unknown_number);
     				mActivity.GetPopupWindow().AddNumber(number);
     				mActivity.GetPopupWindow().Toggle(true);
     			}
