@@ -83,6 +83,7 @@ public class DialPad
     	for (int i = 0; i < esize; ++i){
 	    	mDialButtons[i].setTextSize(txt_size);
 		}
+    	
     	mEditNumber.setTextSize(txt_size);
     	mBtnAction.setTextSize(txt_size);
     	    	
