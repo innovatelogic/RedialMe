@@ -32,20 +32,25 @@ public class ContactsStore
 	}
 	
 	private Map<Integer, UserContactInfo> mMapContacts = null; // [ContactID, UserInfo]
-	private Map<String, UserContactInfo>  mMapContacts_KeyNumber = null;
+	private Map<String, UserContactInfo>  mMapContacts_KeyNumber = null; // [Number, UserInfo]
+	private ArrayList<UserContactInfo>    mListContactsSorted = null; 
 	
 	private LruCache<Integer, Bitmap> mBitmapCache = null;
+	
+	public Map<Integer, UserContactInfo> GetContactsStoreMap() { return mMapContacts; }
+	public ArrayList<UserContactInfo> GetUserContactsSorted() { return mListContactsSorted; }
 	
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
 		mMapContacts = new HashMap<Integer, UserContactInfo>();
 		mMapContacts_KeyNumber = new HashMap<String, UserContactInfo>();
+		mListContactsSorted = new ArrayList<UserContactInfo>();
 		
 		// Get max available VM memory, exceeding this amount will throw an
 	    // OutOfMemory exception. Stored in kilobytes as LruCache takes an
 	    // int in its constructor.
-		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+		final int maxMemory = (int)(Runtime.getRuntime().maxMemory() / 1024);
 		
 		// Use 1/8th of the available memory for this memory cache.
 	    final int cacheSize = maxMemory / 8;
@@ -61,8 +66,6 @@ public class ContactsStore
 	       }
 	    };
 	}
-	
-	public Map<Integer, UserContactInfo> GetContactsStoreMap() { return mMapContacts; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void AddBitmapToCache(Integer key, Bitmap bitmap)
@@ -122,6 +125,8 @@ public class ContactsStore
 					
 					mMapContacts.put(contactID, userInfo);
 					mMapContacts_KeyNumber.put(NumberNorm, userInfo);
+					
+					mListContactsSorted.add(userInfo);
 				}
 				else
 				{
@@ -150,15 +155,6 @@ public class ContactsStore
 		{
 			return new KeyContactInfo(info.ContactID, info);
 		}
-		
-		/*for (Map.Entry<Integer, UserContactInfo> entry : mMapContacts.entrySet())
-		{
-			for (String v : entry.getValue().ContactNumbers)
-			{
-				if (number.equals(v))
-					
-			}
-		}*/
 		return null;
 	}
 	

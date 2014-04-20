@@ -2,8 +2,6 @@ package com.innovatelogic.redialme;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Arrays;
 
 import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
@@ -54,12 +52,10 @@ public class TerritoryEntry
 				if (name.equals(PROVIDER_TAG) && !readTag)
 				{
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
-					String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
+					//String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
 					String aliasName = parser.getAttributeValue(ProviderStore.ns, "Alias");
 					
 					String[] NameAliases = atrName.split(";");
-										
-					String[] parts = atrCodes.split(";");
 					
 					ProviderEntry provider = new ProviderEntry(aliasName);
 					provider.Deserialize(parser);

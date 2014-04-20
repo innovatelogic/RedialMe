@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -38,7 +38,7 @@ public class MainActivity extends Activity
 	
 	private TabHost			mTabView;
 	private TextView		mUserNameEdit;
-	private Button			mUserNameBackspace;
+	private ImageButton		mUserNameBackspace;
 	
 	private RecentCallsListPresenter mListPresenter;
 	private ContactsListPresenter mListPresenterContacts;
@@ -49,7 +49,7 @@ public class MainActivity extends Activity
 			
     private String mOperatorName = null;
     private String mDefaultTerritory = "UA";
-    
+        
     private static int mCurrentTab = 0;
 
     private TerritoryEntry mTerritory = null;
@@ -60,6 +60,8 @@ public class MainActivity extends Activity
     private ProviderEntry mProviderDefault = null;
     
     //private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
+    
+    public static final int DEF_FONT_SIZE = 16;
     
     public static Context getAppContext() { return mContext; }
     
@@ -80,8 +82,10 @@ public class MainActivity extends Activity
     public String GetCurrentNumber() {	return mDialPad.GetNumber(); }
     
     public ProviderEntry GetProviderDefault() { return mProviderDefault; }
+    
+    public float GetDefTextSize() { return DEF_FONT_SIZE * getResources().getDisplayMetrics().density; }
 
-	//----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
     private void findAllViewsById()
     {
     	mTabView = (TabHost)findViewById(android.R.id.tabhost);
@@ -104,7 +108,9 @@ public class MainActivity extends Activity
     	mTabView.addTab(spec3);
     	
     	mUserNameEdit = (TextView)findViewById(R.id.editUserName);
-    	mUserNameBackspace = (Button)findViewById(R.id.BtnBackspaceName);
+    	mUserNameBackspace = (ImageButton)findViewById(R.id.BtnBackspaceName);
+
+    	mUserNameEdit.setTextSize(GetDefTextSize());
      }
     
     //----------------------------------------------------------------------------------------------
@@ -181,7 +187,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
-    			if (mUserNameBackspace.getText().toString().length() > 0)
+    			if (mUserNameEdit.getText().toString().length() > 0)
     				mUserNameEdit.setText("");
     		}
     	});

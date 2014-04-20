@@ -192,17 +192,17 @@ public class ContactsListPresenter
 		
 		ArrayList <ArrayList<String>> listItems = new ArrayList <ArrayList<String>>();
 		
-		Map<Integer, UserContactInfo> mapContacts = store.GetContactsStoreMap();
+		ArrayList<UserContactInfo> listContacts = store.GetUserContactsSorted();
 		
-		for (Map.Entry<Integer, UserContactInfo> entry : mapContacts.entrySet())
+		for (UserContactInfo entry : listContacts)
 		{
 			ArrayList<String> map = new ArrayList<String>();
-			String name = entry.getValue().GetName();
+			String name = entry.GetName();
 			String low_name = name.toLowerCase(); 
 					
 			if (queryNum.equals("") || low_name.contains(queryNum.toLowerCase()))
 			{
-				map.add(Integer.toString(entry.getKey()));
+				map.add(Integer.toString(entry.ContactID));
 				map.add(name);
 				
 				listItems.add(map);

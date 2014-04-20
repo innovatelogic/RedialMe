@@ -6,6 +6,7 @@ import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class DialPad
 	private Button 		mBtnAction;
 	private TextView 	mEditNumber;
 	private ListView    mListRecentCallsLite;
-	private Button		mBtnBackspace;
+	private ImageButton	mBtnBackspace;
 	private RecentCallsListPresenter mListPresenter;
 	
 	//----------------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ public class DialPad
     {
     	mListRecentCallsLite = (ListView) activity.findViewById(R.id.listRecentCallsLite);
     	mEditNumber = (TextView)activity.findViewById(R.id.editNumber);
-    	mBtnBackspace = (Button)activity.findViewById(R.id.BtnBackspace);
+    	mBtnBackspace = (ImageButton)activity.findViewById(R.id.BtnBackspace);
     	
     	mBtnAction = (Button)activity.findViewById(R.id.buttonActionDialPad);
     	mBtnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
@@ -69,16 +70,21 @@ public class DialPad
     	mDialButtons[0] = (Button)activity.findViewById(R.id.Btn_ONE);
     	mDialButtons[1] = (Button)activity.findViewById(R.id.Btn_TWO);
     	mDialButtons[2] = (Button)activity.findViewById(R.id.Btn_THREE);
-    	
     	mDialButtons[3] = (Button)activity.findViewById(R.id.Btn_FORE);
     	mDialButtons[4] = (Button)activity.findViewById(R.id.Btn_FIVE);
     	mDialButtons[5] = (Button)activity.findViewById(R.id.Btn_SIX);
-    	
     	mDialButtons[6] = (Button)activity.findViewById(R.id.Btn_SEVEN);
     	mDialButtons[7] = (Button)activity.findViewById(R.id.Btn_EIGHT);
     	mDialButtons[8] = (Button)activity.findViewById(R.id.Btn_NINE);
-    	
     	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_ZERO);
+    	
+    	// fit up size
+    	float txt_size = mActivity.GetDefTextSize();
+    	for (int i = 0; i < esize; ++i){
+	    	mDialButtons[i].setTextSize(txt_size);
+		}
+    	mEditNumber.setTextSize(txt_size);
+    	mBtnAction.setTextSize(txt_size);
     	    	
     	mListRecentCallsLite.setOnItemClickListener(new OnItemClickListener() 
     	{

@@ -89,14 +89,12 @@
 
                                     </LinearLayout>
 
-                                    <Button
+                                    <ImageButton
                                         android:id="@+id/BtnBackspace"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.2"
-                                        android:minWidth="54dip"
-                                        android:src="@android:drawable/btn_star"
-                                        android:text="@string/Backspace" />
+                                        android:src="@drawable/backspace" />
 
                                 </TableRow>
 
@@ -355,14 +353,13 @@
                                         </EditText>
                                     </LinearLayout>
 
-                                    <Button
+                                    <ImageButton
                                         android:id="@+id/BtnBackspaceName"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.15"
-                                        android:minWidth="54dip"
-                                        android:src="@android:drawable/btn_star"
-                                        android:text="@string/Backspace" />
+                                        android:src="@drawable/backspace" />
+
                                 </TableRow>
                             </TableLayout>
 
