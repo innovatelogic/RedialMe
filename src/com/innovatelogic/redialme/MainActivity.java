@@ -39,6 +39,9 @@ public class MainActivity extends Activity
 	private TabHost			mTabView;
 	private TextView		mUserNameEdit;
 	private ImageButton		mUserNameBackspace;
+	  
+	private ActionPopupWindow mActionPopupWindow = null;
+	private SettingsPopupWindow mActionSettings = null;
 	
 	private RecentCallsListPresenter mListPresenter;
 	private ContactsListPresenter mListPresenterContacts;
@@ -55,7 +58,7 @@ public class MainActivity extends Activity
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
-    private ActionPopupWindow mActionPopupWindow = null;
+
     
     private ProviderEntry mProviderDefault = null;
     
@@ -74,6 +77,8 @@ public class MainActivity extends Activity
     public RecentCallsStore GetRecentCallsStore() { return mRecentCallsStore; }
     
     public ActionPopupWindow GetPopupWindow() { return mActionPopupWindow; }
+
+    public SettingsPopupWindow GetSettingsWindow() { return mActionSettings; }
     
     public TabHost GetTabView() { return mTabView; }
     
@@ -136,6 +141,8 @@ public class MainActivity extends Activity
     		AssetManager assetManager = getAssets();
     		InputStream ism = assetManager.open(getString(R.string.providers_data_file));
     		
+    		mActionSettings = new SettingsPopupWindow(this);
+    		    		
     		mProviderStore = new ProviderStore();
     		mProviderStore.Deserialize(ism);
     		    		
@@ -161,8 +168,8 @@ public class MainActivity extends Activity
         	mActionPopupWindow = new ActionPopupWindow(this);
         	
         	mCurrentTab = mTabView.getCurrentTab();
-        	
-        	 // Create an ad.
+
+        	// Create an ad.
        /*
             adView = new AdView(this);
             adView.setAdSize(AdSize.BANNER);
@@ -172,6 +179,9 @@ public class MainActivity extends Activity
             .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
             .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
             .build();*/
+        	
+        	// GetSettingsWindow().Toggle(true); // TEST TEST
+        	// GetSettingsWindow().Toggle(false); // TEST TEST
     	}
     	catch (IOException ex)
     	{
@@ -187,6 +197,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
+    			// GetSettingsWindow().Toggle(true); // TEST TEST
     			if (mUserNameEdit.getText().toString().length() > 0)
     				mUserNameEdit.setText("");
     		}
