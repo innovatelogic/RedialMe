@@ -47,8 +47,7 @@ public class ContactsListPresenter
 			super.onPostExecute(result);
 			
 			ImageView image = mImageViewReference.get();
-			if (image != null)
-			{
+			if (image != null){
 				image.setImageBitmap(result);
 			}
 		}
