@@ -231,7 +231,16 @@ public class MainActivity extends Activity
         	}
         });
      }
-
+   
+	//----------------------------------------------------------------------------------------------
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        
+       // GetSettingsWindow().Toggle(true); // TEST TEST
+    }
+    
 	//----------------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
@@ -311,7 +320,7 @@ public class MainActivity extends Activity
 		if (numHours > 0) {
 			outString += Integer.toString(numHours) + "h ";
 		}
-		
+
 		if (numMin > 0) {
 			outString += Integer.toString(numMin) + "m ";
 		}
