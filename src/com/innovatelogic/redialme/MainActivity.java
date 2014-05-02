@@ -261,10 +261,14 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
-		if (mActionPopupWindow.IsVisible() && keyCode == KeyEvent.KEYCODE_BACK)
+		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			mActionPopupWindow.Toggle(false);
-			return false;
+			if (mActionPopupWindow.IsVisible() || mActionSettings.IsVisible())
+			{
+				mActionPopupWindow.Toggle(false);
+				mActionSettings.Toggle(false);
+				return false;
+			}
 		}
 		return super.onKeyDown(keyCode, event);
 	}
