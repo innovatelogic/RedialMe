@@ -39,7 +39,8 @@ public class MainActivity extends Activity
 	private TabHost			mTabView;
 	private TextView		mUserNameEdit;
 	private ImageButton		mUserNameBackspace;
-	  
+	private ImageButton		mImageButtonOptions;
+	
 	private ActionPopupWindow mActionPopupWindow = null;
 	private SettingsPopupWindow mActionSettings = null;
 	
@@ -116,6 +117,8 @@ public class MainActivity extends Activity
     	mUserNameBackspace = (ImageButton)findViewById(R.id.BtnBackspaceName);
 
     	mUserNameEdit.setTextSize(GetDefTextSize());
+    	
+    	mImageButtonOptions = (ImageButton) findViewById(R.id.imageButtonOptions);
      }
     
     //----------------------------------------------------------------------------------------------
@@ -179,9 +182,6 @@ public class MainActivity extends Activity
             .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
             .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
             .build();*/
-        	
-        	// GetSettingsWindow().Toggle(true); // TEST TEST
-        	// GetSettingsWindow().Toggle(false); // TEST TEST
     	}
     	catch (IOException ex)
     	{
@@ -197,9 +197,17 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
-    			// GetSettingsWindow().Toggle(true); // TEST TEST
     			if (mUserNameEdit.getText().toString().length() > 0)
     				mUserNameEdit.setText("");
+    		}
+    	});
+    	
+    	mImageButtonOptions.setOnClickListener(new OnClickListener()
+    	{
+    		@Override
+    		public void onClick(View v)
+    		{
+    			GetSettingsWindow().Toggle(true);
     		}
     	});
     	
@@ -237,7 +245,6 @@ public class MainActivity extends Activity
     protected void onStart()
     {
         super.onStart();
-        
        // GetSettingsWindow().Toggle(true); // TEST TEST
     }
     
