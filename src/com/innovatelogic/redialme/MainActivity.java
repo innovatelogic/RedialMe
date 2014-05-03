@@ -2,7 +2,6 @@ package com.innovatelogic.redialme;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,10 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -61,12 +58,14 @@ public class MainActivity extends Activity
     private static int mCurrentTab = 0;
 
     private TerritoryEntry mTerritory = null;
+    private ProviderEntry  mCurrentProvider = null;
+    
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
     
-    private ProviderEntry mProviderDefault = null;
-    
     //private static final String AD_UNIT_ID = "ca-app-pub-7743614673711056/4483553123";
+    public static final String PREFS_NAME = "RedialMePrefsFile";
+    public static final String NODEF = "NODEF";
     
     public static final int DEF_FONT_SIZE = 16;
     
@@ -90,7 +89,7 @@ public class MainActivity extends Activity
     
     public String GetCurrentNumber() {	return mDialPad.GetNumber(); }
     
-    public ProviderEntry GetProviderDefault() { return mProviderDefault; }
+    public ProviderEntry GetProviderDefault() { return mCurrentProvider; }
     
     public float GetDefTextSize() { return DEF_FONT_SIZE * getResources().getDisplayMetrics().density; }
 
@@ -118,10 +117,9 @@ public class MainActivity extends Activity
     	
     	mUserNameEdit = (TextView)findViewById(R.id.editUserName);
     	mUserNameBackspace = (ImageButton)findViewById(R.id.BtnBackspaceName);
-
-    	mUserNameEdit.setTextSize(GetDefTextSize());
+    	mImageButtonOptions = (ImageButton)findViewById(R.id.imageButtonOptions);
     	
-    	mImageButtonOptions = (ImageButton) findViewById(R.id.imageButtonOptions);
+    	mUserNameEdit.setTextSize(GetDefTextSize());
      }
     
     //----------------------------------------------------------------------------------------------
@@ -140,38 +138,40 @@ public class MainActivity extends Activity
     	
     	// TODO catch exception
     	TelephonyManager manager = (TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE);
+    	
     	mOperatorName = manager.getNetworkOperatorName();
     	
     	try
     	{
+    		mActionSettings = new SettingsPopupWindow(this);
+    		mActionPopupWindow = new ActionPopupWindow(this);
+    		mProviderStore = new ProviderStore();
+    		mContactsStore = new ContactsStore();
+    		mRecentCallsStore = new RecentCallsStore(this);
+    		mDialPad = new DialPad(this);
+    		
+    		mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
+    		mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
+    		
     		AssetManager assetManager = getAssets();
     		InputStream ism = assetManager.open(getString(R.string.providers_data_file));
-    		
-    		mActionSettings = new SettingsPopupWindow(this);
-    		    		
-    		mProviderStore = new ProviderStore();
     		mProviderStore.Deserialize(ism);
-    		    		
-    		mContactsStore = new ContactsStore();
-    		mContactsStore.LoadContacts(getAppContext());
-    		
-    		mRecentCallsStore = new RecentCallsStore(this);
-    		mRecentCallsStore.Initialize();
-    		
-    		mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
-        	
-        	mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
-        	mListPresenter.FillList(GetRecentCallsStore());
-        	
-        	mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
-        	mListPresenterContacts.FillList(mContactsStore);		
-        	
-        	mDialPad = new DialPad(this);
-        	mDialPad.findAllViewsById(MainActivity.this);
-        	
-        	mProviderDefault = mTerritory.GetProvider(mOperatorName);
-        	
-        	mActionPopupWindow = new ActionPopupWindow(this);
+   		
+    		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    		String territory = settings.getString("Territory", NODEF);
+    		String provider = settings.getString("Provider", NODEF);
+    		mActionSettings.Toggle(true, true);
+    		if (territory == NODEF || provider == NODEF)
+    		{
+    			mActionSettings.Toggle(true, true);
+    		}
+    		else
+    		{
+    			mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
+    			mCurrentProvider = mTerritory.GetProvider(mOperatorName);
+    			
+    			Initialize(mTerritory, mCurrentProvider);
+    		}
         	
         	mCurrentTab = mTabView.getCurrentTab();
 
@@ -210,24 +210,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
-    			GetSettingsWindow().Toggle(true);
-    			
-    			/*LinearLayout layout = new LinearLayout(MainActivity.mContext);
-
-    		    ArrayList<String> spinnerArray = new ArrayList<String>();
-    		    spinnerArray.add("one");
-    		    spinnerArray.add("two");
-    		    spinnerArray.add("three");
-    		    spinnerArray.add("four");
-    		    spinnerArray.add("five");
-
-    		    Spinner spinner = new Spinner(MainActivity.mContext);
-    		    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(MainActivity.mContext, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-    		    spinner.setAdapter(spinnerArrayAdapter);
-
-    		    layout.addView(spinner);
-
-    		    setContentView(layout);*/
+    			GetSettingsWindow().Toggle(true, false);
     		}
     	});
     	
@@ -260,12 +243,43 @@ public class MainActivity extends Activity
         });
      }
    
+    //----------------------------------------------------------------------------------------------
+    public void Initialize(TerritoryEntry territory, ProviderEntry provider)
+    {
+        mTerritory = territory;
+        mCurrentProvider = provider;
+    	
+		mContactsStore.LoadContacts(getAppContext());  		
+    	mRecentCallsStore.Initialize();
+    	mListPresenter.FillList(GetRecentCallsStore());
+    	mListPresenterContacts.FillList(mContactsStore);		
+    	mDialPad.UpdateRecentList("");	
+    }
+    
 	//----------------------------------------------------------------------------------------------
     @Override
     protected void onStart()
     {
         super.onStart();
        // GetSettingsWindow().Toggle(true); // TEST TEST
+    }
+    
+    //----------------------------------------------------------------------------------------------
+    @Override
+    protected void onStop()
+    {
+    	super.onStop();
+    	
+    	if (mTerritory != null && mCurrentProvider != null)
+    	{
+    		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    		SharedPreferences.Editor editor = settings.edit();
+    		editor.putString("Territory", mTerritory.GetName());
+    		editor.putString("Provider", mCurrentProvider.GetName());
+    		
+          // Commit the edits!
+          editor.commit();
+    	}
     }
     
 	//----------------------------------------------------------------------------------------------
@@ -283,10 +297,19 @@ public class MainActivity extends Activity
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			if (mActionPopupWindow.IsVisible() || mActionSettings.IsVisible())
+			if (mActionSettings.IsVisible())
+			{
+				boolean bModalMode = mActionSettings.GetToggledOptions();
+				
+				mActionSettings.Toggle(false, false);
+				
+				return bModalMode;
+			}
+			
+			if (mActionPopupWindow.IsVisible())
 			{
 				mActionPopupWindow.Toggle(false);
-				mActionSettings.Toggle(false);
+				
 				return false;
 			}
 		}
@@ -299,8 +322,6 @@ public class MainActivity extends Activity
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		
 		imm.hideSoftInputFromWindow(mUserNameEdit.getWindowToken(), 0);
-		
-		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 	
 	//----------------------------------------------------------------------------------------------

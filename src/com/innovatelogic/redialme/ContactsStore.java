@@ -86,6 +86,8 @@ public class ContactsStore
 	{
 		Log.d("Start", "load contact list");
 		
+		ClearContacts();
+		
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 		  
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -182,5 +184,14 @@ public class ContactsStore
 			}
 		}
 		return number;
+	}
+	
+	public void ClearContacts()
+	{
+		mMapContacts.clear();
+		mMapContacts_KeyNumber.clear();
+		mListContactsSorted.clear();
+		
+		//mBitmapCache.
 	}
 }

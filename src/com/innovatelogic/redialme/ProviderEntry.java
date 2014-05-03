@@ -10,7 +10,8 @@ import com.innovatelogic.redialme.IUserOperation;
 
 public class ProviderEntry
 {
-	private String mAliasName = null;
+	private String mName;
+	private String mAliasName;
 	private List<IUserOperation> mOperationsList;
 	
 	private static final String ENTRY_TAG = "Entry";
@@ -20,11 +21,13 @@ public class ProviderEntry
 		
 	public List<IUserOperation> GetOperationList() { return mOperationsList; }
 	
+	public String GetName() { return mName; }
 	public String GetAliasName() { return mAliasName; }
 	
 	//----------------------------------------------------------------------------------------------
-	public ProviderEntry(String alias)
+	public ProviderEntry(String name, String alias)
 	{
+		mName = name;
 		mAliasName = alias;
 		mOperationsList = new ArrayList<IUserOperation>();
 	}

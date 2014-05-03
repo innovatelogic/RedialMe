@@ -13,6 +13,7 @@ public class TerritoryEntry
 {
 	public static final String PROVIDER_TAG = "Provider";
 	
+	private String mName;
 	private String mCode;
 	private String mAlias;
 	
@@ -30,6 +31,7 @@ public class TerritoryEntry
 	}
 	
 	//----------------------------------------------------------------------------------------------
+	public String GetName() { return mName; }
 	public String GetCode() { return mCode; }
 	public String GetAlias() { return mAlias; }
 	
@@ -63,7 +65,7 @@ public class TerritoryEntry
 					
 					String[] NameAliases = atrName.split(";");
 					
-					ProviderEntry provider = new ProviderEntry(aliasName);
+					ProviderEntry provider = new ProviderEntry(atrName, aliasName);
 					provider.Deserialize(parser);
 					
 					for (String s : NameAliases){

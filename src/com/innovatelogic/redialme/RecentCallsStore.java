@@ -48,6 +48,8 @@ public class RecentCallsStore
 	//----------------------------------------------------------------------------------------------
 	public void Initialize()
 	{
+		Clear();
+		
 		Cursor managedCursor = 
 				mActivity.getApplicationContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, 
 						null, null, null, CallLog.Calls.DATE + " DESC");
@@ -93,5 +95,11 @@ public class RecentCallsStore
 			
 			counter++;
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void Clear()
+	{
+		mListRecentCalls.clear();
 	}
 }

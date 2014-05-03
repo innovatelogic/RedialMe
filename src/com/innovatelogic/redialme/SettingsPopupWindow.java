@@ -22,6 +22,8 @@ public class SettingsPopupWindow
 	private String mSelectedTerrKey = null;
 	private String mSelectedProviderKey = null;
 	
+	private boolean mbToggleOptions = false;
+	
 	//----------------------------------------------------------------------------------------------
 	SettingsPopupWindow(MainActivity activity)
 	{
@@ -30,9 +32,10 @@ public class SettingsPopupWindow
 
 	//----------------------------------------------------------------------------------------------
 	public boolean IsVisible() { return mPopupWindow != null; }
-
+	public boolean GetToggledOptions() { return mbToggleOptions; }
+	
 	//----------------------------------------------------------------------------------------------
-	public void Toggle(boolean bFlag)
+	public void Toggle(boolean bFlag, boolean bToggleOptions)
 	{
 		if (bFlag && mPopupWindow == null)
 		{
@@ -45,10 +48,6 @@ public class SettingsPopupWindow
 	    	mPopupWindow.setFocusable(false);
 	    	mPopupWindow.setTouchable(true); 
 	    	mPopupWindow.setOutsideTouchable(true);	
-	     	
-	    	//ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
-	    	//View root = (ViewGroup) decor.getChildAt(0);
-	    	//mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
 	    	
 	    	Button btnConfigure = (Button)popupView.findViewById(R.id.buttonOptionsConfigure);
 	    	
@@ -71,9 +70,15 @@ public class SettingsPopupWindow
 	            	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
 	            }
 	        });
+	    	
+	    	mbToggleOptions = bToggleOptions;
+	    	if (mbToggleOptions){
+	    		ToggleCountrySelector();
+	    	}
 		}
 		else if (!bFlag && mPopupWindow != null)
 		{
+			mbToggleOptions = false;
 			mPopupWindow.dismiss();
 			mPopupWindow = null;		
 		}
@@ -128,7 +133,10 @@ public class SettingsPopupWindow
 				}
 				else
 				{
+					ShowAlertMessage("No Country found", "Please, email us you country and provder and we support it ASAP\n mail@mail.com");
 					// quit
+					//android.os.Process.killProcess(android.os.Process.myPid());
+					//mActivity.onDestroy();
 				}
 			}
 		});
@@ -167,11 +175,15 @@ public class SettingsPopupWindow
 					TerritoryEntry territory = mapTerritory.get(mSelectedTerrKey);
 					if (territory != null)
 					{
-						Map<String, ProviderEntry> providers = territory.GetProvidersAlias();
+						Map<String, ProviderEntry> providers = territory.GetProviders();
 						
 						ProviderEntry provider = providers.get(arrayKeys[selected]);
 						if (provider != null)
 						{
+							mActivity.Initialize(territory, provider);
+							
+							Toggle(false, false);
+							
 							// TODO Auto-generated method stub
 							Toast.makeText(mActivity.getApplicationContext(), "U clicked " + provider.GetAliasName(), Toast.LENGTH_LONG).show();
 						}
@@ -187,10 +199,27 @@ public class SettingsPopupWindow
 				}
 				else
 				{
-					// QUIT
+					ShowAlertMessage("No Provider found", "Please, email us you country and provder and we support it ASAP\n mail@mail.com");
 				}
 			}
 		});
 		builder.show();
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ShowAlertMessage(String caption, String message)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		builder.setTitle(caption);
+		builder.setMessage(message);
+		builder.setCancelable(true);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int which) {
+		        dialog.dismiss();				
+		    }
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }

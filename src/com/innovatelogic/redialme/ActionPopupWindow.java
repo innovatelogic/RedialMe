@@ -85,8 +85,6 @@ public class ActionPopupWindow
 		
 		mNumbersList = new ArrayList<String>();
 		
-		mUseProvider = mActivity.GetProviderDefault();
-		
 		mSpinnerNumber = null;
 		mSpinnerProvider = null;
 		
@@ -108,6 +106,8 @@ public class ActionPopupWindow
 	{
 		if (bFlag && mPopupWindow == null)
 		{
+			mUseProvider = mActivity.GetProviderDefault();
+			
 			LayoutInflater layoutInflater = (LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		    
 	    	View popupView = layoutInflater.inflate(R.layout.activity_popupaction, null);
