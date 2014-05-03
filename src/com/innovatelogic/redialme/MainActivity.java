@@ -2,6 +2,7 @@ package com.innovatelogic.redialme;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -59,7 +63,6 @@ public class MainActivity extends Activity
     private TerritoryEntry mTerritory = null;
     private DialPad mDialPad = null;
     private RecentCallsStore mRecentCallsStore = null;
-
     
     private ProviderEntry mProviderDefault = null;
     
@@ -208,6 +211,23 @@ public class MainActivity extends Activity
     		public void onClick(View v)
     		{
     			GetSettingsWindow().Toggle(true);
+    			
+    			/*LinearLayout layout = new LinearLayout(MainActivity.mContext);
+
+    		    ArrayList<String> spinnerArray = new ArrayList<String>();
+    		    spinnerArray.add("one");
+    		    spinnerArray.add("two");
+    		    spinnerArray.add("three");
+    		    spinnerArray.add("four");
+    		    spinnerArray.add("five");
+
+    		    Spinner spinner = new Spinner(MainActivity.mContext);
+    		    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(MainActivity.mContext, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+    		    spinner.setAdapter(spinnerArrayAdapter);
+
+    		    layout.addView(spinner);
+
+    		    setContentView(layout);*/
     		}
     	});
     	
