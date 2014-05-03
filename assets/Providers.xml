@@ -1,16 +1,16 @@
 <Providers>
 <Territories>
-	<Territory Name="UA" Code="380">
-		<Provider Name="life:)" Alias="life:) Ukraine" Codes="93;63">
+	<Territory Name="UA" Alias="Ukraine" Code="+380">
+		<Provider Name="life:)" Alias="life:)" Codes="93;63">
 			<Entry Operation="CallMe" Type="SMS" Num="124" Mask="3 %TERR%%PRV%%NUM%"/>
-	     <!--  <Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/> -->
+	     	<!--  <Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/> -->
 	    </Provider>
         	
-	    <Provider Name="MTS;MTS UKR" Alias="MTS Ukraine"  Codes="50;95">
+	    <Provider Name="MTS;MTS UKR" Alias="MTS"  Codes="50;95">
 	        <Entry Operation="CallMe" Type="Call" Mask="*104*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
 	        	
-	    <Provider Name="kievstar" Alias= "Kievstar Ukraine" Codes="67">
+	    <Provider Name="kievstar" Alias="Kievstar" Codes="67">
 	        <Entry Operation="CallMe" Type="Call" Mask="*130*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
     </Territory>

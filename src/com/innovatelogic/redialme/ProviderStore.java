@@ -96,8 +96,9 @@ public class ProviderStore
 				{
 					String atrName = parser.getAttributeValue(ns, "Name");
 					String atrCode = parser.getAttributeValue(ns, "Code");
+					String atrAlias = parser.getAttributeValue(ns, "Alias");
 					
-					TerritoryEntry territory = new TerritoryEntry(atrCode);
+					TerritoryEntry territory = new TerritoryEntry(atrCode, atrAlias);
 					
 					territory.Deserialize(parser);
 					

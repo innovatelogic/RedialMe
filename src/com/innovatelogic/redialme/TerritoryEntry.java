@@ -13,22 +13,29 @@ public class TerritoryEntry
 {
 	public static final String PROVIDER_TAG = "Provider";
 	
-	private String Code;
+	private String mCode;
+	private String mAlias;
 	
 	private Map<String, ProviderEntry> mMapProviders;
+	private Map<String, ProviderEntry> mMapProvidersByAlias;
 	
 	//----------------------------------------------------------------------------------------------
-	public TerritoryEntry(String code)
+	public TerritoryEntry(String code, String alias)
 	{
-		Code = code;
 		mMapProviders = new HashMap<String, ProviderEntry>();
+		mMapProvidersByAlias = new HashMap<String, ProviderEntry>();
+		
+		mCode = code;
+		mAlias = alias;	
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	public String GetCode() { return Code; }
+	public String GetCode() { return mCode; }
+	public String GetAlias() { return mAlias; }
 	
 	//----------------------------------------------------------------------------------------------
 	public Map<String, ProviderEntry> GetProviders() { return mMapProviders; }
+	public Map<String, ProviderEntry> GetProvidersAlias() { return mMapProvidersByAlias; }
 	
 	//----------------------------------------------------------------------------------------------
 	public void Deserialize(XmlPullParser parser) throws XmlPullParserException, IOException
@@ -52,7 +59,6 @@ public class TerritoryEntry
 				if (name.equals(PROVIDER_TAG) && !readTag)
 				{
 					String atrName = parser.getAttributeValue(ProviderStore.ns, "Name");
-					//String atrCodes = parser.getAttributeValue(ProviderStore.ns, "Codes");
 					String aliasName = parser.getAttributeValue(ProviderStore.ns, "Alias");
 					
 					String[] NameAliases = atrName.split(";");
@@ -60,9 +66,10 @@ public class TerritoryEntry
 					ProviderEntry provider = new ProviderEntry(aliasName);
 					provider.Deserialize(parser);
 					
-					for(String s : NameAliases){
-						mMapProviders.put(s, provider);
+					for (String s : NameAliases){
+						mMapProvidersByAlias.put(s, provider);
 					}
+					mMapProviders.put(atrName, provider);
 					
 					event = parser.getEventType();
 					readTag = true;

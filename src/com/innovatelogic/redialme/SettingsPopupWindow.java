@@ -1,6 +1,6 @@
 package com.innovatelogic.redialme;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -8,11 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Toast;
@@ -21,7 +18,10 @@ public class SettingsPopupWindow
 {
 	private MainActivity mActivity = null;
 	private PopupWindow mPopupWindow = null;
-
+	
+	private String mSelectedTerrKey = null;
+	private String mSelectedProviderKey = null;
+	
 	//----------------------------------------------------------------------------------------------
 	SettingsPopupWindow(MainActivity activity)
 	{
@@ -57,76 +57,7 @@ public class SettingsPopupWindow
 	    		@Override
 		    	public void onClick(View v)
 		    	{
-	    			final CharSequence[] items={"Ukraine", "Uganda", "Germany", "USA", "France", "Marocco", "UK", "Georgia", "Mexico", "Hungary", "Poland"};
-	    			AlertDialog.Builder builder3 = new AlertDialog.Builder(mActivity);
-	    			
-	    			builder3.setTitle("Pick your choice").setItems(items, new DialogInterface.OnClickListener() 
-	    			{
-		    			@Override
-		    			public void onClick(DialogInterface dialog, int which) {
-		    				// TODO Auto-generated method stub
-		    				Toast.makeText(mActivity.getApplicationContext(), "U clicked "+items[which], Toast.LENGTH_LONG).show();
-		    			}
-	    			});
-	    			builder3.show();
-	    			
-	 /*   			LayoutInflater layoutInflater = (LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    		    
-	    	    	final View popupView = layoutInflater.inflate(R.layout.popupspinner, null);
-	    	    	
-	    	    	PopupWindow mPopupWindowSpinner = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	    	    	
-	    	    	mPopupWindowSpinner.setFocusable(false);
-	    	    	mPopupWindowSpinner.setTouchable(true); 
-	    	    	mPopupWindowSpinner.setOutsideTouchable(true);	
-	    	    	
-	    	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
-	    	    	View root = (ViewGroup) decor.getChildAt(0);
-	    	    	mPopupWindowSpinner.showAtLocation(root, Gravity.CENTER, 0, 0);
-	    	    	
-	    			//mActivity.setContentView(R.layout.popupspinner);
-	    			
-	    			ArrayAdapter myAdapter = new ArrayAdapter(mActivity, android.R.layout.simple_spinner_item,
-	    														new String[]{"one","two","three","four","five"});
-	    			
-	    			Spinner mySpinner = (Spinner) popupView.findViewById(R.id.myspinner);
-	    			mySpinner.setAdapter(myAdapter);
-	    			*/
-    			
-	    		   /* LinearLayout layout = new LinearLayout(mActivity);
-
-	    		    ArrayList<String> spinnerArray = new ArrayList<String>();
-	    		    
-	    		    spinnerArray.add("one");
-	    		    spinnerArray.add("two");
-	    		    spinnerArray.add("three");
-	    		    spinnerArray.add("four");
-	    		    spinnerArray.add("five");
-
-	    		    Spinner spinner = new Spinner(popupView.getContext());
-	    		    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(popupView.getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-	    		    spinner.setAdapter(spinnerArrayAdapter);
-
-	    		    layout.addView(spinner);
-
-	    		    mPopupWindow.setContentView(layout);*/
-	    			
-	    			/*LinearLayout layout = new LinearLayout(MainActivity.getAppContext());
-
-	    		    ArrayList<String> spinnerArray = new ArrayList<String>();
-	    		    spinnerArray.add("one");
-	    		    spinnerArray.add("two");
-	    		    spinnerArray.add("three");
-	    		    spinnerArray.add("four");
-	    		    spinnerArray.add("five");
-
-	    		    Spinner spinner = new Spinner(MainActivity.getAppContext());
-	    		    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(MainActivity.getAppContext(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-	    		    spinner.setAdapter(spinnerArrayAdapter);
-
-	    		    layout.addView(spinner);
-
-	    		    mActivity.setContentView(layout);*/
+	    			ToggleCountrySelector();
 		    	}
 	    	});
 	    	
@@ -146,5 +77,120 @@ public class SettingsPopupWindow
 			mPopupWindow.dismiss();
 			mPopupWindow = null;		
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ToggleCountrySelector()
+	{
+		Map<String, TerritoryEntry> map = mActivity.GetProviderStore().GetTerritoryEntries();
+		int size = map.size();
+		
+		final String [] arrayCountry = new String[map.size() + 1];
+		final String [] arrayKeys = new String[map.size()];
+		
+		int index = 0;
+		for (Map.Entry<String, TerritoryEntry> entry : map.entrySet())
+		{
+			arrayKeys[index] = entry.getKey();
+			arrayCountry[index] = entry.getValue().GetAlias();
+			index++;
+		}
+	    
+		arrayCountry[size] = mActivity.getString(R.string.not_in_list);
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		
+		builder.setTitle("Pick your choice").setItems(arrayCountry, new DialogInterface.OnClickListener() 
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int selected) 
+			{
+				Map<String, TerritoryEntry> map = mActivity.GetProviderStore().GetTerritoryEntries();
+				
+				int size = map.size();
+				
+				if (selected < arrayKeys.length)
+				{
+					TerritoryEntry entry = mActivity.GetProviderStore().GetTerritory(arrayKeys[selected]);
+					
+					if (entry != null)
+					{
+						mSelectedTerrKey = arrayKeys[selected];
+								
+						ToggleProviderSelector(entry);
+					
+						Toast.makeText(mActivity.getApplicationContext(), "U clicked " + arrayCountry[selected], Toast.LENGTH_LONG).show();
+					}
+					else
+					{
+						// ERROR
+					}
+				}
+				else
+				{
+					// quit
+				}
+			}
+		});
+		builder.show();
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ToggleProviderSelector(TerritoryEntry territory)
+	{
+		Map<String, ProviderEntry> providers = territory.GetProviders();
+		
+		final String [] arrayKeys = new String[providers.size()];
+		final String [] arrayProvider = new String[providers.size() + 1];
+		
+		int index = 0;
+		for (Map.Entry<String, ProviderEntry> entry : providers.entrySet())
+		{
+			arrayKeys[index] = entry.getKey();
+			arrayProvider[index] = entry.getValue().GetAliasName();
+			index++;
+		}
+		
+		arrayProvider[providers.size()] = mActivity.getString(R.string.not_in_list);
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		
+		builder.setTitle(mActivity.getString(R.string.pick_choice)).setItems(arrayProvider, new DialogInterface.OnClickListener() 
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int selected)
+			{
+				if (selected < arrayKeys.length)
+				{
+					Map<String, TerritoryEntry> mapTerritory = mActivity.GetProviderStore().GetTerritoryEntries();
+
+					TerritoryEntry territory = mapTerritory.get(mSelectedTerrKey);
+					if (territory != null)
+					{
+						Map<String, ProviderEntry> providers = territory.GetProvidersAlias();
+						
+						ProviderEntry provider = providers.get(arrayKeys[selected]);
+						if (provider != null)
+						{
+							// TODO Auto-generated method stub
+							Toast.makeText(mActivity.getApplicationContext(), "U clicked " + provider.GetAliasName(), Toast.LENGTH_LONG).show();
+						}
+						else
+						{
+							// error
+						}
+					}
+					else 
+					{
+						//ERROR
+					}
+				}
+				else
+				{
+					// QUIT
+				}
+			}
+		});
+		builder.show();
 	}
 }

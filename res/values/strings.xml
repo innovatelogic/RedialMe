@@ -29,5 +29,6 @@
     <string name="Recent">Recent</string>
     <string name="Contacts">Contacts</string>
     <string name="unknown_number">Unknown number</string>    
-    
+    <string name="not_in_list">Not in list</string>
+    <string name="pick_choice">Pick your choice</string>    
 </resources>
