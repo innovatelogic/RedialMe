@@ -106,6 +106,8 @@ public class ActionPopupWindow
 	{
 		if (bFlag && mPopupWindow == null)
 		{
+			mActionType = EActionType.EProcessAction; // reset state
+					
 			mUseProvider = mActivity.GetProviderDefault();
 			
 			LayoutInflater layoutInflater = (LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -125,10 +127,6 @@ public class ActionPopupWindow
 			mAnimImages[1] = (ImageView)popupView.findViewById(R.id.imageAnim1);
 			mAnimImages[2] = (ImageView)popupView.findViewById(R.id.imageAnim2);
 			
-			mAnimImages[0].setVisibility(0);
-			mAnimImages[1].setVisibility(0);
-			mAnimImages[2].setVisibility(0);
-	    	
 	    	txtName.setText(mName);
     	
 	    	boolean bDefault = true;
@@ -159,7 +157,7 @@ public class ActionPopupWindow
 	    	}
 	    	
 	    	if (bDefault){
-        		imageuser.setImageResource(R.drawable.default_person);
+        		imageuser.setImageResource(R.drawable.ic_action_person);
 			}
 
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
@@ -188,6 +186,8 @@ public class ActionPopupWindow
 	        
 	        InitSpinerProviders(mSpinnerProvider);
 	    	
+	        ShowAnim(false);
+	        
 	    	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
 	    	View root = (ViewGroup) decor.getChildAt(0);
 	     	
@@ -227,8 +227,9 @@ public class ActionPopupWindow
 		{
 			StopAnimation();
 			StopDelayAction();
-			
 			ClearNumberList();
+			
+			ShowAnim(false);
 			
 			mContactID = -1;
 			mPopupWindow.dismiss();
@@ -286,8 +287,7 @@ public class ActionPopupWindow
 		{
 			mAnimCounter = 0;
 			
-			for (int index = 0; index < 3; index++)
-				mAnimImages[index].setVisibility(1);
+			ShowAnim(true);
 			
 			// run timer
 			mRunnableAnim = new Runnable()
@@ -322,11 +322,21 @@ public class ActionPopupWindow
 		
 		for (int index = 0; index < 3; index++)
 		{
-			mAnimImages[index].setImageResource((index == active) ? R.drawable.arrow_right : R.drawable.backspace);
+			mAnimImages[index].setImageResource((index == active) ? R.drawable.ic_action_dot_filled : R.drawable.ic_action_dot_empty);
 		}
 		
 		mHandler.postDelayed(mRunnableAnim, mIntervalAnim);
 		mAnimCounter++;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ShowAnim(boolean bFlag)
+	{
+		for (int index = 0; index < 3; index++){
+			
+			mAnimImages[index].setVisibility(bFlag == true ? View.VISIBLE : View.INVISIBLE);
+		}
+		
 	}
 		
 	//----------------------------------------------------------------------------------------------

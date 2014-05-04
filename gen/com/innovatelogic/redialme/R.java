@@ -20,17 +20,19 @@ public final class R {
         public static final int ic_action_cc_bcc=0x7f020006;
         public static final int ic_action_chat=0x7f020007;
         public static final int ic_action_dial_pad=0x7f020008;
-        public static final int ic_action_overflow=0x7f020009;
-        public static final int ic_action_person=0x7f02000a;
-        public static final int ic_action_time=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
-        public static final int icon_tab0_config=0x7f02000d;
-        public static final int icon_tab1_config=0x7f02000e;
-        public static final int icon_tab2_config=0x7f02000f;
-        public static final int inner_call=0x7f020010;
-        public static final int inner_call_missed=0x7f020011;
-        public static final int out_call=0x7f020012;
-        public static final int us=0x7f020013;
+        public static final int ic_action_dot_empty=0x7f020009;
+        public static final int ic_action_dot_filled=0x7f02000a;
+        public static final int ic_action_overflow=0x7f02000b;
+        public static final int ic_action_person=0x7f02000c;
+        public static final int ic_action_time=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int icon_tab0_config=0x7f02000f;
+        public static final int icon_tab1_config=0x7f020010;
+        public static final int icon_tab2_config=0x7f020011;
+        public static final int inner_call=0x7f020012;
+        public static final int inner_call_missed=0x7f020013;
+        public static final int out_call=0x7f020014;
+        public static final int us=0x7f020015;
     }
     public static final class id {
         public static final int ActionLayout=0x7f070015;
