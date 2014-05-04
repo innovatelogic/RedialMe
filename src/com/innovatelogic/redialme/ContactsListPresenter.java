@@ -110,9 +110,9 @@ public class ContactsListPresenter
 						}
 					}
 				}
-            	
-            	if (bDefault){
-            		imageuser.setImageResource(R.drawable.default_person);
+
+				if (bDefault){
+            		imageuser.setImageResource(R.drawable.ic_action_person);
 				}
             }
             return v;

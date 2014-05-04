@@ -30,5 +30,11 @@
     <string name="Contacts">Contacts</string>
     <string name="unknown_number">Unknown number</string>    
     <string name="not_in_list">Not in list</string>
-    <string name="pick_choice">Pick your choice</string>    
+    <string name="pick_choice">Pick your choice</string> 
+    <string name="no_location_found">No location found</string>   
+    <string name="no_provider_found">No provider found</string> 
+    <string name="no_provider_message">Please, email us you country and provder and we support it ASAP\n innovatelogic@gmail.com</string> 
+    
+    <string name="about">About</string>
+    <string name="about_info">RedialMe v0.9a\n Programming: Yura Gunko\n innovatelogic@gmail.com</string>
 </resources>

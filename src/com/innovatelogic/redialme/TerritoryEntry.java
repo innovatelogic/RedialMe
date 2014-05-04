@@ -21,11 +21,12 @@ public class TerritoryEntry
 	private Map<String, ProviderEntry> mMapProvidersByAlias;
 	
 	//----------------------------------------------------------------------------------------------
-	public TerritoryEntry(String code, String alias)
+	public TerritoryEntry(String name, String code, String alias)
 	{
 		mMapProviders = new HashMap<String, ProviderEntry>();
 		mMapProvidersByAlias = new HashMap<String, ProviderEntry>();
 		
+		mName = name;
 		mCode = code;
 		mAlias = alias;	
 	}

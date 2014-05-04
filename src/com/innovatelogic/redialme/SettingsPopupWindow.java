@@ -71,6 +71,17 @@ public class SettingsPopupWindow
 	            }
 	        });
 	    	
+	    	Button btnAbout = (Button)popupView.findViewById(R.id.buttonOptionsAbout);
+	    	btnAbout.setOnClickListener(new Button.OnClickListener()
+	    	{
+	    		@Override
+		    	public void onClick(View v)
+		    	{
+	    			ShowAlertMessage(mActivity.getString(R.string.about), mActivity.getString(R.string.about_info));
+		    	}
+	    	});
+	    	// this case unfold options spinner automaticly on start
+	    	// used to on start initialize
 	    	mbToggleOptions = bToggleOptions;
 	    	if (mbToggleOptions){
 	    		ToggleCountrySelector();
@@ -133,10 +144,7 @@ public class SettingsPopupWindow
 				}
 				else
 				{
-					ShowAlertMessage("No Country found", "Please, email us you country and provder and we support it ASAP\n mail@mail.com");
-					// quit
-					//android.os.Process.killProcess(android.os.Process.myPid());
-					//mActivity.onDestroy();
+					ShowAlertMessage(mActivity.getString(R.string.no_location_found), mActivity.getString(R.string.no_provider_message));
 				}
 			}
 		});
@@ -199,7 +207,7 @@ public class SettingsPopupWindow
 				}
 				else
 				{
-					ShowAlertMessage("No Provider found", "Please, email us you country and provder and we support it ASAP\n mail@mail.com");
+					ShowAlertMessage(mActivity.getString(R.string.no_provider_found), mActivity.getString(R.string.no_provider_message));
 				}
 			}
 		});

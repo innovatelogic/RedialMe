@@ -32,7 +32,7 @@
                         android:id="@android:id/tabs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.85" >
+                        android:layout_weight="0.9" >
 
                     </TabWidget>
 
@@ -40,8 +40,8 @@
                         android:id="@+id/imageButtonOptions"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".15"
-                        android:src="@drawable/inner_call" />
+                        android:layout_weight=".1"
+                        android:src="@drawable/ic_action_overflow" />
 
                 </LinearLayout>
 
@@ -111,7 +111,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.2"
-                                        android:src="@drawable/backspace" />
+                                        android:src="@drawable/ic_action_backspace" />
 
                                 </TableRow>
 
@@ -375,7 +375,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.15"
-                                        android:src="@drawable/backspace" />
+                                        android:src="@drawable/ic_action_backspace" />
 
                                 </TableRow>
                             </TableLayout>

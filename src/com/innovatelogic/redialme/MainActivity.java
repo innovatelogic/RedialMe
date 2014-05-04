@@ -10,6 +10,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -100,15 +102,15 @@ public class MainActivity extends Activity
     	mTabView.setup();
     	
     	TabSpec spec1 = mTabView.newTabSpec("DialPad");
-    	spec1.setIndicator("Number");
+    	spec1.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab0_config));
     	spec1.setContent(R.id.tab1);
 
     	TabSpec spec2 = mTabView.newTabSpec("Recent");
-    	spec2.setIndicator(getString(R.string.Recent));
+    	spec2.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab1_config));
     	spec2.setContent(R.id.tab2);
               
     	TabSpec spec3 = mTabView.newTabSpec("Contacts");
-    	spec3.setIndicator(getString(R.string.Contacts));
+    	spec3.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab2_config));
     	spec3.setContent(R.id.tab3);
          
     	mTabView.addTab(spec1);
@@ -121,6 +123,25 @@ public class MainActivity extends Activity
     	
     	mUserNameEdit.setTextSize(GetDefTextSize());
      }
+    
+    //----------------------------------------------------------------------------------------------
+ /*   private void addTab(int drawableId, Class<?> c, String labelId)
+    {
+    	final TabWidget = (TabWidget) findViewById(android.R.id.tabs);
+        final TabHost tabHost = mTabView;
+        Intent intent = new Intent(this, c);
+        TabHost.TabSpec spec = tabHost.newTabSpec("tab"+ labelId);  
+
+        View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
+        TextView title = (TextView) tabIndicator.findViewById(R.id.title);
+        title.setText(labelId);
+
+        ImageView icon = (ImageView) tabIndicator.findViewById(R.id.userpic);
+        icon.setImageResource(drawableId);
+        spec.setIndicator(tabIndicator);
+        spec.setContent(intent);
+        tabHost.addTab(spec);
+    }*/
     
     //----------------------------------------------------------------------------------------------
     @Override
@@ -160,7 +181,8 @@ public class MainActivity extends Activity
     		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     		String territory = settings.getString("Territory", NODEF);
     		String provider = settings.getString("Provider", NODEF);
-    		mActionSettings.Toggle(true, true);
+    		
+    		//mActionSettings.Toggle(true, true);
     		if (territory == NODEF || provider == NODEF)
     		{
     			mActionSettings.Toggle(true, true);
@@ -277,8 +299,8 @@ public class MainActivity extends Activity
     		editor.putString("Territory", mTerritory.GetName());
     		editor.putString("Provider", mCurrentProvider.GetName());
     		
-          // Commit the edits!
-          editor.commit();
+    		// commit the edits
+    		editor.commit();
     	}
     }
     
@@ -303,7 +325,11 @@ public class MainActivity extends Activity
 				
 				mActionSettings.Toggle(false, false);
 				
-				return bModalMode;
+				if (bModalMode){
+					return super.onKeyDown(keyCode, event);
+				}
+				
+				return false;
 			}
 			
 			if (mActionPopupWindow.IsVisible())

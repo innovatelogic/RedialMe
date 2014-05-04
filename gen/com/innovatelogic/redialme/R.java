@@ -16,11 +16,21 @@ public final class R {
         public static final int btndefaultnormallblue=0x7f020002;
         public static final int btndefaultnormalred=0x7f020003;
         public static final int default_person=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int inner_call=0x7f020006;
-        public static final int inner_call_missed=0x7f020007;
-        public static final int out_call=0x7f020008;
-        public static final int us=0x7f020009;
+        public static final int ic_action_backspace=0x7f020005;
+        public static final int ic_action_cc_bcc=0x7f020006;
+        public static final int ic_action_chat=0x7f020007;
+        public static final int ic_action_dial_pad=0x7f020008;
+        public static final int ic_action_overflow=0x7f020009;
+        public static final int ic_action_person=0x7f02000a;
+        public static final int ic_action_time=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int icon_tab0_config=0x7f02000d;
+        public static final int icon_tab1_config=0x7f02000e;
+        public static final int icon_tab2_config=0x7f02000f;
+        public static final int inner_call=0x7f020010;
+        public static final int inner_call_missed=0x7f020011;
+        public static final int out_call=0x7f020012;
+        public static final int us=0x7f020013;
     }
     public static final class id {
         public static final int ActionLayout=0x7f070015;
@@ -41,22 +51,21 @@ public final class R {
         public static final int buttonActionDialPad=0x7f070016;
         public static final int buttonOptionsAbout=0x7f070028;
         public static final int buttonOptionsConfigure=0x7f070027;
-        public static final int calltime=0x7f07002d;
+        public static final int calltime=0x7f07002c;
         public static final int dialpad=0x7f07000a;
-        public static final int duration=0x7f07002c;
+        public static final int duration=0x7f07002b;
         public static final int editNumber=0x7f070008;
         public static final int editUserName=0x7f07001c;
         public static final int imageAnim0=0x7f070002;
         public static final int imageAnim1=0x7f070024;
         public static final int imageAnim2=0x7f070025;
         public static final int imageButtonOptions=0x7f070004;
-        public static final int img=0x7f07002a;
+        public static final int img=0x7f070029;
         public static final int imguser=0x7f070000;
         public static final int listContacts=0x7f07001e;
         public static final int listRecentCalls=0x7f070018;
         public static final int listRecentCallsLite=0x7f070006;
-        public static final int menu_settings=0x7f07002e;
-        public static final int myspinner=0x7f070029;
+        public static final int menu_settings=0x7f07002d;
         public static final int numpad=0x7f070007;
         public static final int popupname=0x7f070021;
         public static final int processActionPopUp=0x7f070026;
@@ -67,7 +76,7 @@ public final class R {
         public static final int tab1=0x7f070005;
         public static final int tab2=0x7f070017;
         public static final int tab3=0x7f070019;
-        public static final int title=0x7f07002b;
+        public static final int title=0x7f07002a;
         public static final int username=0x7f070001;
         public static final int userpic=0x7f070020;
     }
@@ -78,8 +87,7 @@ public final class R {
         public static final int activity_settings=0x7f030003;
         public static final int buttonstyle_action_cancel=0x7f030004;
         public static final int buttonstyle_action_process=0x7f030005;
-        public static final int popupspinner=0x7f030006;
-        public static final int recentcallsactivity=0x7f030007;
+        public static final int recentcallsactivity=0x7f030006;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -99,12 +107,17 @@ public final class R {
         public static final int Three=0x7f04000d;
         public static final int Two=0x7f04000c;
         public static final int Zero=0x7f040014;
+        public static final int about=0x7f04001e;
+        public static final int about_info=0x7f04001f;
         public static final int action_settings=0x7f040002;
         public static final int admob_publisher_id=0x7f040005;
         public static final int app_name=0x7f040001;
         public static final int hello_world=0x7f040003;
         public static final int menu_settings=0x7f040004;
         public static final int movies=0x7f040007;
+        public static final int no_location_found=0x7f04001b;
+        public static final int no_provider_found=0x7f04001c;
+        public static final int no_provider_message=0x7f04001d;
         public static final int not_in_list=0x7f040019;
         public static final int people=0x7f040008;
         public static final int pick_choice=0x7f04001a;
