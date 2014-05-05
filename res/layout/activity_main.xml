@@ -41,6 +41,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".1"
+                        android:background="@android:color/transparent"
                         android:src="@drawable/ic_action_overflow" />
 
                 </LinearLayout>
@@ -111,6 +112,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.2"
+                                        android:background="@android:color/transparent"
                                         android:src="@drawable/ic_action_backspace" />
 
                                 </TableRow>
@@ -334,7 +336,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:orientation="vertical"
-                            android:weightSum="1">
+                            android:weightSum="1" >
 
                             <TableLayout
                                 android:id="@+id/searchcontact"
@@ -348,35 +350,35 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
                                     android:layout_gravity="top"
-                                    android:gravity="fill_horizontal"
                                     android:weightSum="1" >
 
                                     <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="fill_parent"
-                                        android:layout_weight=".85"
-                                        android:gravity="center" >
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1" >
 
                                         <EditText
                                             android:id="@+id/editUserName"
-                                            android:layout_width="match_parent"
+                                            android:layout_width="0dp"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="top"
+                                            android:layout_weight="0.9"
                                             android:ems="10"
                                             android:inputType="textPersonName"
                                             android:maxLength="128" >
 
                                             <requestFocus />
                                         </EditText>
+
+                                        <ImageButton
+                                            android:id="@+id/BtnBackspaceName"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="0.1"
+                                            android:background="@android:color/transparent"
+                                            android:src="@drawable/ic_action_backspace" />
                                     </LinearLayout>
-
-                                    <ImageButton
-                                        android:id="@+id/BtnBackspaceName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="0.15"
-                                        android:src="@drawable/ic_action_backspace" />
-
                                 </TableRow>
                             </TableLayout>
 
@@ -384,7 +386,7 @@
                                 android:id="@+id/listContacts"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight=".9">
+                                android:layout_weight=".9" >
                             </ListView>
                         </LinearLayout>
                     </LinearLayout>
