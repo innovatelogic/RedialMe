@@ -39,6 +39,8 @@ public class SettingsPopupWindow
 	{
 		if (bFlag && mPopupWindow == null)
 		{
+			mActivity.OnHideInputKeyboard();
+			
 			LayoutInflater layoutInflater = (LayoutInflater) mActivity.getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		    
 	    	final View popupView = layoutInflater.inflate(R.layout.activity_settings, null);

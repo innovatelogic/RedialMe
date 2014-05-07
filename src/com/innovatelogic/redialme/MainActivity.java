@@ -257,7 +257,7 @@ public class MainActivity extends Activity
         		if (mCurrentTab != newTab)
         		{
             		if (mCurrentTab == 2){
-            			OnTabPageChanged();
+            			OnHideInputKeyboard();
             	    }
             		mCurrentTab = newTab;
         		}
@@ -343,7 +343,7 @@ public class MainActivity extends Activity
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	public void OnTabPageChanged()
+	public void OnHideInputKeyboard()
 	{
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		

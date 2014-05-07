@@ -106,6 +106,8 @@ public class ActionPopupWindow
 	{
 		if (bFlag && mPopupWindow == null)
 		{
+			mActivity.OnHideInputKeyboard();
+			
 			mActionType = EActionType.EProcessAction; // reset state
 					
 			mUseProvider = mActivity.GetProviderDefault();
