@@ -130,7 +130,8 @@ public class ActionPopupWindow
 			mAnimImages[2] = (ImageView)popupView.findViewById(R.id.imageAnim2);
 			
 	    	txtName.setText(mName);
-    	
+	    	txtName.setTextSize(mActivity.GetDefTextSize());
+	    	
 	    	boolean bDefault = true;
 	    	
 	    	if (mContactID >= 0)
@@ -165,7 +166,7 @@ public class ActionPopupWindow
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	    	btnAction.setText("CallMe");
 	    	
-	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, mNumbersList);
+	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_style, mNumbersList);
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        
 	        mSpinnerNumber.setAdapter(adapter);
@@ -380,7 +381,7 @@ public class ActionPopupWindow
 			}
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_dropdown_item, mAdapterList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_style, mAdapterList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         spinner.setAdapter(adapter);
