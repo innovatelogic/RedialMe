@@ -48,14 +48,16 @@
 	           android:layout_gravity="left"
 	           android:layout_weight="0.6"
 	           android:paddingLeft="5dp"
-	           android:text="duration" />
+	           android:text="duration"
+	           android:textColor="#ff888888" />
 
 	       <TextView
 	           android:id="@+id/calltime"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
 	           android:layout_gravity="right"
-	           android:text="calltime" />
+	           android:text="calltime"
+	           android:textColor="#ff888888" />
 
 	   </LinearLayout>
  

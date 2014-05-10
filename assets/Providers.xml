@@ -2,8 +2,8 @@
 <Territories>
 	<Territory Name="UA" Alias="Ukraine" Code="+380">
 		<Provider Name="life:)" Alias="life:)" Codes="93;63">
-			<Entry Operation="CallMe" Type="SMS" Num="124" Mask="3 %TERR%%PRV%%NUM%"/>
-	     	<!--  <Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/> -->
+			<!-- <Entry Operation="CallMe" Type="SMS" Num="124" Mask="3 %TERR%%PRV%%NUM%"/>-->
+	     	<Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
         	
 	    <Provider Name="MTS;MTS UKR" Alias="MTS"  Codes="50;95">

@@ -125,7 +125,7 @@
                                 android:layout_height="0px"
                                 android:layout_marginTop="5dip"
                                 android:layout_weight=".45"
-                                android:background="@android:color/darker_gray"
+                                android:background="#c9c7c8"
                                 android:gravity="bottom" >
 
                                 <TableRow
@@ -292,13 +292,12 @@
                                 android:gravity="bottom"
                                 android:orientation="horizontal" >
 
-                                <Button
+                                <ImageButton
                                     android:id="@+id/buttonActionDialPad"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     android:background="@drawable/btndefaultnormalred"
-                                    android:text=">>>"
-                                    android:textSize="32sp" />
+                                    android:src="@drawable/button_action" />
 
                             </LinearLayout>
 

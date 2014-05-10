@@ -37,6 +37,13 @@ import android.widget.TextView;
 //----------------------------------------------------------------------------------------------
 public class MainActivity extends Activity 
 {
+	enum ESizeType
+	{
+		ESizeDef,
+		ESizeMid,
+		ESizeMin
+	}
+	
 	private static Context  mContext;
 	
 	private TabHost			mTabView;
@@ -70,6 +77,8 @@ public class MainActivity extends Activity
     public static final String NODEF = "NODEF";
     
     public static final int DEF_FONT_SIZE = 16;
+    public static final int MID_FONT_SIZE = 12;
+    public static final int MIN_FONT_SIZE = 8;
     
     public static Context getAppContext() { return mContext; }
     
@@ -93,7 +102,9 @@ public class MainActivity extends Activity
     
     public ProviderEntry GetProviderDefault() { return mCurrentProvider; }
     
-    public float GetDefTextSize() { return DEF_FONT_SIZE * getResources().getDisplayMetrics().density; }
+    public float GetDefTextSize(ESizeType esize) { return (esize == ESizeType.ESizeDef ? DEF_FONT_SIZE :
+    														(esize == ESizeType.ESizeMid ? MID_FONT_SIZE : MIN_FONT_SIZE)) 
+    														* getResources().getDisplayMetrics().density; }
 
     //----------------------------------------------------------------------------------------------
     private void findAllViewsById()
@@ -121,7 +132,7 @@ public class MainActivity extends Activity
     	mUserNameBackspace = (ImageButton)findViewById(R.id.BtnBackspaceName);
     	mImageButtonOptions = (ImageButton)findViewById(R.id.imageButtonOptions);
     	
-    	mUserNameEdit.setTextSize(GetDefTextSize());
+    	mUserNameEdit.setTextSize(GetDefTextSize(ESizeType.ESizeDef));
      }
     
     //----------------------------------------------------------------------------------------------
@@ -334,7 +345,7 @@ public class MainActivity extends Activity
 			
 			if (mActionPopupWindow.IsVisible())
 			{
-				mActionPopupWindow.Toggle(false);
+				mActionPopupWindow.Toggle(false, false);
 				
 				return false;
 			}

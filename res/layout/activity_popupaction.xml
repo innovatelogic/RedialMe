@@ -39,11 +39,13 @@
                 android:id="@+id/popupname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:lines="1"
                 android:paddingLeft="15dp"
-                android:text="Name"
+                android:text="Name asssssssssssstttttt"
                 android:textColor="#ffffffff"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -116,7 +118,7 @@
 
         </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/processActionPopUp"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
@@ -124,7 +126,7 @@
             android:background="@drawable/btndefaultnormalred"
             android:minHeight="8dp"
             android:minWidth="4dp"
-            android:text="Send" />
+            android:src="@drawable/button_action" />
 
     </LinearLayout>  
      

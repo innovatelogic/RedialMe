@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.RecentCallsStore;
+import com.innovatelogic.redialme.MainActivity.ESizeType;
 import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 import com.innovatelogic.redialme.RecentCallsStore.ECallType;
 
@@ -39,7 +41,7 @@ public class RecentCallsListPresenter
     				mActivity.GetPopupWindow().mContactID = (info != null) ? info.mKey : -1;
     				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : mActivity.getString(R.string.unknown_number);
     				mActivity.GetPopupWindow().AddNumber(store.get(position).mNumber);
-    				mActivity.GetPopupWindow().Toggle(true);
+    				mActivity.GetPopupWindow().Toggle(true, false);
     			}
     			else
     			{
@@ -89,7 +91,7 @@ public class RecentCallsListPresenter
 					int img_resource = (call.mCallType == ECallType.EOutgoing) ? R.drawable.out_call :
 										(call.mCallType == ECallType.EIncoming ? R.drawable.inner_call : R.drawable.inner_call_missed);
 					
-					String duration = call.mCallDuration == 0 ? "" : MainActivity.FormatSec(call.mCallDuration);
+					String duration = (call.mCallDuration == 0) ? "" : MainActivity.FormatSec(call.mCallDuration);
 					
 					map.put("title", title);
 					map.put("duration", duration);

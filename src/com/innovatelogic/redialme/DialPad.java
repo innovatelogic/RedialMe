@@ -2,6 +2,7 @@ package com.innovatelogic.redialme;
 
 import java.util.List;
 
+import com.innovatelogic.redialme.MainActivity.ESizeType;
 import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 
 import android.widget.AdapterView;
@@ -37,7 +38,7 @@ public class DialPad
 	
 	private MainActivity mActivity;
 	private Button[] 	mDialButtons = new Button[esize];
-	private Button 		mBtnAction;
+	private ImageButton mBtnAction;
 	private TextView 	mEditNumber;
 	private ListView    mListRecentCallsLite;
 	private ImageButton	mBtnBackspace;
@@ -67,7 +68,7 @@ public class DialPad
     	mEditNumber = (TextView)activity.findViewById(R.id.editNumber);
     	mBtnBackspace = (ImageButton)activity.findViewById(R.id.BtnBackspace);
     	
-    	mBtnAction = (Button)activity.findViewById(R.id.buttonActionDialPad);
+    	mBtnAction = (ImageButton)activity.findViewById(R.id.buttonActionDialPad);
     	mBtnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
     	
     	mDialButtons[0] = (Button)activity.findViewById(R.id.Btn_ONE);
@@ -82,13 +83,12 @@ public class DialPad
     	mDialButtons[9] = (Button)activity.findViewById(R.id.Btn_ZERO);
     	
     	// fit up size
-    	float txt_size = mActivity.GetDefTextSize();
+    	float txt_size = mActivity.GetDefTextSize(ESizeType.ESizeDef);
     	for (int i = 0; i < esize; ++i){
 	    	mDialButtons[i].setTextSize(txt_size);
 		}
     	
     	mEditNumber.setTextSize(txt_size);
-    	mBtnAction.setTextSize(txt_size);
     	    	
     	mListRecentCallsLite.setOnItemClickListener(new OnItemClickListener() 
     	{
@@ -113,7 +113,7 @@ public class DialPad
     					}
     					mActivity.GetPopupWindow().mName = (contactinfo != null) ? contactinfo.mInfo.Name : mActivity.getString(R.string.unknown_number);
         				mActivity.GetPopupWindow().AddNumber(info.mNumber);
-        				mActivity.GetPopupWindow().Toggle(true);
+        				mActivity.GetPopupWindow().Toggle(true, false);
     				}
     			}
     		}
@@ -201,7 +201,11 @@ public class DialPad
 					}
     				mActivity.GetPopupWindow().mName = (info != null) ? info.mInfo.Name : mActivity.getString(R.string.unknown_number);
     				mActivity.GetPopupWindow().AddNumber(number);
-    				mActivity.GetPopupWindow().Toggle(true);
+    				mActivity.GetPopupWindow().Toggle(true, true);
+    			}
+    			else
+    			{
+    				
     			}
     		}
     	});

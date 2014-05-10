@@ -171,7 +171,7 @@ public class ContactsListPresenter
         				for (String number : findInfo.ContactNumbers){
         					mActivity.GetPopupWindow().AddNumber(number);
         				}
-        				mActivity.GetPopupWindow().Toggle(true);
+        				mActivity.GetPopupWindow().Toggle(true, false);
     				}
     			}
     		}

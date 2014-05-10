@@ -16,12 +16,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.innovatelogic.redialme.MainActivity;
+import com.innovatelogic.redialme.MainActivity.ESizeType;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -102,7 +104,7 @@ public class ActionPopupWindow
 	public boolean IsVisible() { return mPopupWindow != null; }
 	
 	//----------------------------------------------------------------------------------------------
-	public void Toggle(boolean bFlag)
+	public void Toggle(boolean bFlag, boolean bAutoStart)
 	{
 		if (bFlag && mPopupWindow == null)
 		{
@@ -118,7 +120,7 @@ public class ActionPopupWindow
 	    	
 	    	mPopupWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	    	    	
-	    	Button btnAction = (Button)popupView.findViewById(R.id.processActionPopUp);
+	    	ImageButton btnAction = (ImageButton)popupView.findViewById(R.id.processActionPopUp);
 	    	TextView txtName = (TextView)popupView.findViewById(R.id.popupname);
 	    	ImageView imageuser = (ImageView)popupView.findViewById(R.id.userpic);
 	    	
@@ -130,7 +132,7 @@ public class ActionPopupWindow
 			mAnimImages[2] = (ImageView)popupView.findViewById(R.id.imageAnim2);
 			
 	    	txtName.setText(mName);
-	    	txtName.setTextSize(mActivity.GetDefTextSize());
+	    	txtName.setTextSize(mActivity.GetDefTextSize(ESizeType.ESizeMid));
 	    	
 	    	boolean bDefault = true;
 	    	
@@ -164,7 +166,6 @@ public class ActionPopupWindow
 			}
 
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
-	    	btnAction.setText("CallMe");
 	    	
 	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_style, mNumbersList);
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -182,8 +183,7 @@ public class ActionPopupWindow
 		        	mSelectedNumber = position;
 		        }
 		        public void onNothingSelected(AdapterView<?> parentView)
-		        {
-		        
+		        {       
 		        }
 	        });
 	        
@@ -196,33 +196,18 @@ public class ActionPopupWindow
 	     	
 	    	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
 	    	
+	    	if (bAutoStart){
+	    		ProcessBtnStart(btnAction);
+	    	}
+	    	
 	    	btnAction.setOnClickListener(new Button.OnClickListener()
 	    	{
 	    		@Override
 		    	public void onClick(View v)
 		    	{
 	    			// check style
-	    			Button btnHandler = (Button) v;
-	    			
-	    			if (mActionType == EActionType.EProcessAction) // start
-		    		{
-	    				btnHandler.setBackgroundResource(R.layout.buttonstyle_action_cancel);
-		    			btnHandler.setText("Cancel");
-		    		
-		    			StartAnimation();
-		    			StartDelayAction();
-
-		    			mActionType = EActionType.ECancelAction;
-		    		}
-		    		else // cancel
-		    		{
-		    			mActionType = EActionType.EProcessAction;
-		    			
-		    			StopAnimation();
-		    			StopDelayAction();
-		    			
-		    			Toggle(false);
-		    		}
+	    			ImageButton btnHandler = (ImageButton) v;
+	    			ProcessBtnStart(btnHandler);
 		    	}
 	    	});
 		}
@@ -241,6 +226,31 @@ public class ActionPopupWindow
 			mSpinnerProvider = null;
 			mPopupWindow = null;
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------	
+	void ProcessBtnStart(ImageButton btn)
+	{
+		if (mActionType == EActionType.EProcessAction) // start
+		{
+			btn.setBackgroundResource(R.layout.buttonstyle_action_cancel);
+			//btn.setText("Cancel");
+		
+			StartAnimation();
+			StartDelayAction();
+
+			mActionType = EActionType.ECancelAction;
+		}
+		else // cancel
+		{
+			mActionType = EActionType.EProcessAction;
+			
+			StopAnimation();
+			StopDelayAction();
+			
+			Toggle(false, false);
+		}
+		
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -265,7 +275,7 @@ public class ActionPopupWindow
 			    	if (mPopupWindow != null && mActionType == EActionType.ECancelAction){
 			    		Process();
 			    	}
-			    	Toggle(false);
+			    	Toggle(false, false);
 			    }
 			};
 				  
