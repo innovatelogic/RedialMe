@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.app.Activity;
@@ -205,7 +206,7 @@ public class DialPad
     			}
     			else
     			{
-    				
+    				Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.enter_number), Toast.LENGTH_LONG).show();
     			}
     		}
     	});

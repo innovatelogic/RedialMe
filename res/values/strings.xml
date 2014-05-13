@@ -13,6 +13,8 @@
     <string name="people">People</string>
     <string name="send_sms">SMS</string>
     <string name="service_call">Call</string>
+    <string name="enter_number">Enter number</string>    
+    
     
     <string name="One">1</string>
     <string name="Two">2</string>

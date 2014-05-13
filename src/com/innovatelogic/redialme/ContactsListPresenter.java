@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 //----------------------------------------------------------------------------------------------
@@ -25,10 +26,15 @@ public class ContactsListPresenter
 	{
 		private final ContactsListPresenter    mPresenter;
 		private final WeakReference<ImageView> mImageViewReference;
+		private final Integer mThumbnailID;
+		private final ListView mList;
 		
-	    public BitmapWorkerTask(ContactsListPresenter presenter, ImageView imageView) 
+	    public BitmapWorkerTask(ContactsListPresenter presenter, ImageView imageView, Integer thumbnailID, ListView list) 
 	    {
 	    	mPresenter = presenter;
+	    	mThumbnailID = thumbnailID;
+	    	mList = list;
+	    	
 	        // Use a WeakReference to ensure the ImageView can be garbage collected
 	    	mImageViewReference = new WeakReference<ImageView>(imageView);
 	    }
@@ -36,8 +42,8 @@ public class ContactsListPresenter
 		@Override
 	    protected Bitmap doInBackground(Integer... params) 
 		{
-	    	final Bitmap bitmap = MainActivity.fetchThumbnail(params[0], mPresenter.mActivity.getApplicationContext());
-	    	mPresenter.mActivity.getContactsStore().AddBitmapToCache(params[0], bitmap);
+	    	final Bitmap bitmap = MainActivity.fetchThumbnail(mThumbnailID, mPresenter.mActivity.getApplicationContext());
+	    	mPresenter.mActivity.getContactsStore().AddBitmapToCache(mThumbnailID, bitmap);
 	        return bitmap;
 	    }
 		
@@ -46,10 +52,14 @@ public class ContactsListPresenter
 		{
 			super.onPostExecute(result);
 			
-			ImageView image = mImageViewReference.get();
+			OrderAdapter adapter = (OrderAdapter ) mList.getAdapter();
+			
+			adapter.notifyDataSetChanged();
+			
+			/*ImageView image = mImageViewReference.get();
 			if (image != null){
 				image.setImageBitmap(result);
-			}
+			}*/
 		}
 	};
 	
@@ -71,6 +81,7 @@ public class ContactsListPresenter
 	    public View getView(int position, View convertView, ViewGroup parent) 
 	    {
             View v = convertView;
+            
             if (v == null) 
             {
                 LayoutInflater vi = (LayoutInflater)mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -105,8 +116,8 @@ public class ContactsListPresenter
 						}
 						else
 						{
-							BitmapWorkerTask task = new BitmapWorkerTask(mPresenter, imageuser);
-							task.execute(thumbnailID);
+							BitmapWorkerTask task = new BitmapWorkerTask(mPresenter, imageuser, thumbnailID, mList);
+							task.execute(0);
 						}
 					}
 				}

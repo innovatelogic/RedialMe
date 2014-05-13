@@ -430,6 +430,23 @@ public class MainActivity extends Activity
 
 	    try 
 	    {
+	    	Integer Size = 64;
+	    	
+	    	float density = context.getResources().getDisplayMetrics().density;
+	    	
+	    	if (density <= 0.75){
+	    		Size = 48; // ldpi
+	    	}
+	    	else if (density > 0.75 && density <= 1.f){
+	    		Size = 48; // mdpi
+	    	}
+	    	else if (density > 1.0 && density <= 1.5f){
+	    		Size = 64; // hdpi
+	    	}
+	    	else if (density > 1.5){
+	    		Size = 96; // hdpi
+	    	}
+	    	
 	        Bitmap thumbnail = null;
 	        if (cursor.moveToFirst()) 
 	        {
@@ -442,7 +459,7 @@ public class MainActivity extends Activity
 	            	
 	            	BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);
 	            	
-	            	options.inSampleSize = calculateInSampleSize(options, 64, 64);
+	            	options.inSampleSize = calculateInSampleSize(options, Size, Size);
 	            		            	
 	            	options.inJustDecodeBounds = false;
 	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);

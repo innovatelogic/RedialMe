@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="70dp"
-            android:layout_weight=".3"
+            android:layout_weight=".4"
             android:orientation="vertical" >
 
             <Spinner
@@ -74,7 +74,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.15"
+            android:layout_weight="0.12"
             android:weightSum="1" >
 
             <LinearLayout
@@ -122,7 +122,7 @@
             android:id="@+id/processActionPopUp"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.20"
+            android:layout_weight="0.13"
             android:background="@drawable/btndefaultnormalred"
             android:minHeight="8dp"
             android:minWidth="4dp"
