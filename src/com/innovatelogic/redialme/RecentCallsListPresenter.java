@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.innovatelogic.redialme.RecentCallsStore;
-import com.innovatelogic.redialme.MainActivity.ESizeType;
 import com.innovatelogic.redialme.RecentCallsStore.CallInfo;
 import com.innovatelogic.redialme.RecentCallsStore.ECallType;
 

@@ -49,7 +49,8 @@
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="#e4e3e3" >
 
                     <LinearLayout
                         android:id="@+id/tab1"
@@ -69,7 +70,8 @@
                                 android:id="@+id/listRecentCallsLite"
                                 android:layout_width="fill_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="0.3" >
+                                android:layout_weight="0.3"
+                                android:background="#ffffff" >
 
                             </ListView>
 
@@ -78,6 +80,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.1"
+                                android:background="#e4e3e3"
                                 android:gravity="bottom"
                                 android:paddingBottom="0dp" >
 
@@ -309,6 +312,7 @@
                         android:id="@+id/tab2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="#ffffff"
                         android:visibility="visible" >
 
                         <LinearLayout
@@ -328,7 +332,8 @@
                     <LinearLayout
                         android:id="@+id/tab3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent"
+                        android:background="#ffffff" >
 
                         <LinearLayout
                             android:id="@+id/SearchLayout"

@@ -11,28 +11,29 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int btndefaultnormallblue=0x7f020000;
-        public static final int btndefaultnormalred=0x7f020001;
-        public static final int button_action=0x7f020002;
-        public static final int button_icon=0x7f020003;
-        public static final int ic_action_backspace=0x7f020004;
-        public static final int ic_action_cc_bcc=0x7f020005;
-        public static final int ic_action_chat=0x7f020006;
-        public static final int ic_action_dial_pad=0x7f020007;
-        public static final int ic_action_dot_empty=0x7f020008;
-        public static final int ic_action_dot_filled=0x7f020009;
-        public static final int ic_action_overflow=0x7f02000a;
-        public static final int ic_action_person=0x7f02000b;
-        public static final int ic_action_settings=0x7f02000c;
-        public static final int ic_action_time=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int icon_tab0_config=0x7f02000f;
-        public static final int icon_tab1_config=0x7f020010;
-        public static final int icon_tab2_config=0x7f020011;
-        public static final int inner_call=0x7f020012;
-        public static final int inner_call_missed=0x7f020013;
-        public static final int out_call=0x7f020014;
-        public static final int us=0x7f020015;
+        public static final int _btndefaultnormalred=0x7f020000;
+        public static final int btndefaultnormallblue=0x7f020001;
+        public static final int btndefaultnormalred=0x7f020002;
+        public static final int button_action=0x7f020003;
+        public static final int button_icon=0x7f020004;
+        public static final int ic_action_backspace=0x7f020005;
+        public static final int ic_action_cc_bcc=0x7f020006;
+        public static final int ic_action_chat=0x7f020007;
+        public static final int ic_action_dial_pad=0x7f020008;
+        public static final int ic_action_dot_empty=0x7f020009;
+        public static final int ic_action_dot_filled=0x7f02000a;
+        public static final int ic_action_overflow=0x7f02000b;
+        public static final int ic_action_person=0x7f02000c;
+        public static final int ic_action_settings=0x7f02000d;
+        public static final int ic_action_time=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int icon_tab0_config=0x7f020010;
+        public static final int icon_tab1_config=0x7f020011;
+        public static final int icon_tab2_config=0x7f020012;
+        public static final int inner_call=0x7f020013;
+        public static final int inner_call_missed=0x7f020014;
+        public static final int out_call=0x7f020015;
+        public static final int us=0x7f020016;
     }
     public static final class id {
         public static final int ActionLayout=0x7f070015;
@@ -89,8 +90,9 @@ public final class R {
         public static final int activity_settings=0x7f030003;
         public static final int buttonstyle_action_cancel=0x7f030004;
         public static final int buttonstyle_action_process=0x7f030005;
-        public static final int recentcallsactivity=0x7f030006;
-        public static final int spinner_style=0x7f030007;
+        public static final int buttonstyle_numbers=0x7f030006;
+        public static final int recentcallsactivity=0x7f030007;
+        public static final int spinner_style=0x7f030008;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;

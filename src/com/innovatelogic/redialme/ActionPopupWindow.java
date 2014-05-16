@@ -234,7 +234,6 @@ public class ActionPopupWindow
 		if (mActionType == EActionType.EProcessAction) // start
 		{
 			btn.setBackgroundResource(R.layout.buttonstyle_action_cancel);
-			//btn.setText("Cancel");
 		
 			StartAnimation();
 			StartDelayAction();
@@ -243,12 +242,13 @@ public class ActionPopupWindow
 		}
 		else // cancel
 		{
+			/*
 			mActionType = EActionType.EProcessAction;
 			
 			StopAnimation();
 			StopDelayAction();
 			
-			Toggle(false, false);
+			Toggle(false, false);*/
 		}
 		
 	}

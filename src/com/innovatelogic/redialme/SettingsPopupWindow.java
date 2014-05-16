@@ -20,8 +20,6 @@ public class SettingsPopupWindow
 	private PopupWindow mPopupWindow = null;
 	
 	private String mSelectedTerrKey = null;
-	private String mSelectedProviderKey = null;
-	
 	private boolean mbToggleOptions = false;
 	
 	//----------------------------------------------------------------------------------------------

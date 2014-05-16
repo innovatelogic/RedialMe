@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 //----------------------------------------------------------------------------------------------
@@ -25,7 +24,6 @@ public class ContactsListPresenter
 	private class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap>
 	{
 		private final ContactsListPresenter    mPresenter;
-		private final WeakReference<ImageView> mImageViewReference;
 		private final Integer mThumbnailID;
 		private final ListView mList;
 		
@@ -34,9 +32,6 @@ public class ContactsListPresenter
 	    	mPresenter = presenter;
 	    	mThumbnailID = thumbnailID;
 	    	mList = list;
-	    	
-	        // Use a WeakReference to ensure the ImageView can be garbage collected
-	    	mImageViewReference = new WeakReference<ImageView>(imageView);
 	    }
 		    
 		@Override

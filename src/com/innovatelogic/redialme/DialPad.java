@@ -85,8 +85,10 @@ public class DialPad
     	
     	// fit up size
     	float txt_size = mActivity.GetDefTextSize(ESizeType.ESizeDef);
-    	for (int i = 0; i < esize; ++i){
+    	for (int i = 0; i < esize; ++i)
+    	{
 	    	mDialButtons[i].setTextSize(txt_size);
+	    	mDialButtons[i].setBackgroundResource(R.layout.buttonstyle_numbers);
 		}
     	
     	mEditNumber.setTextSize(txt_size);
