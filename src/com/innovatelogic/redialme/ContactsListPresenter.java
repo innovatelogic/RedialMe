@@ -1,6 +1,5 @@
 package com.innovatelogic.redialme;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Map;
 import android.content.Context;
@@ -57,6 +56,29 @@ public class ContactsListPresenter
 			}*/
 		}
 	};
+	
+	//----------------------------------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------------------------------
+	private class BitmapLoaderTask extends AsyncTask<Integer, Void, Void>
+	{
+		private final ContactsListPresenter mPresenter;
+		Integer mThumbnail;
+	
+		public BitmapLoaderTask(Integer thumbnails, ContactsListPresenter presenter) 
+	    {
+			 mPresenter = presenter;
+			 mThumbnail = thumbnails;
+	    }
+		    
+		@Override
+	    protected Void doInBackground(Integer... params) 
+		{
+			final Bitmap bitmap = MainActivity.fetchThumbnail(mThumbnail, mPresenter.mActivity.getApplicationContext());
+			mPresenter.mActivity.getContactsStore().AddBitmapToCache(mThumbnail, bitmap);
+			return null;
+		}	
+	}
 	
 	//----------------------------------------------------------------------------------------------
 	private class OrderAdapter extends ArrayAdapter<ArrayList<String>> 
@@ -223,5 +245,28 @@ public class ContactsListPresenter
 	public void ClearList()
 	{
 		mList.setAdapter(null);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public void StartCacheBitmaps(int N)
+	{
+		if (N > 0)
+		{
+			// spawn N threads
+			ArrayList<UserContactInfo> listContacts = mActivity.getContactsStore().GetUserContactsSorted();
+			
+			for (UserContactInfo value : listContacts)
+			{
+				int thumbnailID = value.thumbnailID;
+				if (thumbnailID > 0)
+				{
+					BitmapLoaderTask task = new BitmapLoaderTask(thumbnailID, this);
+					task.execute(0);
+					N--;
+				}
+				if (N <= 0)
+					break;
+			}
+		}
 	}
 }

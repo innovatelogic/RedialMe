@@ -135,7 +135,7 @@ public class ContactsStore
 					findInfo.ContactNumbers.add(NumberNorm);
 					mMapContacts_KeyNumber.put(NumberNorm, findInfo);
 				}
-				
+
 				cursor.moveToNext();
 			}
 		}
@@ -191,7 +191,5 @@ public class ContactsStore
 		mMapContacts.clear();
 		mMapContacts_KeyNumber.clear();
 		mListContactsSorted.clear();
-		
-		//mBitmapCache.
 	}
 }

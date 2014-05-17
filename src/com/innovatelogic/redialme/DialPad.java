@@ -52,8 +52,6 @@ public class DialPad
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
 		
 		findAllViewsById(mActivity);
-		
-		//mListPresenter.FillList(activity.GetRecentCallsStore());
 	}
 	
 	//----------------------------------------------------------------------------------------------

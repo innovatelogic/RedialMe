@@ -190,7 +190,7 @@ public class MainActivity extends Activity
     		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     		String territory = settings.getString("Territory", NODEF);
     		String provider = settings.getString("Provider", NODEF);
-    		
+
     		//mActionSettings.Toggle(true, true);
     		if (territory == NODEF || provider == NODEF)
     		{
@@ -284,7 +284,8 @@ public class MainActivity extends Activity
     	mRecentCallsStore.Initialize();
     	mListPresenter.FillList(GetRecentCallsStore());
     	mListPresenterContacts.FillList(mContactsStore);		
-    	mDialPad.UpdateRecentList("");	
+    	mDialPad.UpdateRecentList("");
+    	mListPresenterContacts.StartCacheBitmaps(10);
     }
     
 	//----------------------------------------------------------------------------------------------

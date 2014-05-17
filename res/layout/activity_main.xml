@@ -143,7 +143,6 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight="0.33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/One"
                                         android:textSize="26sp" />
@@ -153,7 +152,6 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Two"
                                         android:textSize="26sp" />
@@ -164,7 +162,6 @@
                                         android:layout_height="fill_parent"
                                         android:layout_gravity="fill_horizontal"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Three"
                                         android:textSize="26sp" />
@@ -182,7 +179,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Fore"
                                         android:textSize="26sp" />
@@ -192,7 +188,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Five"
                                         android:textSize="26sp" />
@@ -202,7 +197,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Six"
                                         android:textSize="26sp" />
@@ -220,7 +214,6 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Seven"
                                         android:textSize="26sp" />
@@ -230,7 +223,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Eight"
                                         android:textSize="26sp" />
@@ -240,7 +232,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Nine"
                                         android:textSize="26sp" />
@@ -268,8 +259,7 @@
                                         android:id="@+id/Btn_ZERO"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
-                                        android:layout_weight=".33"
-                                        android:background="@drawable/btndefaultnormallblue"
+                                        android:layout_weight=".34"
                                         android:src="@android:drawable/btn_star"
                                         android:text="@string/Zero"
                                         android:textSize="26sp" />
@@ -278,7 +268,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="top"
-                                        android:layout_weight=".33"
+                                        android:layout_weight=".32"
                                         android:gravity="fill_vertical"
                                         android:orientation="vertical"
                                         android:weightSum="1" />
@@ -299,7 +289,6 @@
                                     android:id="@+id/buttonActionDialPad"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
-                                    android:background="@drawable/btndefaultnormalred"
                                     android:src="@drawable/button_action" />
 
                             </LinearLayout>

@@ -11,29 +11,26 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int _btndefaultnormalred=0x7f020000;
-        public static final int btndefaultnormallblue=0x7f020001;
-        public static final int btndefaultnormalred=0x7f020002;
-        public static final int button_action=0x7f020003;
-        public static final int button_icon=0x7f020004;
-        public static final int ic_action_backspace=0x7f020005;
-        public static final int ic_action_cc_bcc=0x7f020006;
-        public static final int ic_action_chat=0x7f020007;
-        public static final int ic_action_dial_pad=0x7f020008;
-        public static final int ic_action_dot_empty=0x7f020009;
-        public static final int ic_action_dot_filled=0x7f02000a;
-        public static final int ic_action_overflow=0x7f02000b;
-        public static final int ic_action_person=0x7f02000c;
-        public static final int ic_action_settings=0x7f02000d;
-        public static final int ic_action_time=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int icon_tab0_config=0x7f020010;
-        public static final int icon_tab1_config=0x7f020011;
-        public static final int icon_tab2_config=0x7f020012;
-        public static final int inner_call=0x7f020013;
-        public static final int inner_call_missed=0x7f020014;
-        public static final int out_call=0x7f020015;
-        public static final int us=0x7f020016;
+        public static final int button_action=0x7f020000;
+        public static final int button_icon=0x7f020001;
+        public static final int ic_action_backspace=0x7f020002;
+        public static final int ic_action_cc_bcc=0x7f020003;
+        public static final int ic_action_chat=0x7f020004;
+        public static final int ic_action_dial_pad=0x7f020005;
+        public static final int ic_action_dot_empty=0x7f020006;
+        public static final int ic_action_dot_filled=0x7f020007;
+        public static final int ic_action_overflow=0x7f020008;
+        public static final int ic_action_person=0x7f020009;
+        public static final int ic_action_settings=0x7f02000a;
+        public static final int ic_action_time=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int icon_tab0_config=0x7f02000d;
+        public static final int icon_tab1_config=0x7f02000e;
+        public static final int icon_tab2_config=0x7f02000f;
+        public static final int inner_call=0x7f020010;
+        public static final int inner_call_missed=0x7f020011;
+        public static final int out_call=0x7f020012;
+        public static final int us=0x7f020013;
     }
     public static final class id {
         public static final int ActionLayout=0x7f070015;
@@ -112,8 +109,8 @@ public final class R {
         public static final int Three=0x7f04000e;
         public static final int Two=0x7f04000d;
         public static final int Zero=0x7f040015;
-        public static final int about=0x7f04001f;
-        public static final int about_info=0x7f040020;
+        public static final int about=0x7f040023;
+        public static final int about_info=0x7f040024;
         public static final int action_settings=0x7f040002;
         public static final int admob_publisher_id=0x7f040005;
         public static final int app_name=0x7f040001;
@@ -128,9 +125,13 @@ public final class R {
         public static final int people=0x7f040008;
         public static final int pick_choice=0x7f04001b;
         public static final int providers_data_file=0x7f040000;
+        public static final int select_country=0x7f040021;
+        public static final int select_provider=0x7f040022;
         public static final int send_sms=0x7f040009;
         public static final int service_call=0x7f04000a;
+        public static final int settings=0x7f04001f;
         public static final int unknown_number=0x7f040019;
+        public static final int you_clicked=0x7f040020;
     }
     public static final class style {
         /** 

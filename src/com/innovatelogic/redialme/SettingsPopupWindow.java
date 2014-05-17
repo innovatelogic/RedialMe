@@ -115,7 +115,7 @@ public class SettingsPopupWindow
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 		
-		builder.setTitle("Pick your choice").setItems(arrayCountry, new DialogInterface.OnClickListener() 
+		builder.setTitle(mActivity.getString(R.string.select_country)).setItems(arrayCountry, new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int selected) 
@@ -134,7 +134,7 @@ public class SettingsPopupWindow
 								
 						ToggleProviderSelector(entry);
 					
-						Toast.makeText(mActivity.getApplicationContext(), "U clicked " + arrayCountry[selected], Toast.LENGTH_LONG).show();
+						Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.you_clicked) + ' ' + arrayCountry[selected], Toast.LENGTH_LONG).show();
 					}
 					else
 					{
@@ -170,7 +170,7 @@ public class SettingsPopupWindow
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 		
-		builder.setTitle(mActivity.getString(R.string.pick_choice)).setItems(arrayProvider, new DialogInterface.OnClickListener() 
+		builder.setTitle(mActivity.getString(R.string.select_provider)).setItems(arrayProvider, new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int selected)
@@ -192,7 +192,7 @@ public class SettingsPopupWindow
 							Toggle(false, false);
 							
 							// TODO Auto-generated method stub
-							Toast.makeText(mActivity.getApplicationContext(), "U clicked " + provider.GetAliasName(), Toast.LENGTH_LONG).show();
+							Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.you_clicked) + ' ' + provider.GetAliasName(), Toast.LENGTH_LONG).show();
 						}
 						else
 						{
@@ -220,7 +220,8 @@ public class SettingsPopupWindow
 		builder.setTitle(caption);
 		builder.setMessage(message);
 		builder.setCancelable(true);
-		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+		{
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
 		        dialog.dismiss();				
