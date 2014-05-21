@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.innovatelogic.bomzdialer.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class SettingsPopupWindow
 	//----------------------------------------------------------------------------------------------
 	SettingsPopupWindow(MainActivity activity)
 	{
+		Log.i(MainActivity.TAG, "alloc SettingsPopupWindow");
+		
 		mActivity = activity;
 	}
 

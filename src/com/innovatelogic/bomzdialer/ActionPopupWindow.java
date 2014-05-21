@@ -7,6 +7,7 @@ import java.util.Map;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +83,8 @@ public class ActionPopupWindow
 	//----------------------------------------------------------------------------------------------
 	public ActionPopupWindow(MainActivity activity)
 	{
+		Log.i(MainActivity.TAG, "alloc ActionPopupWindow");
+		
 		mActivity = activity;
 		
 		mHandler = new Handler();

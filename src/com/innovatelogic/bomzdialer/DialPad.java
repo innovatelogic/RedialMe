@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -49,6 +50,8 @@ public class DialPad
 	//----------------------------------------------------------------------------------------------
 	public DialPad(MainActivity activity)
 	{
+		Log.i(MainActivity.TAG, "alloc DialPad");
+		
 		mActivity = activity;
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
 		
@@ -64,6 +67,8 @@ public class DialPad
 	//----------------------------------------------------------------------------------------------
     public void findAllViewsById(Activity activity)
     {
+    	Log.i(MainActivity.TAG, "find all views DialPad");
+    	
     	mListRecentCallsLite = (ListView) activity.findViewById(R.id.listRecentCallsLite);
     	mEditNumber = (TextView)activity.findViewById(R.id.editNumber);
     	mBtnBackspace = (ImageButton)activity.findViewById(R.id.BtnBackspace);

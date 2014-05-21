@@ -43,6 +43,8 @@ public class ContactsStore
 	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
+		Log.i(MainActivity.TAG, "alloc ContactsStore");
+		
 		mMapContacts = new HashMap<Integer, UserContactInfo>();
 		mMapContacts_KeyNumber = new HashMap<String, UserContactInfo>();
 		mListContactsSorted = new ArrayList<UserContactInfo>();

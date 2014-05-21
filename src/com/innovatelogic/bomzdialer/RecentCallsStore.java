@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import android.database.Cursor;
 import android.provider.CallLog;
+import android.util.Log;
 
 //----------------------------------------------------------------------------------------------
 //
@@ -41,6 +42,8 @@ public class RecentCallsStore
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsStore(MainActivity activity)
 	{
+		Log.i(MainActivity.TAG, "alloc RecentCallsStore");
+		
 		mActivity = activity;
 		mListRecentCalls = new ArrayList<CallInfo>();
 	}

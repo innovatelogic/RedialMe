@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -76,6 +77,8 @@ public class MainActivity extends Activity
     public static final String PREFS_NAME = "RedialMePrefsFile";
     public static final String NODEF = "NODEF";
     
+    public static final String TAG = "BoMz_dialer";
+    
     public static final int DEF_FONT_SIZE = 16;
     public static final int MID_FONT_SIZE = 12;
     public static final int MIN_FONT_SIZE = 8;
@@ -109,6 +112,8 @@ public class MainActivity extends Activity
     //----------------------------------------------------------------------------------------------
     private void findAllViewsById()
     {
+    	Log.i(TAG, "find all views");
+    	
     	mTabView = (TabHost)findViewById(android.R.id.tabhost);
     	mTabView.setup();
     	
@@ -142,6 +147,8 @@ public class MainActivity extends Activity
         
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         
+        Log.i(TAG, "Start init");
+        
         MainActivity.mContext = getApplicationContext();
                 
         setContentView(R.layout.activity_main);
@@ -165,17 +172,24 @@ public class MainActivity extends Activity
     		mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
     		mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
     		
+    		Log.i(MainActivity.TAG, "read provider store: begin");
     		AssetManager assetManager = getAssets();
     		InputStream ism = assetManager.open(getString(R.string.providers_data_file));
     		mProviderStore.Deserialize(ism);
-   		
+    		Log.i(MainActivity.TAG, "read provider store: end");
+    		
+    		
+   			Log.i(MainActivity.TAG, "read preferences: begin");
     		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     		String territory = settings.getString("Territory", NODEF);
     		String provider = settings.getString("Provider", NODEF);
-
+    		Log.i(MainActivity.TAG, "read preferences: end");
+    		
+    		
     		//mActionSettings.Toggle(true, true);
     		if (territory == NODEF || provider == NODEF)
     		{
+    			Log.i(MainActivity.TAG, "no preferences read: toggle settings");
     			mActionSettings.Toggle(true, true);
     		}
     		else
@@ -183,6 +197,7 @@ public class MainActivity extends Activity
     			mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
     			mCurrentProvider = mTerritory.GetProvider(mOperatorName);
     			
+    			Log.i(MainActivity.TAG, "preferences read ok");
     			Initialize(mTerritory, mCurrentProvider);
     		}
         	
@@ -201,11 +216,13 @@ public class MainActivity extends Activity
     	}
     	catch (IOException ex)
     	{
+    		Log.e(MainActivity.TAG, "IOException exception");
     	}
     	catch (XmlPullParserException e) 
     	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+    		e.printStackTrace();
+    		
+    		Log.e(MainActivity.TAG, "XmlPullParserException exception");
 		}
    	
     	mUserNameBackspace.setOnClickListener(new OnClickListener()
@@ -213,8 +230,9 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
-    			if (mUserNameEdit.getText().toString().length() > 0)
+    			if (mUserNameEdit.getText().toString().length() > 0){
     				mUserNameEdit.setText("");
+    			}
     		}
     	});
     	
@@ -254,6 +272,8 @@ public class MainActivity extends Activity
         		}
         	}
         });
+        
+        Log.i(MainActivity.TAG, "onCreate finished");
      }
    
     //----------------------------------------------------------------------------------------------

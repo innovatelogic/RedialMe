@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.util.Map;
 import java.util.HashMap;
 
+import android.util.Log;
 import android.util.Xml;
 
 import com.innovatelogic.bomzdialer.TerritoryEntry;
@@ -25,6 +26,8 @@ public class ProviderStore
 	//----------------------------------------------------------------------------------------------
 	public ProviderStore()
 	{
+		Log.i(MainActivity.TAG, "alloc ProviderStore");
+		
 		MapTerritoryEntries = new HashMap<String, TerritoryEntry>();
 	}
 	

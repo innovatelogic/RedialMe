@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,6 +24,8 @@ public class RecentCallsListPresenter
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsListPresenter(MainActivity activity, int resourceId)
 	{
+		Log.i(MainActivity.TAG, "alloc RecentCallsListPresenter");
+		
 		mActivity = activity;
 		mList = (ListView) mActivity.findViewById(resourceId);
 		

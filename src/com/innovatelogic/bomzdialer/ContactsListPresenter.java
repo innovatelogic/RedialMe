@@ -8,6 +8,7 @@ import com.innovatelogic.bomzdialer.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -174,6 +175,8 @@ public class ContactsListPresenter
 	//----------------------------------------------------------------------------------------------
 	public ContactsListPresenter(MainActivity activity, int listId)
 	{
+		Log.i(MainActivity.TAG, "alloc ContactsListPresenter");
+		
 		mActivity = activity;
 		mList = (ListView)mActivity.findViewById(listId);
 		
