@@ -84,7 +84,7 @@ public class ContactsStore
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	public void LoadContacts(Context context)
+	public void LoadContacts(Context context, TerritoryEntry terr)
 	{
 		Log.d("Start", "load contact list");
 		
@@ -106,6 +106,8 @@ public class ContactsStore
 		{
 			cursor.moveToFirst();
 			
+			String terr_code = (terr != null) ? terr.GetCode() : "+380";
+			
 			while (!cursor.isAfterLast())
 			{
 				int contactID = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
@@ -113,7 +115,7 @@ public class ContactsStore
 				String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 				int thumbnailId = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Photo.PHOTO_ID));
 				
-				String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, "+380");
+				String NumberNorm = ContactsStore.NormalizeNumber(contactNumber, terr_code);
 				
 				// new flow
 				UserContactInfo findInfo = mMapContacts.get(contactID);

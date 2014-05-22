@@ -279,10 +279,12 @@ public class MainActivity extends Activity
     //----------------------------------------------------------------------------------------------
     public void Initialize(TerritoryEntry territory, ProviderEntry provider)
     {
+    	Log.i(MainActivity.TAG, "Initialize");
+    	
         mTerritory = territory;
         mCurrentProvider = provider;
     	
-		mContactsStore.LoadContacts(getAppContext());  		
+		mContactsStore.LoadContacts(getAppContext(), mTerritory);  		
     	mRecentCallsStore.Initialize();
     	mListPresenter.FillList(GetRecentCallsStore());
     	mListPresenterContacts.FillList(mContactsStore);		
