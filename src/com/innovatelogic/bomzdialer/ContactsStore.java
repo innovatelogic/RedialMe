@@ -7,10 +7,12 @@ import java.util.Map;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.util.LruCache;
+//import android.util.LruCache;
 
 import com.innovatelogic.bomzdialer.UserContactInfo;
 
@@ -41,6 +43,16 @@ public class ContactsStore
 	public ArrayList<UserContactInfo> GetUserContactsSorted() { return mListContactsSorted; }
 	
 	//----------------------------------------------------------------------------------------------
+	public int getBitmapSize(Bitmap bitmap) 
+	{
+	  //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+	  //     return bitmap.getByteCount();
+	  // }
+	    // Pre HC-MR1
+	    return bitmap.getRowBytes() * bitmap.getHeight();
+	}
+	
+	//----------------------------------------------------------------------------------------------
 	public ContactsStore()
 	{
 		Log.i(MainActivity.TAG, "alloc ContactsStore");
@@ -64,7 +76,7 @@ public class ContactsStore
 	        {
 	            // The cache size will be measured in kilobytes rather than
 	            // number of items.
-	            return bitmap.getByteCount() / 1024;
+	            return getBitmapSize(bitmap) / 1024;
 	       }
 	    };
 	}
