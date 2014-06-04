@@ -379,11 +379,10 @@ public class ActionPopupWindow
 		
 		ArrayList<String> mAdapterList = new ArrayList<String>();
 		
-		Map<String, TerritoryEntry> territories = mActivity.GetProviderStore().GetTerritoryEntries();
-		
-		for (Map.Entry<String, TerritoryEntry> entry : territories.entrySet())
+		TerritoryEntry entry = mActivity.GetCurrentTerritory();
+		if (entry != null)
 		{
-			Map<String, ProviderEntry> providers = entry.getValue().GetProviders();
+			Map<String, ProviderEntry> providers = entry.GetProviders();
 			for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
 			{
 				mAdapterList.add(entPrv.getValue().GetAliasName());
@@ -410,11 +409,12 @@ public class ActionPopupWindow
 	        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
 	        {
 	        	int Index = 0;
-				Map<String, TerritoryEntry> territories = mActivity.GetProviderStore().GetTerritoryEntries();
 				
-				for (Map.Entry<String, TerritoryEntry> entry : territories.entrySet())
+				TerritoryEntry entry = mActivity.GetCurrentTerritory();
+				
+				if (entry != null)
 				{
-					Map<String, ProviderEntry> providers = entry.getValue().GetProviders();
+					Map<String, ProviderEntry> providers = entry.GetProviders();
 					for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
 					{
 						if (Index == position)

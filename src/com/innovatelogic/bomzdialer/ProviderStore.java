@@ -92,9 +92,8 @@ public class ProviderStore
 		{
 			String name = parser.getName();
 			
-			switch (event)
+			if (event == XmlPullParser.START_TAG)
 			{
-			case XmlPullParser.START_TAG:
 				if (name.equals(TERRITORY_TAG) && !readTag)
 				{
 					String atrName = parser.getAttributeValue(ns, "Name");
@@ -106,11 +105,15 @@ public class ProviderStore
 					territory.Deserialize(parser);
 					
 					MapTerritoryEntries.put(atrName, territory);
+					
+					event = parser.getEventType();
 					readTag = true;
 				}
 				depth++;
+			}
 				
-			case XmlPullParser.END_TAG:
+			if (event == XmlPullParser.END_TAG)
+			{
 				if (name.equals(TERRITORY_TAG) && readTag){
 					readTag = false;
 				}
@@ -127,7 +130,7 @@ public class ProviderStore
 	//----------------------------------------------------------------------------------------------
 	public TerritoryEntry GetTerritory(String terrName)
 	{
-		return  MapTerritoryEntries.get(terrName);
+		return MapTerritoryEntries.get(terrName);
 	}
 	
 	//----------------------------------------------------------------------------------------------

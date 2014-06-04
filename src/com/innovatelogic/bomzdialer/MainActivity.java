@@ -173,33 +173,16 @@ public class MainActivity extends Activity
     		mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
     		
     		Log.i(MainActivity.TAG, "read provider store: begin");
+    		
     		AssetManager assetManager = getAssets();
+    		
     		InputStream ism = assetManager.open(getString(R.string.providers_data_file));
+    		
     		mProviderStore.Deserialize(ism);
+    		
     		Log.i(MainActivity.TAG, "read provider store: end");
-    		
-    		
-   			Log.i(MainActivity.TAG, "read preferences: begin");
-    		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-    		String territory = settings.getString("Territory", NODEF);
-    		String provider = settings.getString("Provider", NODEF);
-    		Log.i(MainActivity.TAG, "read preferences: end");
-    		
-    		
-    		//mActionSettings.Toggle(true, true);
-    		if (territory == NODEF || provider == NODEF)
-    		{
-    			Log.i(MainActivity.TAG, "no preferences read: toggle settings");
-    			mActionSettings.Toggle(true, true);
-    		}
-    		else
-    		{
-    			mTerritory = mProviderStore.GetTerritory(mDefaultTerritory);
-    			mCurrentProvider = mTerritory.GetProvider(mOperatorName);
-    			
-    			Log.i(MainActivity.TAG, "preferences read ok");
-    			Initialize(mTerritory, mCurrentProvider);
-    		}
+    		    
+    		InitializeTerritory();
         	
         	mCurrentTab = mTabView.getCurrentTab();
 
@@ -362,6 +345,38 @@ public class MainActivity extends Activity
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		
 		imm.hideSoftInputFromWindow(mUserNameEdit.getWindowToken(), 0);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void InitializeTerritory()
+	{
+		Log.i(MainActivity.TAG, "read preferences: begin");
+			
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		String territory = settings.getString("Territory", NODEF);
+		String provider = settings.getString("Provider", NODEF);
+		
+		Log.i(MainActivity.TAG, "read preferences: end");
+		
+		if (territory == NODEF || provider == NODEF)
+		{
+			Log.i(MainActivity.TAG, "no preferences read: toggle settings");
+			mActionSettings.Toggle(true, true);
+		}
+		else
+		{
+			mTerritory = mProviderStore.GetTerritory(territory);
+			mCurrentProvider = mTerritory.GetProvider(provider);
+			
+			Log.i(MainActivity.TAG, "preferences read ok");
+			
+			if (mTerritory == null || mCurrentProvider == null)
+			{
+				Log.i(MainActivity.TAG, "error preferences emty");
+				return;
+			}
+			Initialize(mTerritory, mCurrentProvider);
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------

@@ -2,7 +2,6 @@
 <Territories>
 	<Territory Name="UA" Alias="Ukraine" Code="+380">
 		<Provider Name="life:)" Alias="life:)" Codes="93;63">
-			<!-- <Entry Operation="CallMe" Type="SMS" Num="124" Mask="3 %TERR%%PRV%%NUM%"/>-->
 	     	<Entry Operation="CallMe" Type="Call" Mask="*124*3*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
         	
@@ -10,9 +9,50 @@
 	        <Entry Operation="CallMe" Type="Call" Mask="*104*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
 	        	
-	    <Provider Name="kievstar" Alias="Kievstar" Codes="67">
+	    <Provider Name="Kievstar" Alias="Kievstar" Codes="67">
 	        <Entry Operation="CallMe" Type="Call" Mask="*130*%TERR%%PRV%%NUM%#"/>
 	    </Provider>
     </Territory>
+    
+	<Territory Name="BY" Alias="Belarus" Code="+375">
+		<Provider Name="Velcom" Alias="Velcom" Codes="29;44">
+	     	<Entry Operation="CallMe" Type="Call" Mask="*131*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+        	
+	    <Provider Name="MTS;MTS BY" Alias="MTS" Codes="29;33">
+	        <Entry Operation="CallMe" Type="Call" Mask="*120*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+	        	
+	    <Provider Name="life:)" Alias="life:)" Codes="25">
+	     	<Entry Operation="CallMe" Type="Call" Mask="*120*2*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+    </Territory>
+<!-- 
+    <Territory Name="RU" Alias="Russia" Code="+7">
+     	
+	    <Provider Name="MTS;MTS RU" Alias="MTS"  Codes="910;911;912;913;914;915;916;917;918;919;980;981;982;983;984;985;987;988;989">
+	        <Entry Operation="CallMe" Type="Call" Mask="*101*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+	    
+	    <Provider Name="Megafon" Alias="megafon" Codes="920;921;922;923;924;925;926;927;928;929;930;931;932;933;934;936;937;938;997">
+	     	<Entry Operation="CallMe" Type="Call" Mask="*144*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+	    
+	    <Provider Name="Tele2 Russia" Alias="Tele2 Russia" Codes="904;908;950;951;952;953">
+	        <Entry Operation="CallMe" Type="Call" Mask="*118*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+	        	
+	    <Provider Name="Vimpelcom" Alias="vimpelcom" Codes="67">
+	        <Entry Operation="CallMe" Type="Call" Mask="*130*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+	    
+	     <Provider Name="Rostelecom" Alias="Tele2 Russia" Codes="67">
+	        <Entry Operation="CallMe" Type="Call" Mask="*130*%TERR%%PRV%%NUM%#"/>
+	    </Provider>
+
+    </Territory>
+ -->	       
+    
+	
 </Territories>
 </Providers> 

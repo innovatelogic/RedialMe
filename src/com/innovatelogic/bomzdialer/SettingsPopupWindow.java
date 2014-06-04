@@ -63,16 +63,22 @@ public class SettingsPopupWindow
 		    	}
 	    	});
 	    	
-	    	popupView.post(new Runnable() 
+	    	
+	    	// What the reason to do do post?
+	    	if (bToggleOptions)
 	    	{
-	            public void run() 
-	            {
-	            	ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
-	    	    	View root = (ViewGroup) decor.getChildAt(0);
-	    	    	
-	            	mPopupWindow.showAtLocation(root, Gravity.CENTER, 0, 0);
-	            }
-	        });
+		    	mActivity.getWindow().getDecorView().post(new Runnable() 
+		    	{
+		            public void run() 
+		            {
+		            	ShowWindow(mPopupWindow);
+		            }
+		        });
+	    	}
+	    	else
+	    	{
+	    		ShowWindow(mPopupWindow);
+	    	}
 	    	
 	    	Button btnAbout = (Button)popupView.findViewById(R.id.buttonOptionsAbout);
 	    	btnAbout.setOnClickListener(new Button.OnClickListener()
@@ -86,7 +92,8 @@ public class SettingsPopupWindow
 	    	// this case unfold options spinner automaticly on start
 	    	// used to on start initialize
 	    	mbToggleOptions = bToggleOptions;
-	    	if (mbToggleOptions){
+	    	if (mbToggleOptions)
+	    	{
 	    		ToggleCountrySelector();
 	    	}
 		}
@@ -234,4 +241,14 @@ public class SettingsPopupWindow
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	private void ShowWindow(PopupWindow window)
+	{
+		ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
+    	View root = (ViewGroup) decor.getChildAt(0);
+    	
+    	window.showAtLocation(root, Gravity.CENTER, 0, 0);
+	}
+	
 }
