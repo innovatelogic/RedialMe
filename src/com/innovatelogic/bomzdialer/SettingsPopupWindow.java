@@ -131,10 +131,6 @@ public class SettingsPopupWindow
 			@Override
 			public void onClick(DialogInterface dialog, int selected) 
 			{
-				Map<String, TerritoryEntry> map = mActivity.GetProviderStore().GetTerritoryEntries();
-				
-				int size = map.size();
-				
 				if (selected < arrayKeys.length)
 				{
 					TerritoryEntry entry = mActivity.GetProviderStore().GetTerritory(arrayKeys[selected]);
