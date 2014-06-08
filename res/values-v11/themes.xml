@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MyAppTheme" parent="@android:style/Theme.Holo.Light">
-        <!-- Any customizations for your app running on 3.0+ devices here -->
-    </style>
+ <!--    <style name="AppTheme" parent="AppBaseTheme">
+        
+       
+        <item name="tabIconDialPad">@drawable/ic_action_dial_pad</item>
+        <item name="tabIconDialPad_Selected">@drawable/ic_action_dial_pad_sel</item>
+        <item name="tabIconRecent">@drawable/ic_action_time</item>
+        <item name="tabIconRecent_Selected">@drawable/ic_action_time_sel</item>
+        <item name="tabIconContacts">@drawable/ic_action_cc_bcc</item>
+        <item name="tabIconContacts_Selected">@drawable/ic_action_cc_bcc_sel</item>
+        <item name="tabIconSettings">@drawable/ic_action_overflow</item>
+  
+    </style>   -->   
 </resources>

@@ -14,10 +14,12 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
@@ -117,16 +119,21 @@ public class MainActivity extends Activity
     	mTabView = (TabHost)findViewById(android.R.id.tabhost);
     	mTabView.setup();
     	
+    	//TypedArray a = mContext.obtainStyledAttributes(R.style.AppBaseTheme, new int[] { R.attr.darkScheme });     
+    	//int dark = a.getResourceId(0, 10);
+    	
+    	boolean version_dark = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
+    				
     	TabSpec spec1 = mTabView.newTabSpec("DialPad");
-    	spec1.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab0_config));
+    	spec1.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab0_config_dark : R.drawable.icon_tab0_config));
     	spec1.setContent(R.id.tab1);
 
     	TabSpec spec2 = mTabView.newTabSpec("Recent");
-    	spec2.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab1_config));
+    	spec2.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab1_config_dark : R.drawable.icon_tab1_config));
     	spec2.setContent(R.id.tab2);
               
     	TabSpec spec3 = mTabView.newTabSpec("Contacts");
-    	spec3.setIndicator(null, getResources().getDrawable(R.drawable.icon_tab2_config));
+    	spec3.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab2_config_dark : R.drawable.icon_tab2_config));
     	spec3.setContent(R.id.tab3);
          
     	mTabView.addTab(spec1);

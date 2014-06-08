@@ -9,31 +9,50 @@ package com.innovatelogic.bomzdialer;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int darkScheme=0x7f010000;
     }
     public static final class drawable {
         public static final int button_action=0x7f020000;
         public static final int button_icon=0x7f020001;
         public static final int ic_action_backspace=0x7f020002;
         public static final int ic_action_cc_bcc=0x7f020003;
-        public static final int ic_action_cc_bcc_sel=0x7f020004;
-        public static final int ic_action_chat=0x7f020005;
-        public static final int ic_action_dial_pad=0x7f020006;
-        public static final int ic_action_dial_pad_sel=0x7f020007;
-        public static final int ic_action_dot_empty=0x7f020008;
-        public static final int ic_action_dot_filled=0x7f020009;
-        public static final int ic_action_overflow=0x7f02000a;
-        public static final int ic_action_person=0x7f02000b;
-        public static final int ic_action_settings=0x7f02000c;
-        public static final int ic_action_time=0x7f02000d;
-        public static final int ic_action_time_sel=0x7f02000e;
-        public static final int icon=0x7f02000f;
-        public static final int icon_tab0_config=0x7f020010;
-        public static final int icon_tab1_config=0x7f020011;
-        public static final int icon_tab2_config=0x7f020012;
-        public static final int inner_call=0x7f020013;
-        public static final int inner_call_missed=0x7f020014;
-        public static final int out_call=0x7f020015;
-        public static final int us=0x7f020016;
+        public static final int ic_action_cc_bcc_dark=0x7f020004;
+        public static final int ic_action_cc_bcc_dark_sel=0x7f020005;
+        public static final int ic_action_cc_bcc_sel=0x7f020006;
+        public static final int ic_action_chat=0x7f020007;
+        public static final int ic_action_dial_pad=0x7f020008;
+        public static final int ic_action_dial_pad_dark=0x7f020009;
+        public static final int ic_action_dial_pad_dark_sel=0x7f02000a;
+        public static final int ic_action_dial_pad_sel=0x7f02000b;
+        public static final int ic_action_dot_empty=0x7f02000c;
+        public static final int ic_action_dot_filled=0x7f02000d;
+        public static final int ic_action_overflow=0x7f02000e;
+        public static final int ic_action_overflow_dark=0x7f02000f;
+        public static final int ic_action_person=0x7f020010;
+        public static final int ic_action_settings=0x7f020011;
+        public static final int ic_action_time=0x7f020012;
+        public static final int ic_action_time_dark=0x7f020013;
+        public static final int ic_action_time_dark_sel=0x7f020014;
+        public static final int ic_action_time_sel=0x7f020015;
+        public static final int ic_action_time_sel_dark=0x7f020016;
+        public static final int icon=0x7f020017;
+        public static final int icon_tab0_config=0x7f020018;
+        public static final int icon_tab0_config_dark=0x7f020019;
+        public static final int icon_tab1_config=0x7f02001a;
+        public static final int icon_tab1_config_dark=0x7f02001b;
+        public static final int icon_tab2_config=0x7f02001c;
+        public static final int icon_tab2_config_dark=0x7f02001d;
+        public static final int inner_call=0x7f02001e;
+        public static final int inner_call_missed=0x7f02001f;
+        public static final int out_call=0x7f020020;
+        public static final int us=0x7f020021;
     }
     public static final class id {
         public static final int ActionLayout=0x7f070015;
@@ -150,7 +169,6 @@ public final class R {
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
- API 11 theme customizations can go here. 
 
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
@@ -160,13 +178,36 @@ public final class R {
          */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;
-        /**  Any customizations for your app running on 4.0+ devices here 
- Any customizations for your app running on pre-3.0 devices here 
- Any customizations for your app running on 3.0+ devices here 
-         */
-        public static final int MyAppTheme=0x7f050002;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a AppBaseTheme.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AppBaseTheme_darkScheme com.innovatelogic.bomzdialer:darkScheme}</code></td><td></td></tr>
+           </table>
+           @see #AppBaseTheme_darkScheme
+         */
+        public static final int[] AppBaseTheme = {
+            0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.innovatelogic.bomzdialer.R.attr#darkScheme}
+          attribute's value can be found in the {@link #AppBaseTheme} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.innovatelogic.bomzdialer:darkScheme
+        */
+        public static final int AppBaseTheme_darkScheme = 0;
+    };
 }
