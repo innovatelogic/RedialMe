@@ -112,6 +112,7 @@ containing a value of this type.
         public static final int buttonstyle_numbers=0x7f030006;
         public static final int recentcallsactivity=0x7f030007;
         public static final int spinner_style=0x7f030008;
+        public static final int spinner_style_dark=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;

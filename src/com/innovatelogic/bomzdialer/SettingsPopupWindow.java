@@ -27,7 +27,7 @@ public class SettingsPopupWindow
 	//----------------------------------------------------------------------------------------------
 	SettingsPopupWindow(MainActivity activity)
 	{
-		Log.i(MainActivity.TAG, "alloc SettingsPopupWindow");
+		//Log.i(MainActivity.TAG, "alloc SettingsPopupWindow");
 		
 		mActivity = activity;
 	}
@@ -89,6 +89,15 @@ public class SettingsPopupWindow
 	    			ShowAlertMessage(mActivity.getString(R.string.about), mActivity.getString(R.string.about_info));
 		    	}
 	    	});
+	    	
+	    	// hackly thing
+	    	// set button text color on android up to 3.0 versions
+	    	if (MainActivity.getScheme() == MainActivity.ELightScheme.ESchemeDark)
+	    	{
+	    		btnConfigure.setTextColor(0xff000000);
+	    		btnAbout.setTextColor(0xff000000);
+	    	}
+	    	
 	    	// this case unfold options spinner automaticly on start
 	    	// used to on start initialize
 	    	mbToggleOptions = bToggleOptions;

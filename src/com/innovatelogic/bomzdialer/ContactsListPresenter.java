@@ -175,7 +175,7 @@ public class ContactsListPresenter
 	//----------------------------------------------------------------------------------------------
 	public ContactsListPresenter(MainActivity activity, int listId)
 	{
-		Log.i(MainActivity.TAG, "alloc ContactsListPresenter");
+		//Log.i(MainActivity.TAG, "alloc ContactsListPresenter");
 		
 		mActivity = activity;
 		mList = (ListView)mActivity.findViewById(listId);

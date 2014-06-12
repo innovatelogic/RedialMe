@@ -44,7 +44,22 @@ public class MainActivity extends Activity
 	{
 		ESizeDef,
 		ESizeMid,
-		ESizeMin
+		ESizeMin,
+	}
+	
+	enum EResolution
+	{
+		ERes_LDPI,
+		ERes_MDPI,
+		ERes_HDPI,
+		ERes_XHDPI,
+		ERes_MAX,
+	}
+	
+	enum ELightScheme
+	{
+		ESchemeLight,
+		ESchemeDark,
 	}
 	
 	private static Context  mContext;
@@ -65,8 +80,6 @@ public class MainActivity extends Activity
 	private ContactsStore	mContactsStore;
 			
     private String mOperatorName = null;
-    private String mDefaultTerritory = "UA";
-        
     private static int mCurrentTab = 0;
 
     private TerritoryEntry mTerritory = null;
@@ -114,26 +127,23 @@ public class MainActivity extends Activity
     //----------------------------------------------------------------------------------------------
     private void findAllViewsById()
     {
-    	Log.i(TAG, "find all views");
+    	//Log.i(TAG, "find all views");
     	
     	mTabView = (TabHost)findViewById(android.R.id.tabhost);
     	mTabView.setup();
-    	
-    	//TypedArray a = mContext.obtainStyledAttributes(R.style.AppBaseTheme, new int[] { R.attr.darkScheme });     
-    	//int dark = a.getResourceId(0, 10);
-    	
-    	boolean version_dark = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
+   	
+    	ELightScheme scheme = MainActivity.getScheme();
     				
     	TabSpec spec1 = mTabView.newTabSpec("DialPad");
-    	spec1.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab0_config_dark : R.drawable.icon_tab0_config));
+    	spec1.setIndicator(null, getResources().getDrawable((scheme == ELightScheme.ESchemeDark) ? R.drawable.icon_tab0_config_dark : R.drawable.icon_tab0_config));
     	spec1.setContent(R.id.tab1);
 
     	TabSpec spec2 = mTabView.newTabSpec("Recent");
-    	spec2.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab1_config_dark : R.drawable.icon_tab1_config));
+    	spec2.setIndicator(null, getResources().getDrawable((scheme == ELightScheme.ESchemeDark) ? R.drawable.icon_tab1_config_dark : R.drawable.icon_tab1_config));
     	spec2.setContent(R.id.tab2);
               
     	TabSpec spec3 = mTabView.newTabSpec("Contacts");
-    	spec3.setIndicator(null, getResources().getDrawable(version_dark ? R.drawable.icon_tab2_config_dark : R.drawable.icon_tab2_config));
+    	spec3.setIndicator(null, getResources().getDrawable((scheme == ELightScheme.ESchemeDark) ? R.drawable.icon_tab2_config_dark : R.drawable.icon_tab2_config));
     	spec3.setContent(R.id.tab3);
          
     	mTabView.addTab(spec1);
@@ -154,7 +164,7 @@ public class MainActivity extends Activity
         
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-        Log.i(TAG, "Start init");
+        //Log.i(TAG, "Start init");
         
         MainActivity.mContext = getApplicationContext();
                 
@@ -179,7 +189,7 @@ public class MainActivity extends Activity
     		mListPresenter = new RecentCallsListPresenter(this, R.id.listRecentCalls);
     		mListPresenterContacts = new ContactsListPresenter(this, R.id.listContacts);
     		
-    		Log.i(MainActivity.TAG, "read provider store: begin");
+    		//Log.i(MainActivity.TAG, "read provider store: begin");
     		
     		AssetManager assetManager = getAssets();
     		
@@ -187,7 +197,7 @@ public class MainActivity extends Activity
     		
     		mProviderStore.Deserialize(ism);
     		
-    		Log.i(MainActivity.TAG, "read provider store: end");
+    		//Log.i(MainActivity.TAG, "read provider store: end");
     		    
     		InitializeTerritory();
         	
@@ -263,13 +273,13 @@ public class MainActivity extends Activity
         	}
         });
         
-        Log.i(MainActivity.TAG, "onCreate finished");
+       //Log.i(MainActivity.TAG, "onCreate finished");
      }
    
     //----------------------------------------------------------------------------------------------
     public void Initialize(TerritoryEntry territory, ProviderEntry provider)
     {
-    	Log.i(MainActivity.TAG, "Initialize");
+    	//Log.i(MainActivity.TAG, "Initialize");
     	
         mTerritory = territory;
         mCurrentProvider = provider;
@@ -357,17 +367,17 @@ public class MainActivity extends Activity
 	//----------------------------------------------------------------------------------------------
 	private void InitializeTerritory()
 	{
-		Log.i(MainActivity.TAG, "read preferences: begin");
+		//Log.i(MainActivity.TAG, "read preferences: begin");
 			
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		String territory = settings.getString("Territory", NODEF);
 		String provider = settings.getString("Provider", NODEF);
 		
-		Log.i(MainActivity.TAG, "read preferences: end");
+		//Log.i(MainActivity.TAG, "read preferences: end");
 		
 		if (territory == NODEF || provider == NODEF)
 		{
-			Log.i(MainActivity.TAG, "no preferences read: toggle settings");
+			//Log.i(MainActivity.TAG, "no preferences read: toggle settings");
 			mActionSettings.Toggle(true, true);
 		}
 		else
@@ -375,11 +385,11 @@ public class MainActivity extends Activity
 			mTerritory = mProviderStore.GetTerritory(territory);
 			mCurrentProvider = mTerritory.GetProvider(provider);
 			
-			Log.i(MainActivity.TAG, "preferences read ok");
+			//Log.i(MainActivity.TAG, "preferences read ok");
 			
 			if (mTerritory == null || mCurrentProvider == null)
 			{
-				Log.i(MainActivity.TAG, "error preferences emty");
+				//Log.i(MainActivity.TAG, "error preferences emty");
 				return;
 			}
 			Initialize(mTerritory, mCurrentProvider);
@@ -449,43 +459,40 @@ public class MainActivity extends Activity
 	static Bitmap fetchThumbnail(final int thumbnailId, Context context) 
 	{
 	    final Uri uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, thumbnailId);
-	    
+
 	    final Cursor cursor = context.getContentResolver().query(uri, new String[] {
-	    	    ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
+	    	    ContactsContract.CommonDataKinds.Photo.PHOTO }, null, null, null);
 
 	    try 
 	    {
-	    	Integer Size = 64;
-	    	
-	    	float density = context.getResources().getDisplayMetrics().density;
-	    	
-	    	if (density <= 0.75){
-	    		Size = 48; // ldpi
+	    	Integer Size = 96; // set ERes_XHDPI by default
+
+	    	EResolution res = MainActivity.getResolution(context);
+
+	    	if (res == EResolution.ERes_LDPI){
+	    		Size = 32; // ldpi
 	    	}
-	    	else if (density > 0.75 && density <= 1.f){
+	    	else if (res == EResolution.ERes_MDPI){
 	    		Size = 48; // mdpi
 	    	}
-	    	else if (density > 1.0 && density <= 1.5f){
+	    	else if (res == EResolution.ERes_HDPI){
 	    		Size = 64; // hdpi
 	    	}
-	    	else if (density > 1.5){
-	    		Size = 96; // hdpi
-	    	}
-	    	
-	        Bitmap thumbnail = null;
+
+	    	Bitmap thumbnail = null;
 	        if (cursor.moveToFirst()) 
 	        {
 	            final byte[] thumbnailBytes = cursor.getBlob(0);
-	            
+
 	            if (thumbnailBytes != null) 
 	            {
 	            	BitmapFactory.Options options = new BitmapFactory.Options();
 	            	options.inJustDecodeBounds = true;
-	            	
+
 	            	BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);
-	            	
+
 	            	options.inSampleSize = calculateInSampleSize(options, Size, Size);
-	            		            	
+
 	            	options.inJustDecodeBounds = false;
 	                thumbnail = BitmapFactory.decodeByteArray(thumbnailBytes, 0, thumbnailBytes.length, options);
 	            }
@@ -515,5 +522,33 @@ public class MainActivity extends Activity
 			}
 		}
 		return outSample;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public static EResolution getResolution(Context context)
+	{
+		EResolution outRes = EResolution.ERes_MAX;
+		float density = context.getResources().getDisplayMetrics().density;
+    	
+    	if (density <= 0.75){
+    		outRes = EResolution.ERes_LDPI; // ldpi
+    	}
+    	else if (density > 0.75 && density <= 1.f){
+    		outRes = EResolution.ERes_MDPI; // mdpi
+    	}
+    	else if (density > 1.0 && density <= 1.5f){
+    		outRes = EResolution.ERes_HDPI; // hdpi
+    	}
+    	else if (density > 1.5){
+    		outRes = EResolution.ERes_XHDPI; // xhdpi
+    	}
+    	return outRes;
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	public static ELightScheme getScheme()
+	{
+		boolean version_dark = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
+		return (version_dark == true) ? ELightScheme.ESchemeDark : ELightScheme.ESchemeLight;
 	}
 }

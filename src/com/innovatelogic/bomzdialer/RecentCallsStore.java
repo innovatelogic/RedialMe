@@ -42,7 +42,7 @@ public class RecentCallsStore
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsStore(MainActivity activity)
 	{
-		Log.i(MainActivity.TAG, "alloc RecentCallsStore");
+		//Log.i(MainActivity.TAG, "alloc RecentCallsStore");
 		
 		mActivity = activity;
 		mListRecentCalls = new ArrayList<CallInfo>();

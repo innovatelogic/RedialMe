@@ -50,7 +50,7 @@ public class DialPad
 	//----------------------------------------------------------------------------------------------
 	public DialPad(MainActivity activity)
 	{
-		Log.i(MainActivity.TAG, "alloc DialPad");
+		//Log.i(MainActivity.TAG, "alloc DialPad");
 		
 		mActivity = activity;
 		mListPresenter = new RecentCallsListPresenter(activity, R.id.listRecentCallsLite);
@@ -67,7 +67,7 @@ public class DialPad
 	//----------------------------------------------------------------------------------------------
     public void findAllViewsById(Activity activity)
     {
-    	Log.i(MainActivity.TAG, "find all views DialPad");
+    	//Log.i(MainActivity.TAG, "find all views DialPad");
     	
     	mListRecentCallsLite = (ListView) activity.findViewById(R.id.listRecentCallsLite);
     	mEditNumber = (TextView)activity.findViewById(R.id.editNumber);

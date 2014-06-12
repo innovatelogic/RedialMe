@@ -26,7 +26,7 @@ public class ProviderStore
 	//----------------------------------------------------------------------------------------------
 	public ProviderStore()
 	{
-		Log.i(MainActivity.TAG, "alloc ProviderStore");
+		//Log.i(MainActivity.TAG, "alloc ProviderStore");
 		
 		MapTerritoryEntries = new HashMap<String, TerritoryEntry>();
 	}

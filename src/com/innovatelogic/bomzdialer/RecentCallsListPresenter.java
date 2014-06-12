@@ -24,7 +24,7 @@ public class RecentCallsListPresenter
 	//----------------------------------------------------------------------------------------------
 	public RecentCallsListPresenter(MainActivity activity, int resourceId)
 	{
-		Log.i(MainActivity.TAG, "alloc RecentCallsListPresenter");
+		//Log.i(MainActivity.TAG, "alloc RecentCallsListPresenter");
 		
 		mActivity = activity;
 		mList = (ListView) mActivity.findViewById(resourceId);

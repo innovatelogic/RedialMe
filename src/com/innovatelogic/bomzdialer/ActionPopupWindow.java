@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.innovatelogic.bomzdialer.MainActivity;
+import com.innovatelogic.bomzdialer.MainActivity.ELightScheme;
 import com.innovatelogic.bomzdialer.MainActivity.ESizeType;
 import com.innovatelogic.bomzdialer.R;
 
@@ -83,7 +84,7 @@ public class ActionPopupWindow
 	//----------------------------------------------------------------------------------------------
 	public ActionPopupWindow(MainActivity activity)
 	{
-		Log.i(MainActivity.TAG, "alloc ActionPopupWindow");
+		//Log.i(MainActivity.TAG, "alloc ActionPopupWindow");
 		
 		mActivity = activity;
 		
@@ -171,7 +172,9 @@ public class ActionPopupWindow
 
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	    	
-	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_style, mNumbersList);
+	    	ELightScheme scheme = MainActivity.getScheme();
+	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
+	    															R.layout.spinner_style_dark : R.layout.spinner_style, mNumbersList);
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        
 	        mSpinnerNumber.setAdapter(adapter);
@@ -377,8 +380,10 @@ public class ActionPopupWindow
 		int selectedElement = -1;
 		int Index = 0;
 		
-		ArrayList<String> mAdapterList = new ArrayList<String>();
+		ELightScheme scheme = MainActivity.getScheme();
 		
+		ArrayList<String> mAdapterList = new ArrayList<String>();
+				
 		TerritoryEntry entry = mActivity.GetCurrentTerritory();
 		if (entry != null)
 		{
@@ -394,7 +399,8 @@ public class ActionPopupWindow
 			}
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_style, mAdapterList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
+																R.layout.spinner_style_dark : R.layout.spinner_style, mAdapterList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         spinner.setAdapter(adapter);
