@@ -148,11 +148,6 @@ public class ActionPopupWindow
 	    		
 	    		if (findInfo != null)
 	    		{
-	    			// add numbers if necessary 
-	    			for (String number : findInfo.ContactNumbers){
-    					AddNumber(number);
-    				}
-	    			
 	    			int thumbnailID = findInfo.thumbnailID;
 					if (thumbnailID > 0)
 					{
@@ -171,29 +166,8 @@ public class ActionPopupWindow
 			}
 
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
-	    	
-	    	ELightScheme scheme = MainActivity.getScheme();
-	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
-	    															R.layout.spinner_style_dark : R.layout.spinner_style, mNumbersList);
-	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        
-	        mSpinnerNumber.setAdapter(adapter);
-	        mSpinnerNumber.setPrompt("Select number");
-	        
-	        mSelectedNumber = 0;
-	        mSpinnerNumber.setSelection(mSelectedNumber);
-	        
-	        mSpinnerNumber.setOnItemSelectedListener(new OnItemSelectedListener()
-	        {
-		        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
-		        {
-		        	mSelectedNumber = position;
-		        }
-		        public void onNothingSelected(AdapterView<?> parentView)
-		        {       
-		        }
-	        });
-	        
+	        InitSpinerNumber(mSpinnerNumber, mContactID);
 	        InitSpinerProviders(mSpinnerProvider);
 	    	
 	        ShowAnim(false);
@@ -375,10 +349,53 @@ public class ActionPopupWindow
 	}
 	
 	//----------------------------------------------------------------------------------------------
+	public void InitSpinerNumber(Spinner spinner, int contactID)
+	{
+		if (contactID >= 0)
+    	{
+    		Map<Integer, UserContactInfo> contacts = mActivity.getContactsStore().GetContactsStoreMap();
+    		UserContactInfo findInfo = contacts.get(contactID);
+    		
+    		if (findInfo != null)
+    		{
+    			// add numbers if necessary 
+    			for (String number : findInfo.ContactNumbers){
+					AddNumber(number);
+				}
+    			
+    	    	ELightScheme scheme = MainActivity.getScheme();
+    	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
+    	    															R.layout.spinner_style_dark : R.layout.spinner_style, mNumbersList);
+    	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	        
+    	        spinner.setAdapter(adapter);
+    	        spinner.setPrompt(mActivity.getString(R.string.select_number));
+    	        
+    	        mSelectedNumber = 0;
+    	        spinner.setSelection(mSelectedNumber);
+    	        
+    	        spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+    	        {
+    		        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
+    		        {
+    		        	mSelectedNumber = position;
+    		        }
+    		        public void onNothingSelected(AdapterView<?> parentView)
+    		        {       
+    		        }
+    	        });
+    		}
+    	}
+	}
+	
+	//----------------------------------------------------------------------------------------------
 	public void InitSpinerProviders(Spinner spinner)
 	{
+		int selectedElement_Preffer = -1;
 		int selectedElement = -1;
 		int Index = 0;
+		
+		String deviceProvider = mActivity.GetCurrentOperator().toLowerCase();
 		
 		ELightScheme scheme = MainActivity.getScheme();
 		
@@ -391,8 +408,14 @@ public class ActionPopupWindow
 			for (Map.Entry<String, ProviderEntry> entPrv : providers.entrySet())
 			{
 				mAdapterList.add(entPrv.getValue().GetAliasName());
+
+				String alias = entPrv.getValue().GetAliasName().toLowerCase();
 				
-				if (mUseProvider != null && mUseProvider.equals(entPrv.getValue())){
+				if (selectedElement_Preffer == -1 && alias.indexOf(deviceProvider) != -1){ // get index of current selected operator (Prefer)
+					selectedElement_Preffer = Index;
+				}
+				
+				if (selectedElement == -1 && mUseProvider.equals(entPrv.getValue())){ // get index of set by options operator
 					selectedElement = Index;
 				}
 				++Index;
@@ -404,10 +427,10 @@ public class ActionPopupWindow
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         spinner.setAdapter(adapter);
-        spinner.setPrompt("Select provider");
+        spinner.setPrompt(mActivity.getString(R.string.select_provider));
         
         if (selectedElement != -1){
-        	spinner.setSelection(selectedElement);
+        	spinner.setSelection(selectedElement_Preffer != -1 ? selectedElement_Preffer : selectedElement);
         }
         	
         spinner.setOnItemSelectedListener(new OnItemSelectedListener()
@@ -434,7 +457,6 @@ public class ActionPopupWindow
 	        }
 	        public void onNothingSelected(AdapterView<?> parentView)
 	        {
-	        
 	        }
         });
 	}

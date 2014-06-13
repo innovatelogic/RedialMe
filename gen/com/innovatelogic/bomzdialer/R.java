@@ -132,8 +132,8 @@ containing a value of this type.
         public static final int Three=0x7f04000e;
         public static final int Two=0x7f04000d;
         public static final int Zero=0x7f040015;
-        public static final int about=0x7f040023;
-        public static final int about_info=0x7f040024;
+        public static final int about=0x7f040024;
+        public static final int about_info=0x7f040025;
         public static final int action_settings=0x7f040002;
         public static final int admob_publisher_id=0x7f040005;
         public static final int app_name=0x7f040001;
@@ -149,6 +149,7 @@ containing a value of this type.
         public static final int pick_choice=0x7f04001b;
         public static final int providers_data_file=0x7f040000;
         public static final int select_country=0x7f040021;
+        public static final int select_number=0x7f040023;
         public static final int select_provider=0x7f040022;
         public static final int send_sms=0x7f040009;
         public static final int service_call=0x7f04000a;

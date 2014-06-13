@@ -41,6 +41,7 @@
     <string name="you_clicked">You clicked </string>
     <string name="select_country">Select country</string>
     <string name="select_provider">Select provider</string>
+    <string name="select_number">Select number</string>
      
     <string name="about">About</string>
     <string name="about_info"> BoMz dialer v0.9.9a \n\n Programming:\n Yura Gunko\n\n Special thanks:\n Denis Litvynuk\n Igor Gunko\n\n site:\n www.dev.innovatelogic.com</string>
