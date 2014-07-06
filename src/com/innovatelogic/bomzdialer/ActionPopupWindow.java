@@ -167,7 +167,7 @@ public class ActionPopupWindow
 
 	    	btnAction.setBackgroundResource(R.layout.buttonstyle_action_process);
 	        
-	        InitSpinerNumber(mSpinnerNumber, mContactID);
+    		InitSpinerNumber(mSpinnerNumber, mContactID);	    	
 	        InitSpinerProviders(mSpinnerProvider);
 	    	
 	        ShowAnim(false);
@@ -362,30 +362,30 @@ public class ActionPopupWindow
     			for (String number : findInfo.ContactNumbers){
 					AddNumber(number);
 				}
-    			
-    	    	ELightScheme scheme = MainActivity.getScheme();
-    	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
-    	    															R.layout.spinner_style_dark : R.layout.spinner_style, mNumbersList);
-    	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	        
-    	        spinner.setAdapter(adapter);
-    	        spinner.setPrompt(mActivity.getString(R.string.select_number));
-    	        
-    	        mSelectedNumber = 0;
-    	        spinner.setSelection(mSelectedNumber);
-    	        
-    	        spinner.setOnItemSelectedListener(new OnItemSelectedListener()
-    	        {
-    		        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
-    		        {
-    		        	mSelectedNumber = position;
-    		        }
-    		        public void onNothingSelected(AdapterView<?> parentView)
-    		        {       
-    		        }
-    	        });
     		}
     	}
+		
+    	ELightScheme scheme = MainActivity.getScheme();
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, (scheme == ELightScheme.ESchemeDark) ?
+    															R.layout.spinner_style_dark : R.layout.spinner_style, mNumbersList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        spinner.setAdapter(adapter);
+        spinner.setPrompt(mActivity.getString(R.string.select_number));
+        
+        mSelectedNumber = 0;
+        spinner.setSelection(mSelectedNumber);
+        
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+        {
+	        public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) 
+	        {
+	        	mSelectedNumber = position;
+	        }
+	        public void onNothingSelected(AdapterView<?> parentView)
+	        {       
+	        }
+        });
 	}
 	
 	//----------------------------------------------------------------------------------------------
